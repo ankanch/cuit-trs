@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="@string/layout_info_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="35dp"
+                android:layout_marginTop="28dp"
+                android:id="@+id/textView_name"
+                android:textStyle="normal|bold"
+                android:textSize="18sp" />
+
+            <Button
+                android:text="@string/layout_info_dislike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_dislikes"
+                android:layout_alignBaseline="@+id/button_likes"
+                android:layout_alignBottom="@+id/button_likes"
+                android:layout_toEndOf="@+id/textView_subject" />
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_likes"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="26dp"
+                android:id="@+id/ratingBar"
+                android:numStars="5" />
+
+            <TextView
+                android:text="@string/layout_info_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_gender"
+                android:layout_above="@+id/textView_subject"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/ic_launcher"
+                android:id="@+id/imageView_photos"
+                android:layout_alignEnd="@+id/button_likes"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/textView_name"
+                android:layout_alignBottom="@+id/textView_school" />
+
+            <TextView
+                android:text="@string/layout_info_subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:id="@+id/textView_subject"
+                android:layout_below="@+id/textView_name"
+                android:layout_alignStart="@+id/textView_gender" />
+
+            <TextView
+                android:text="@string/layout_info_school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:id="@+id/textView_school"
+                android:layout_below="@+id/textView_subject"
+                android:layout_alignStart="@+id/textView_subject" />
+
+            <Button
+                android:text="@string/layout_info_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_likes"
+                android:layout_marginTop="25dp"
+                android:layout_below="@+id/imageView_photos"
+                android:layout_alignStart="@+id/ratingBar" />
+
+            <Button
+                android:text="@string/layout_info_write_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_write_a_comment"
+                android:layout_below="@+id/ratingBar"
+                android:layout_alignStart="@+id/button_showcomments" />
+
+            <Button
+                android:text="@string/layout_info_read_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_showcomments"
+                android:layout_marginTop="62dp"
+                android:layout_below="@+id/ratingBar"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:text="@string/layout_add_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_fill_lost_info"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/ratingBar" />
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+
+</RelativeLayout>

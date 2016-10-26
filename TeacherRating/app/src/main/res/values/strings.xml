@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">TeacherRating</string>
+
+
+    <string name="layout_enter_tips">请在下面输入老师的名字</string>
+    <string name="layout_about_tips">请尽情的写下你们对老师的看法吧</string>
+    <string name="layout_button_search">查询</string>
+    <string name="layout_button_submit_comments">提交</string>
+    <string name="layout_button_next_page">下一页</string>
+    <string name="layout_button_last_page">上一页</string>
+    <string name="layout_commentwrite_tips">请公正客观的评价老师！\n你可以写下该老师的:\n教学风格，严格程度等。\n你的评价可能作为其它学生选课的依据\n严禁撰写带有侮辱性的词语！\n您的评论将会被即时发布(但显示存在延迟)。</string>
+
+    <string name="layout_add_info">补全信息\n/\n信息报错</string>
+    <string name="layout_info_name">老师姓名</string>
+    <string name="layout_info_subject">教学科目</string>
+    <string name="layout_info_school">所属学院</string>
+    <string name="layout_info_gender">性别</string>
+    <string name="layout_info_like">赞</string>
+    <string name="layout_info_dislike">不赞</string>
+    <string name="layout_info_male">男</string>
+    <string name="layout_info_female">女</string>
+    <string name="layout_info_write_comment">写下对该老师的评论</string>
+    <string name="layout_info_read_comment">查看其它学生的评论</string>
+
+
+    <string name="tips_no_internet">获取数据失败，没有互联网连接！</string>
+    <string name="tips_enter_name">请输入老师的名字！</string>
+    <string name="tips_update_ok">更新成功！</string>
+    <string name="tips_update_no">更新失败！</string>
+    <string name="tips_retriving_data">获取数据中……</string>
+    <string name="tips_retrive_ok">刷新成功！</string>
+    <string name="tips_retrive_no">刷新失败！</string>
+    <string name="tips_comments_lessinfo">请不要输入垃圾信息，同时保证输入长度大于5！</string>
+</resources>
