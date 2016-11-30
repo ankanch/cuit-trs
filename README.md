@@ -6,7 +6,7 @@
 
 理论上讲，成信好老师这个站点会运行到我毕业（2019年）
 
-######关于Android客户端
+######关于Android客户端【弃用】
 原来是想的以客户端形式分发，后来根据@misszhang的建议，做成了Web版本，当时客户端 已经基本完成了。不过现在看来Android客户端已经作废，故同样上传到GitHub上来。
 
 Android项目需要Android Studio 2.3及以上打开。
@@ -24,6 +24,15 @@ Android项目需要Android Studio 2.3及以上打开。
     index.py：这是python flask框架的主程序脚本
     /worklib/database.py：这里存放了数据库的相关信息
     /worklib/htmlstring.py：这里存放了用于组合HTML代码的字符段
+
+###**【Utilities】**
+/Utilities/
+
+这里是一些常用工具集合（部署在GAE上的）
+####文件夹：
+    null
+###文件：
+    null
 
 ###**【Android】**
 /Android/
