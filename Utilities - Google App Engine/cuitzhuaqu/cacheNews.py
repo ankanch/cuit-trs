@@ -7,11 +7,11 @@ from google.appengine.api import app_identity
 
 bucket_name = os.environ.get('BUCKET_NAME',app_identity.get_default_gcs_bucket_name())
 write_retry_params = gcs.RetryParams(backoff_factor=1.1)
-cachepath = '/' + bucket_name +'/xueshu_cache'
+cachepath = '/' + bucket_name +'/'
 
-def refreshCache(data):
+def refreshCache(data,cachefilename):
     try:
-        gcs_file = gcs.open(cachepath,
+        gcs_file = gcs.open(cachepath+cachefilename,
                       'w',
                       content_type='text/plain',
                       retry_params=write_retry_params)
@@ -21,11 +21,11 @@ def refreshCache(data):
         return "CACHE ERROR：refresh <br/>please contact kanch@akakanch.com<hr/>"
     return "OK<hr/>"
 
-def checkNewNews(newsdata):
+def checkNewNews(newsdata,cachefilename):
     sourcedata = ""
     newslist = newsdata
     try:
-        gcs_file = gcs.open(cachepath,
+        gcs_file = gcs.open(cachepath+cachefilename,
                       retry_params=write_retry_params)
         sourcedata = gcs_file.read()
         gcs_file.close()
