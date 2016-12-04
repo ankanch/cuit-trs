@@ -281,6 +281,8 @@
                             <p>从老师的教学风格，严格程度等方面评价老师。</p>
                             <p>你的任何评价都有可能成为日后其它学生选课的依据。</p>
                             <p>请大家认真负责的做出公正的评价。</p>
+                            <p>目前项目已经开源：<a href="https://github.com/ankanch/cuit-trs" target="_blank">https://github.com/ankanch/cuit-trs</a></p>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary">by Kanch</button>
@@ -327,7 +329,7 @@
                         <div class="list-group-item">
 
                             <div id="ldsq" style="text-align:right;">
-                                <div class="alert alert-dismissible alert-info" style="text-align:left">
+                                <div class="alert alert-dismissible alert-info" style="text-align:right">
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                     <strong>提醒：你最多可以给这位老师分别点10次赞/不赞</strong>
                                 </div>
@@ -339,7 +341,7 @@
                                 <div class="alert alert-dismissible alert-danger" style="text-align:left">
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                     <strong>麻烦大家写下一点有用的评论啊。特别是选修课老师。</strong>
-                                    <p>另外，网站仍然在不断更新，更新期间网站可能会不稳定（一会儿可以访问一会儿不可以。）</p>
+                                    <p>你们的评论可是可以作为其它学生判断老师如何的信息啊。---->大家帮忙宣传下这个网站啊</p>
 
                                 </div>
                                 <div class="list-group-separator"></div>
@@ -358,7 +360,7 @@
                         <div class="list-group">
                             <div class="list-group-item">
                                 <br/>
-                                <strong style="display:none">累计评论：{{COMMENTSSUM}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                                <strong>累计评论：<label id="totalcomments">{{COMMENTSSUM}}</label></strong>
                                 <span class="label label-primary">评论列表-下拉自动刷新(高分辨率屏幕刷新目前存在bug，请讲浏览器窗口缩小，出现滚动条后，下拉刷新,或者点击底部的加载评论)</span>
                                 <br/>
                                 <div class="row-content" style="text-align:central" id="commentslist">
@@ -440,11 +442,19 @@
                         y += 1;
                     }
 
+                    function getCommentsSum() {
+                        var tid = document.getElementById("tid").innerHTML;
+                        $.get("http://trs.akakanch.com/getcommentssum/" + tid + "/", function(info) {
+                            document.getElementById("totalcomments").innerHTML = info;
+                        });
+                    }
+
                     function onFillinfo() {
 
                         var ipt = document.getElementById('tid').innerHTML;
                         window.open("http://trs.akakanch.com/filllostinfo/" + ipt);
                     }
+                    getCommentsSum()
                 </script>
 
                 <script type="text/javascript">
