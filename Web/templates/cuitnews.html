@@ -379,7 +379,7 @@
         <script type="text/javascript">
             function getNews(newstype, cid) {
                 htmldata = "获取新闻中..."
-                $.get("https://forcuit-151103.appsp0t.com/" + newstype, function(data) {
+                $.get("/getnews/" + newstype, function(data) {
                     if (data != "") {
                         buf = data.split("<hr/>")[1].split("<br/>")
                         htmldata = ""

@@ -5,6 +5,7 @@ import flask
 import time
 import worklib.getTeacherInfo as TI
 import worklib.getInfoWeb as IW
+import worklib.getnews as News
 app = Flask(__name__)
 
 PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
@@ -19,6 +20,10 @@ def hello():
 @app.route('/newslist')
 def newslist():
     return render_template("cuitnews.html")
+
+@app.route('/getnews/<ntype>')
+def getnews(ntype):
+    return News.getNews(ntype)
 #老师评价系统
 #老师评价系统
 #老师评价系统
