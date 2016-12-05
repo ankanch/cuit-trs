@@ -153,7 +153,7 @@ def getCommentSum(id):
     conn.commit()
     results = cur.fetchall()
     conn.close()
-    return str(results[0])
+    return str(results[0][0])
 
 def getComment(id,linestart,lineend):
     name = findNamebyID(id)

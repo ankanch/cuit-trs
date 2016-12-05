@@ -16,6 +16,13 @@ PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
 def hello():
     return render_template("search.html")
 
+@app.route('/newslist')
+def newslist():
+    return render_template("cuitnews.html")
+#老师评价系统
+#老师评价系统
+#老师评价系统
+#老师评价系统
 @app.route('/filllostinfo/<int:id>')
 def fillLostInfoWV(id):
     TIO = TI.getTeacherInfobyID(str(id))
@@ -175,4 +182,6 @@ def adddislike(id,UID):
 
 if __name__ == '__main__':
     #app.run(debug=True)
+    #app.run(host='10.105.91.217')
+    #app.run(host='216.45.55.153')
     app.run(host='127.0.0.1')
