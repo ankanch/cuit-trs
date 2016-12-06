@@ -21,23 +21,24 @@ def getXueshuNewsUpdate():
         print("\tCUIT:XueshuNews->no update yet")
         return "N"
     else:
+        updatelist = data.split("<br/>")
+        newscontent = ""
+        for news in updatelist:
+            if len(news) < 5:
+                continue
+            news = news.split("<@>")
+            href = "\t<p><a href=\"" + news[2] + "\"target=\"_blank\">" + news[1] + news[0] + "</a></p>"
+            newscontent+=href
+        data = "有新的学术预告！\r\n\r\n" + newscontent + "\r\n\r\n\r\n**你之所以会收到该邮件，是因为你已经订阅成都信息工程大学学术预告新闻更新。"
         MailService.SendMail("1075900121@qq.com","成都信息工程大学->新【学术预告】",data)
         print("\tCUIT:XueshuNews->news update!")
+        Request.urlopen("https://forcuit-151103.appspot.com/news_xueshu").read()
         return "Y"
 
-#任务脚本
-def runningJobs():
-    while True:
-        timer = threading.Timer(CHECK_PER_SECONDS, getXueshuNewsUpdate)
-        timer.start()
-        time.sleep(CHECK_PER_SECONDS+10)
 
-print("starting CUIT Auto News Retriver...")
-t = threading.Thread(target=runningJobs)
-t.setDaemon(True)
-t.start()
 print("CUIT Auto News Retriver started!\n\tCtrl + C to stop")
 print("Application will check every",CHECK_PER_SECONDS/60,"minutes.\n\n")
 getXueshuNewsUpdate()
-while t.is_alive():
-    pass
+while True:
+    time.sleep(CHECK_PER_SECONDS)
+    getXueshuNewsUpdate()

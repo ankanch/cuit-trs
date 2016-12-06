@@ -17,7 +17,8 @@ def SendMail(TO,TITLE,CONTENT):
 def Mail(TO,TITLE,CONTENT):
   ret=True
   my_user = TO
-  msg=MIMEText(CONTENT,'plain','utf-8')
+  #msg=MIMEText(CONTENT,'plain','utf-8')
+  msg=MIMEText(CONTENT,'html','utf-8')
   msg['From']=formataddr(["成信助手 CUIT Helper",my_sender])  
   msg['To']=formataddr(["Subscriber",my_user])
   msg['Subject']="no-reply:" + TITLE + "\t成信助手 | CUIT Helper" #邮件的主题
