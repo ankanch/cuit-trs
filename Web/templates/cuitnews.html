@@ -298,55 +298,67 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">学术动态（还包括了学术讲座预告，不错）</h3>
+                <div class="col-md-12 ">
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>关于新闻再抓取提示</strong> 如果你想要抓取本站的新闻，请使用我们的
+                        <a href="javascript:void(0)" class="alert-link">【公开接口】</a>
+                    </div>
+                    <p class="text-primary">我们建议您订阅新闻更新，这样在你关注的新闻类别（比如学术讲座，国际交流）有更新的时候，本站将会发送邮件提醒您。<a href="javascript:void(0)" class="btn btn-raised btn-primary">订阅新闻更新</a></p>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-md-6 ">
+                    <div class="panel panel-success ">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title ">学术动态（还包括了学术讲座预告，不错）</p>
+                            </h3>
                         </div>
-                        <div class="panel-body" id="news_xueshu">
-                            id="news_xueshu"
+                        <div class="panel-body " id="news_xueshu">
+                            id="news_xueshu "
                         </div>
                     </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">综合新闻（个人觉得没什么用处）</h3>
+                    <div class="panel panel-success ">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title ">综合新闻（个人觉得没什么用处）</h3>
                         </div>
-                        <div class="panel-body" id="news_zonghe">
-                            id="news_zonghe"
+                        <div class="panel-body " id="news_zonghe">
+                            id="news_zonghe "
                         </div>
                     </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">信息公告（个人觉得没什么用处）</h3>
+                    <div class="panel panel-success ">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title ">信息公告（个人觉得没什么用处）</h3>
                         </div>
-                        <div class="panel-body" id="news_gonggao">
-                            id="news_gonggao"
+                        <div class="panel-body " id="news_gonggao">
+                            id="news_gonggao "
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">文化活动（社团，团组织活动）</h3>
+                <div class="col-md-6 ">
+                    <div class="panel panel-success ">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title ">文化活动（社团，团组织活动）</h3>
                         </div>
-                        <div class="panel-body" id="news_wenhua">
-                            id="news_wenhua"
-                        </div>
-                    </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">焦点新闻（作用自行判断）</h3>
-                        </div>
-                        <div class="panel-body" id="news_jiaodian">
-                            id="news_jiaodian"
+                        <div class="panel-body " id="news_wenhua">
+                            id="news_wenhua "
                         </div>
                     </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">工作交流（个人觉得没什么用处）</h3>
+                    <div class="panel panel-success ">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title ">焦点新闻（作用自行判断）</h3>
                         </div>
-                        <div class="panel-body" id="news_jiaoliu">
-                            id="news_jiaoliu"
+                        <div class="panel-body " id="news_jiaodian">
+                            id="news_jiaodian "
+                        </div>
+                    </div>
+                    <div class="panel panel-success ">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title ">工作交流（个人觉得没什么用处）</h3>
+                        </div>
+                        <div class="panel-body " id="news_jiaoliu">
+                            id="news_jiaoliu "
                         </div>
                     </div>
                 </div>
@@ -355,43 +367,43 @@
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="../static/jquery-3.1.1.min.js"></script>
+        <script src="../static/jquery-3.1.1.min.js "></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="../static/dist/js/bootstrap.min.js"></script>
+        <script src="../static/dist/js/bootstrap.min.js "></script>
         <!-- Material Design for Bootstrap -->
-        <script src="../static/bmaterial/dist/js/material.js"></script>
-        <script src="../static/bmaterial/dist/js/ripples.min.js"></script>
+        <script src="../static/bmaterial/dist/js/material.js "></script>
+        <script src="../static/bmaterial/dist/js/ripples.min.js "></script>
         <!-- SnackbarJS, find it in /dist -->
-        <script src="../static/snackbar/dist/snackbar.min.js"></script>
+        <script src="../static/snackbar/dist/snackbar.min.js "></script>
         <!-- Kanch's JS Common libary' -->
-        <script src="../static/kjslib.js"></script>
+        <script src="../static/kjslib.js "></script>
         <script>
             $.material.init();
         </script>
         <!-- 显示关于 -->
-        <script type="text/javascript">
+        <script type="text/javascript ">
             function toggleDiv(divId) {
                 $("#" + divId).toggle();
             }
         </script>
 
         <!-- 获取并设置新闻的函数 -->
-        <script type="text/javascript">
+        <script type="text/javascript ">
             function getNews(newstype, cid) {
-                htmldata = "获取新闻中..."
+                htmldata = "获取新闻中...";
                 $.get("/getnews/" + newstype, function(data) {
                     if (data != "") {
-                        buf = data.split("<hr/>")[1].split("<br/>")
-                        htmldata = ""
+                        buf = data.split("<hr/>")[1].split("<br/>");
+                        htmldata = "";
                         for (x = 0; x < buf.length - 1; x++) {
-                            xd = buf[x].split("<@>")
-                            link = "<p><a href=\"" + xd[2] + "\" " + "target=\"_blank\">" + xd[0] + xd[1] + "</a></p>"
-                            htmldata += link
+                            xd = buf[x].split("<@>");
+                            link = "<p><a href=\"" + xd[2] + "\" " + "target=\"_blank\">" + xd[0] + xd[1] + "</a></p>";
+                            htmldata += link;
                         }
-                        document.getElementById(cid).innerHTML = htmldata
+                        document.getElementById(cid).innerHTML = htmldata;
                     }
                 });
-                document.getElementById(cid).innerHTML = htmldata
+                document.getElementById(cid).innerHTML = htmldata;
             }
         </script>
 
@@ -400,12 +412,12 @@
             $.snackbar({
                 content: "加载新闻中！请稍候...."
             });
-            getNews("news_zonghe", "news_zonghe")
-            getNews("news_xueshu", "news_xueshu")
-            getNews("news_wenghua", "news_wenhua")
-            getNews("news_xingxigonggao", "news_gonggao")
-            getNews("news_gongzuojiaoliu", "news_jiaoliu")
-            getNews("news_jiaodian", "news_jiaodian")
+            getNews("news_zonghe", "news_zonghe");
+            getNews("news_xueshu", "news_xueshu");
+            getNews("news_wenghua", "news_wenhua");
+            getNews("news_xingxigonggao", "news_gonggao");
+            getNews("news_gongzuojiaoliu", "news_jiaoliu");
+            getNews("news_jiaodian", "news_jiaodian");
         </script>
 
         <script>
