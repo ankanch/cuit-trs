@@ -6,6 +6,7 @@ import time
 import worklib.getTeacherInfo as TI
 import worklib.getInfoWeb as IW
 import worklib.getnews as News
+import worklib.subscrible as SUB
 app = Flask(__name__)
 
 PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
@@ -17,6 +18,7 @@ PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
 def hello():
     return render_template("search.html")
 
+#成信助手
 @app.route('/newslist')
 def newslist():
     return render_template("cuitnews.html")
@@ -24,6 +26,11 @@ def newslist():
 @app.route('/getnews/<ntype>')
 def getnews(ntype):
     return News.getNews(ntype)
+
+@app.route('/subscrible/<email>/<stype>')
+def sbuscrible(email,stype):
+    return SUB.addToSubscribleList(email,stype)
+    
 #老师评价系统
 #老师评价系统
 #老师评价系统
