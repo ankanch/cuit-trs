@@ -67,15 +67,17 @@ def newslist():
 @crossdomain(origin='*')
 def news_xueshu():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=4"
-    newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
-    cachecoee = NewsCache.refreshCache(newslistdata,"news_xueshu")
-    return cachecoee  + newslistdata
+    #newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
+    #cachecoee = NewsCache.refreshCache(newslistdata,"news_xueshu")
+    #return cachecoee  + newslistdata
+    return CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
 
 @app.route('/news_xueshu_update')
 def news_xueshu_update():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=4"
     newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
     update_news = NewsCache.checkNewNews(newslistdata,"news_xueshu")
+    NewsCache.refreshCache(newslistdata,"news_xueshu") #刷新新闻缓存
     return update_news
 
 #下面的都是文化活动，学生社团活动
@@ -83,15 +85,17 @@ def news_xueshu_update():
 @crossdomain(origin='*')
 def news_wenghua():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=10"
-    newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
-    cachecoee = NewsCache.refreshCache(newslistdata,"news_wenghua")
-    return cachecoee  + newslistdata
+    #newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
+    #cachecoee = NewsCache.refreshCache(newslistdata,"news_wenghua")
+    #return cachecoee  + newslistdata
+    return CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
 
 @app.route('/news_wenghua_update')
 def news_wenghua_update():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=10"
     newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
     update_news = NewsCache.checkNewNews(newslistdata,"news_wenghua")
+    NewsCache.refreshCache(newslistdata,"news_wenghua") #刷新新闻缓存
     return update_news
 
 #下面的都是信息公告
@@ -99,15 +103,17 @@ def news_wenghua_update():
 @crossdomain(origin='*')
 def news_xingxigonggao():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=2"
-    newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
-    cachecoee = NewsCache.refreshCache(newslistdata,"news_xingxigonggao")
-    return cachecoee  + newslistdata
+    #newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
+    #cachecoee = NewsCache.refreshCache(newslistdata,"news_xingxigonggao")
+    #return cachecoee  + newslistdata
+    return CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
 
 @app.route('/news_xingxigonggao_update')
 def news_xingxigonggao_update():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=2"
     newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
     update_news = NewsCache.checkNewNews(newslistdata,"news_xingxigonggao")
+    NewsCache.refreshCache(newslistdata,"news_xingxigonggao") #刷新新闻缓存
     return update_news
 
 #下面的都是焦点新闻
@@ -115,15 +121,17 @@ def news_xingxigonggao_update():
 @crossdomain(origin='*')
 def news_jiaodian():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=3"
-    newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
-    cachecoee = NewsCache.refreshCache(newslistdata,"news_jiaodian")
-    return cachecoee  + newslistdata
+    #newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
+    #cachecoee = NewsCache.refreshCache(newslistdata,"news_jiaodian")
+    #return cachecoee  + newslistdata
+    return CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
 
 @app.route('/news_jiaodian_update')
 def news_jiaodian_update():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=3"
     newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
     update_news = NewsCache.checkNewNews(newslistdata,"news_jiaodian")
+    NewsCache.refreshCache(newslistdata,"news_jiaodian") #刷新新闻缓存
     return update_news
 
 #下面的都是工作交流
@@ -131,15 +139,17 @@ def news_jiaodian_update():
 @crossdomain(origin='*')
 def news_gongzuojiaoliu():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=5"
-    newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
-    cachecoee = NewsCache.refreshCache(newslistdata,"news_gongzuojiaoliu")
-    return cachecoee  + newslistdata
+    #newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
+    #cachecoee = NewsCache.refreshCache(newslistdata,"news_gongzuojiaoliu")
+    #return cachecoee  + newslistdata
+    return CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
 
 @app.route('/news_gongzuojiaoliu_update')
 def news_gongzuojiaoliu_update():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=5"
     newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
     update_news = NewsCache.checkNewNews(newslistdata,"news_gongzuojiaoliu")
+    NewsCache.refreshCache(newslistdata,"news_gongzuojiaoliu") #刷新新闻缓存
     return update_news
 
 #下面的都是综合新闻
@@ -147,15 +157,17 @@ def news_gongzuojiaoliu_update():
 @crossdomain(origin='*')
 def news_zonghe():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=1"
-    newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
-    cachecoee = NewsCache.refreshCache(newslistdata,"news_zonghe")
-    return cachecoee  + newslistdata
+    #newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
+    #cachecoee = NewsCache.refreshCache(newslistdata,"news_zonghe")
+    #return cachecoee  + newslistdata
+    return CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
 
 @app.route('/news_zonghe_update')
 def news_zonghe_update():
     url_xueshu = "http://www.cuit.edu.cn/NewsList?id=1"
     newslistdata = CUIT.getXueshuNews(CUIT.getHtml(url_xueshu))
     update_news = NewsCache.checkNewNews(newslistdata,"news_zonghe")
+    NewsCache.refreshCache(newslistdata,"news_zonghe") #刷新新闻缓存
     return update_news
 
 @app.route('/mailtest')

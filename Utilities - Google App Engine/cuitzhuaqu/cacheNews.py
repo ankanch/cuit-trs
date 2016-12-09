@@ -37,4 +37,6 @@ def checkNewNews(newsdata,cachefilename):
     for news in newslist:
         if news not in rawlist:
             newupdate = newupdate + news + "<br/>"
+    if newupdate != "NO UPDATE YET":
+        return newupdate.replace("NO UPDATE YET","")
     return newupdate
