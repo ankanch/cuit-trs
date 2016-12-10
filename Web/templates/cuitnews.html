@@ -435,7 +435,7 @@
                     htmldata = "获取新闻中...";
                     $.get("/getnews/" + newstype, function(data) {
                         if (data != "") {
-                            buf = data.split("<hr/>")[1].split("<br/>");
+                            buf = data.split("<br/>");
                             htmldata = "";
                             for (x = 0; x < buf.length - 1; x++) {
                                 xd = buf[x].split("<@>");

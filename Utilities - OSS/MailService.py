@@ -7,12 +7,12 @@ my_sender='test@akakanch.com' #发件人邮箱账号，为了后面易于维护�
 my_sender_password = "Test12345678910"  #发件人邮箱
 
 #请调用该函数发送邮件
-def SendMail(TO,TITLE,CONTENT):
+def SendMail(TO,TITLE,CONTENT,tiphead):
     ret = Mail(TO,TITLE,CONTENT)
     if ret:
-        print("Mail sent success!") #如果发送成功则会返回ok，稍等20秒左右就可以收到邮件
+        print(tiphead,"Mail sent success!") #如果发送成功则会返回ok，稍等20秒左右就可以收到邮件
     else:
-        print("Failed to sent mail!") #如果发送失败则会返回filed
+        print(tiphead,"Failed to sent mail!") #如果发送失败则会返回filed
 
 def Mail(TO,TITLE,CONTENT):
   ret=True
