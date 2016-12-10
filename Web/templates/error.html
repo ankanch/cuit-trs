@@ -251,11 +251,17 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="http://trs.akakanch.com/">TeacherRating - CUIT</a>
+                    <a class="navbar-brand" href="#">成信助手</a>
                 </div>
                 <div class="navbar-collapse collapse navbar-warning-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/ranklist" target="_blank">老师排行榜</a></li>
+                        <li><a href="http://trs.akakanch.com">成信好老师</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">成信贴吧大数据（即将上线）</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
@@ -263,33 +269,13 @@
                 </div>
             </div>
         </div>
-        <div class="alert alert-dismissible alert-danger">
+        <div id="infodiv" style="display:none; alignment-baseline:central">
+        </div>
+        <div class="alert alert-dismissible alert-danger" style="width:55%;margin: 0 auto">
             <h4>错误</h4>
 
-            <p>在处理您的请求中程序遇到未知错误错误！<br/>原因可能是因为你输入了错误的老师名字或者是服务器遇到了流量过大的情况。<br/>建议你稍后再次访问。<br/>如果错误仍然存在，请联系kanch@akakanch.com进行处理。
+            <p>本站在处理您的请求中程序遇到未知错误错误！<br/>原因可能是因为错误的输入或者服务器流量过大。<br/>建议您稍后再次访问。<br/>如果错误仍然存在，请联系kanch@akakanch.com进行处理。
                 <br/><a href="http://trs.akakanch.com/" class="alert-link">点击这里返回首页</a>.</p>
-        </div>
-        <div id="infodiv" style="display:none; alignment-baseline:central">
-            <div class="modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">关于TeacherRating System @ CUIT</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>这是一个让同学们发表对老师的看法的平台。</p>
-                            <p>从老师的教学风格，严格程度等方面评价老师。</p>
-                            <p>你的任何评价都有可能成为日后其它学生选课的依据。</p>
-                            <p>请大家认真负责的做出公正的评价。</p>
-                            <p>目前项目已经开源：<a href="https://github.com/ankanch/cuit-trs" target="_blank">https://github.com/ankanch/cuit-trs</a></p>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">by Kanch</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
 
@@ -301,6 +287,8 @@
         <!-- Material Design for Bootstrap -->
         <script src="../static/bmaterial/dist/js/material.js"></script>
         <script src="../static/bmaterial/dist/js/ripples.min.js"></script>
+        <!-- Kanch's JS Common libary' -->
+        <script src="../static/kjslib.js"></script>
         <script>
             $.material.init();
         </script>
@@ -311,7 +299,12 @@
             }
         </script>
 
-
+        <script type="text/javascript">
+            $(document).ready(function() {
+                document.getElementById("infodiv").innerHTML = getabout();
+                console.log("1");
+            });
+        </script>
         <script>
             (function(i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;

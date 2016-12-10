@@ -4,8 +4,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>排行榜 | 成信好老师 | TeacherRating System | CUIT Helper</title>
+    <title>成信助手 | CUIT Helper</title>
 
+    <link href="../static/images/favicon.ico" rel="icon" type="image/x-icon" />
     <!-- Material Design fonts
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
@@ -243,7 +244,7 @@
     </style>
 </head>
 
-<body onload="getScoreRankList()">
+<body>
 
     <div class="bs-component">
         <div class="navbar navbar-warning">
@@ -254,11 +255,11 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="http://trs.akakanch.com/">成信助手>>>成信好老师-TeacherRating</a>
+                    <a class="navbar-brand" href="#">成信助手</a>
                 </div>
                 <div class="navbar-collapse collapse navbar-warning-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/ranklist" target="_blank">返回成信好老师</a></li>
+                        <li><a href="http://trs.akakanch.com">成信好老师</a></li>
                     </ul>
                     <ul class="nav navbar-nav">
                         <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
@@ -276,21 +277,19 @@
 
         <div id="infodiv" style="display:none; alignment-baseline:central">
         </div>
+        <!--在下面添加自定义代码-->
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Jumbotron</h1>
 
+                <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
 
-        <div style="width:80%;margin-left:auto;margin-right:auto;margin-top:5%;">
-
-            <p class="text-danger">以下排行榜仅显示前10名。数据即时更新。选择排行榜类型：
-                <a href="javascript:getLDRankList()" class="btn btn-raised btn-primary">【赞/不赞】排行</a>
-                <a href="javascript:getScoreRankList()" class="btn btn-raised btn-success">好评率排行</a>
-            </p>
-            <p class="text-danger">排行榜不能保证现实中的准确性！仅仅以指定字段的相对大小来进行排名。加黑字段为排名字段。</p>
-
-            <div id="ranklist">
-
+                <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+            </div>
+            <div class="row" style="text-align:center">
+                <p class="text-info">hcnak 's stcejorp © 2016 All Rights Reserved </p>
             </div>
         </div>
-
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -311,54 +310,6 @@
         <script type="text/javascript">
             function toggleDiv(divId) {
                 $("#" + divId).toggle();
-            }
-        </script>
-
-        <script>
-            var lt = 9
-
-            function getLDRankList() {
-                if (lt == 1) {
-                    $.snackbar({
-                        content: "当前正在显示【赞/不赞】排行！"
-                    });
-                    return
-                }
-                lt = 1
-                var commentsbaseurl = "/getranklist/ld"
-                $.snackbar({
-                    content: "加载中...请稍候！"
-                });
-                $.get(commentsbaseurl, function(data) {
-                    if (data != "NULL") {
-                        document.getElementById("ranklist").innerHTML = data;
-                        $.snackbar({
-                            content: "加载完毕"
-                        });
-                    }
-                });
-            }
-
-            function getScoreRankList() {
-                if (lt == 0) {
-                    $.snackbar({
-                        content: "当前正在显示【好评率】排行！"
-                    });
-                    return
-                }
-                lt = 0
-                var commentsbaseurl = "/getranklist/score"
-                $.snackbar({
-                    content: "加载中...请稍候！"
-                });
-                $.get(commentsbaseurl, function(data) {
-                    if (data != "NULL") {
-                        document.getElementById("ranklist").innerHTML = data;
-                        $.snackbar({
-                            content: "加载完毕"
-                        });
-                    }
-                });
             }
         </script>
         <script type="text/javascript">

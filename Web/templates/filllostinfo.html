@@ -255,11 +255,14 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="http://trs.akakanch.com/">TeacherRating - CUIT</a>
+                    <a class="navbar-brand" href="http://trs.akakanch.com/">成信助手>>>成信好老师-TeacherRating</a>
                 </div>
                 <div class="navbar-collapse collapse navbar-warning-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="/ranklist" target="_blank">老师排行榜</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
@@ -270,27 +273,6 @@
 
 
         <div id="infodiv" style="display:none; alignment-baseline:central">
-            <div class="modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="javascript:toggleDiv('infodiv');">×</button>
-                            <h4 class="modal-title">关于TeacherRating System @ CUIT</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>这是一个让同学们发表对老师的看法的平台。</p>
-                            <p>从老师的教学风格，严格程度等方面评价老师。</p>
-                            <p>你的任何评价都有可能成为日后其它学生选课的依据。</p>
-                            <p>请大家认真负责的做出公正的评价。</p>
-                            <p>目前项目已经开源：<a href="https://github.com/ankanch/cuit-trs" target="_blank">https://github.com/ankanch/cuit-trs</a></p>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">by Kanch</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="panel panel-warning" style="width:80%;margin-left:auto;margin-right:auto;">
@@ -426,7 +408,12 @@
             }
         </script>
 
-
+        <script type="text/javascript">
+            $(document).ready(function() {
+                document.getElementById("infodiv").innerHTML = getabout();
+                console.log("1");
+            });
+        </script>
         <script>
             (function(i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
