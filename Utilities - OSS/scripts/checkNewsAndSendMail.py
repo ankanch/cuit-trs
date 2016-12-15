@@ -18,6 +18,38 @@ NEWS_LIST = [["XueshuNewss","N1","http://forcuit-151103.appspot.com/news_xueshu_
              ["JiaoDianXinWeng","N4","http://forcuit-151103.appspot.com/news_jiaodian_update"],      #焦点新闻
             ]
 
+#邮件关键内容拼接函数,DBSEC用来标记要拼接哪种类型的邮件
+def makeupMailContent(DBSEC,newscontent):
+    TITLE = ""
+    CONTENT = ""
+    if DBSEC == 'N1':    #学术新闻
+        TITLE = "有新的学术预告<-成都信息工程大学"
+        CONTENT = "<b>有新的学术预告！</b>内容如下：\r\n\r\n" + newscontent
+    elif DBSEC == 'N2':    #综合新闻
+        TITLE = "有新的综合新闻<-成都信息工程大学"
+        CONTENT = "<b>有新的综合新闻！</b>内容如下：\r\n\r\n" + newscontent 
+    elif DBSEC == 'N3':    #文化活动
+        TITLE = "有新的文化活动新闻<-成都信息工程大学"
+        CONTENT = "<b>有新的文化活动新闻！</b>内容如下：\r\n\r\n" + newscontent 
+    elif DBSEC == 'N4':      #信息公告
+        TITLE = "有新的信息公告<-成都信息工程大学"
+        CONTENT = "<b>有新的信息公告！</b>内容如下：\r\n\r\n" + newscontent 
+    elif DBSEC == 'N5':      #工作交流
+        TITLE = "有新的工作交流新闻<-成都信息工程大学"
+        CONTENT = "<b>有新的工作交流新闻！</b>内容如下：\r\n\r\n" + newscontent 
+    elif DBSEC == 'N6':       #焦点新闻
+        TITLE = "有新的焦点新闻<-成都信息工程大学"
+        CONTENT = "<b>有新的焦点新闻！</b>内容如下：\r\n\r\n" + newscontent 
+    elif DBSEC == 'N7':
+        pass
+    elif DBSEC == 'N8':
+        pass
+    elif DBSEC == 'N9':
+        pass
+    TITLE+= " | 成信助手 CUIT Helper"
+    CONTENT += "\r\n\r\n\r\n**你之所以会收到该邮件，是因为你已经订阅成都信息工程大学新闻更新提醒<br/><a href=\"cuit.akakanch.com\">-成信助手</a>。"
+    return TITLE,CONTENT
+
 #新闻检测函数
 def checkNews(url,DBSEC):
     page = Request.urlopen(url)
@@ -54,8 +86,10 @@ def NotifySubscribler(DBSEC,newscontent):
         emaillist.append(sucrib[0])
     #print(emaillist)
     print("\t\t\t\t|->->->sending notify to",len(emaillist),"subscriblers.")
-    data = "有新的学术预告！\r\n\r\n" + newscontent + "\r\n\r\n\r\n**你之所以会收到该邮件，是因为你已经订阅成都信息工程大学学术预告新闻更新。"
-    MailService.SendMail(emaillist,"成都信息工程大学->新【学术预告】",data,"\t\t\t\t|->->->")
+    TITLE,CONTENT = makeupMailContent(DBSEC,newscontent)
+    #data = "有新的学术预告！\r\n\r\n" + newscontent + "\r\n\r\n\r\n**你之所以会收到该邮件，是因为你已经订阅成都信息工程大学学术预告新闻更新。"
+    #MailService.SendMail(emaillist,"成都信息工程大学->新【学术预告】",data,"\t\t\t\t|->->->")
+    MailService.SendMail(emaillist,TITLE,CONTENT,"\t\t\t\t|->->->")
 
 ###################################################################################################
 #####程序逻辑
