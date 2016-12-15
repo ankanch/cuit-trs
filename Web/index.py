@@ -14,7 +14,13 @@ PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
 #FOR WEB VERSION
 #FOR WEB VERSION
 #FOR WEB VERSION
+#成信助手首页 
 @app.route('/')
+def index():
+    return render_template("index.html")
+
+#老师评分系统
+@app.route('/trs')
 def hello():
     return render_template("search.html")
 
@@ -35,7 +41,7 @@ def sbuscrible(email,stype):
 #老师评价系统
 #老师评价系统
 #老师评价系统
-@app.route('/filllostinfo/<int:id>')
+@app.route('/trs/filllostinfo/<int:id>')
 def fillLostInfoWV(id):
     TIO = TI.getTeacherInfobyID(str(id))
     tid = str(TIO[0][0])
@@ -45,43 +51,43 @@ def fillLostInfoWV(id):
     gender = str(TIO[0][7])
     return render_template("filllostinfo.html",NAME=name,SUBJECTS=subject,SCHOOL=school,TID=tid,GENDERVALUE=gender)
 
-@app.route('/autofill/<word>')
+@app.route('/trs/autofill/<word>')
 def autofill(word):
     return IW.autoFill(word)
 
-@app.route('/refreshld/<int:id>')
+@app.route('/trs/refreshld/<int:id>')
 def refreshlikes(id):
     return IW.refreshLikes(id)
 
-@app.route('/getsearchtags')
+@app.route('/trs/getsearchtags')
 def getSearchTages():
     return IW.getSearchTags()
 
-@app.route('/ranklist')
+@app.route('/trs/ranklist')
 def showranklist():
     return render_template("ranklist.html")
 
-@app.route('/getranklist/<ltype>')
+@app.route('/trs/getranklist/<ltype>')
 def getranklist(ltype):
     return IW.getRankList(ltype)
 
-@app.route('/adddislikeweb/<UID>/<int:id>')
+@app.route('/trs/adddislikeweb/<UID>/<int:id>')
 def addwebdislike(UID,id):
     return IW.addOneUpWeb("DISLIKE",id,UID)
 
-@app.route('/addlikeweb/<UID>/<int:id>')
+@app.route('/trs/addlikeweb/<UID>/<int:id>')
 def addweblike(UID,id):
     return IW.addOneUpWeb("LIKE",id,UID)
 
-@app.route('/regmail/<mailaddr>')
+@app.route('/trs/regmail/<mailaddr>')
 def addmail(mailaddr):
     return IW.addMail(mailaddr)
 
-@app.route('/autoregiste')
+@app.route('/trs/autoregiste')
 def autoregiste():
     return IW.autoRegiste()  
 
-@app.route('/teacher/<name>')
+@app.route('/trs/teacher/<name>')
 def getTeacherInfoBynameWV(name):
     try:
         TIO = TI.getTeacherInfo(name)
@@ -112,7 +118,7 @@ def getTeacherInfoBynameWV(name):
     return render_template("teacherinfo.html",NAME=name,SUBJECTS=subject,SCHOOL=school,GENDER=gender,LNUM=like,DLNUM=dislike,RATING=rating,TID=tid,LIKERATE=pxx)
 
 
-@app.route('/getcomments/<int:id>/<int:linestart>/')
+@app.route('/trs/getcomments/<int:id>/<int:linestart>/')
 def getComments(id,linestart):
     COMMENTSLIST =  TI.getComment(id,linestart,linestart+5)
     if COMMENTSLIST == "NULL":

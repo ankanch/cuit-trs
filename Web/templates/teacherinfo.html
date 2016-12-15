@@ -255,11 +255,14 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="http://trs.akakanch.com/">TeacherRating - CUIT</a>
+                    <a class="navbar-brand" href="/">成信助手>>>成信好老师-TeacherRating</a>
                 </div>
                 <div class="navbar-collapse collapse navbar-warning-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/ranklist" target="_blank">老师排行榜</a></li>
+                        <li><a href="/trs" target="_blank">返回成信好老师</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li><a href="/trs/ranklist" target="_blank">老师排行榜</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
@@ -378,7 +381,7 @@
                 <script type="text/javascript">
                     function onLike() {
                         var tid = document.getElementById("tid").innerHTML;
-                        $.get("http://trs.akakanch.com/addlikeweb/" + getUID() + "/" + tid, function(info) {
+                        $.get("http://akakanch.com/trs/addlikeweb/" + getUID() + "/" + tid, function(info) {
                             if (info == "OK") {
                                 $.snackbar({
                                     content: " 赞 +1 "
@@ -401,7 +404,7 @@
 
                     function onDislike() {
                         var tid = document.getElementById("tid").innerHTML;
-                        $.get("http://trs.akakanch.com/adddislikeweb/" + getUID() + "/" + tid, function(info) {
+                        $.get("http://akakanch.com/trs/adddislikeweb/" + getUID() + "/" + tid, function(info) {
                             if (info == "OK") {
                                 $.snackbar({
                                     content: " 不赞 +1 "
@@ -413,7 +416,7 @@
                             }
                         });
                         //刷新
-                        $.get("/refreshld/" + tid, function(data) {
+                        $.get("/trs/refreshld/" + tid, function(data) {
                             if (data != "NULL") {
                                 document.getElementById("ldsq").innerHTML = data;
                             }
@@ -423,7 +426,7 @@
 
                     function getCommentsSum() {
                         var tid = document.getElementById("tid").innerHTML;
-                        $.get("http://trs.akakanch.com/getcommentssum/" + tid + "/", function(info) {
+                        $.get("http://akakanch.com/trs/getcommentssum/" + tid + "/", function(info) {
                             document.getElementById("totalcomments").innerHTML = info;
                         });
                     }
@@ -431,7 +434,7 @@
                     function onFillinfo() {
 
                         var ipt = document.getElementById('tid').innerHTML;
-                        window.open("http://trs.akakanch.com/filllostinfo/" + ipt);
+                        window.open("http://akakanch.com/trs/filllostinfo/" + ipt);
                     }
                     getCommentsSum()
                 </script>
@@ -446,7 +449,7 @@
                             });
                             return;
                         }
-                        $.post('http://trs.akakanch.com/submitacomment', {
+                        $.post('http://akakanch.com/trs/submitacomment', {
                             "id": tid,
                             "comment": comments
                         });
@@ -464,7 +467,7 @@
 
                     function loadComments() {
                         var tid = document.getElementById("tid").innerHTML;
-                        var commentsbaseurl = "/getcomments/"
+                        var commentsbaseurl = "/trs/getcomments/"
                         commentsbaseurl = commentsbaseurl + tid + "/" + p + "/";
                         p += 5
                         $.get(commentsbaseurl, function(data) {

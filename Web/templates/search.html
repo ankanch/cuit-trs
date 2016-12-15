@@ -256,11 +256,11 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="http://trs.akakanch.com/">成信助手>>>成信好老师-TeacherRating</a>
+                    <a class="navbar-brand" href="/">成信助手>>>成信好老师-TeacherRating</a>
                 </div>
                 <div class="navbar-collapse collapse navbar-warning-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/ranklist" target="_blank">老师排行榜</a></li>
+                        <li><a href="/trs/ranklist" target="_blank">老师排行榜</a></li>
                     </ul>
                     <ul class="nav navbar-nav">
                         <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
@@ -296,7 +296,7 @@
 </div><br/>
 <p class="text-warning">请勿提交任何带有攻击性的评论！请提出你们的真实看法！你们的评论可能成为其它同学的选课依据！老师的评分将会在每日23点更新！</p>
 </div>
-<a href="/ranklist" target="_blank" class="btn btn-raised btn-link">最近更新：老师排行榜,热搜榜</a>
+<a href="/trs/ranklist" target="_blank" class="btn btn-raised btn-link">最近更新：老师排行榜,热搜榜</a>
 <a href="javascript:toggleDiv('subscribe')" class="btn btn-raised btn-default" >订阅本站，及时获得老师趋势更新</a>
 </div>
 
@@ -320,7 +320,7 @@
 </div>
 
 <div id="searchtags" style="width:60%; margin-left:auto;margin-right:auto">
-<a href="/ranklist" target="_blank" class="btn btn-raised btn-link">热搜索榜单</a>
+<a href="/trs/ranklist" target="_blank" class="btn btn-raised btn-link">热搜索榜单</a>
 </div>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- TRS -->
@@ -374,10 +374,10 @@ function showTeachdetInfo() {
      $.snackbar({content: "x_x~ 错误！请输入正确的老师姓名！！！"});
      return ;
    }
-   window.open("http://trs.akakanch.com/teacher/"+ipt); 
+   window.open("http://akakanch.com/trs/teacher/"+ipt); 
 }
 function submitEmail(){
-                var commentsbaseurl = "/regmail/";
+                var commentsbaseurl = "/trs/regmail/";
                 var email =  document.getElementById('mailaddr').value;
                 var Regex = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;           
 
@@ -397,7 +397,7 @@ return;
 <!--智能提示框 -->
 <script type="text/javascript">
 function showautofill(){
-    var commentsbaseurl = "/autofill/"
+    var commentsbaseurl = "/trs/autofill/"
                 var qord = document.getElementById('focusedInput_name').value;
                 
                 commentsbaseurl = commentsbaseurl + qord;
@@ -408,7 +408,7 @@ function showautofill(){
                 });
 }
 function searchTags(){
-    var commentsbaseurl = "/getsearchtags"
+    var commentsbaseurl = "/trs/getsearchtags"
                 $.get(commentsbaseurl, function(data) {
                     if (data != "NULL") {
                          document.getElementById("searchtags").innerHTML = data;
