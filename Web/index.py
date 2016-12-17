@@ -24,6 +24,11 @@ def index():
 def hello():
     return render_template("search.html")
 
+#成信贴吧大数据
+@app.route('/tiebabigdata')
+def bigdata():
+    return render_template("bigdata.html")
+
 #成信助手
 @app.route('/newslist')
 def newslist():

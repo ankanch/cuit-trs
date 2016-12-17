@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>成信好老师 | TeacherRating System | CUIT Helper</title>
+    <title>成信贴吧大数据 | 成信助手 | CUIT Helper</title>
 
     <link href="../static/images/favicon.ico" rel="icon" type="image/x-icon" />
 
@@ -256,17 +256,14 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="/">成信助手>>>成信好老师-TeacherRating</a>
+                    <a class="navbar-brand" href="/">成信助手>>>成信贴吧大数据</a>
                 </div>
                 <div class="navbar-collapse collapse navbar-warning-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/trs/ranklist" target="_blank">老师排行榜</a></li>
+                        <li><a href="/trs" target="_blank">成信好老师</a></li>
                     </ul>
                     <ul class="nav navbar-nav">
                         <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="/tiebabigdata">成信贴吧大数据（即将上线）</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
@@ -283,45 +280,18 @@
         <div id="searchdiv" style="width:60%; margin-left:auto;margin-right:auto;margin-top:10%;">
             <div class="form-group label-floating">
                 <div class="input-group">
-                    <label class="control-label" for="focusedInput2">请输入要查询的老师</label>
+                    <label class="control-label" for="focusedInput2">请输入要查询的贴吧ID</label>
                     <input class="form-control" id="focusedInput_name" type="text" onkeydown="javascript:keydown();" oninput="javascript:showautofill()" list="word">
                     <datalist id="word">
 						<!--智能k提示-->
 					</datalist>
-                    <p class="help-block">请输入正确的老师姓名，否则会出错！</p>
+                    <p class="help-block">请输入正确的贴吧ID，否则会出错！为了保护隐私，目前仅运行通过贴吧ID查找学生。</p>
                     <span class="input-group-btn">
                 <button type="button" class="btn btn-fab btn-fab-mini "  onclick="javascript:showTeachdetInfo();">
                   <i class="material-icons">></i>
                 </button>
 </div><br/>
-<p class="text-warning">请勿提交任何带有攻击性的评论！请提出你们的真实看法！你们的评论可能成为其它同学的选课依据！老师的评分将会在每日23点更新！</p>
-</div>
-<a href="/trs/ranklist" target="_blank" class="btn btn-raised btn-link">最近更新：老师排行榜,热搜榜</a>
-<a href="javascript:toggleDiv('subscribe')" class="btn btn-raised btn-default" >订阅本站，及时获得老师趋势更新</a>
-</div>
-
-<div id="subscribe" style="width:280px; margin-left:auto;margin-right:auto;display:none">
-<form class="form-horizontal">
-  <fieldset>
-    <p class="text-success">在本站加入新特性，老师趋势变化的时候可以获得电子邮件通知。</p>
-    <div class="form-group">
-      <div class="col-md-10">
-        <input type="email" class="form-control"  id="mailaddr" placeholder="电子邮件地址">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-10 col-md-offset-2">
-        <button type="button" class="btn btn-default" onclick="javascript:toggleDiv('subscribe')">隐藏该表单</button>
-        <button type="button" class="btn btn-primary" onclick="javascript:submitEmail()">提交</button>
-      </div>
-    </div>
-  </fieldset>
-</form>
-</div>
-
-<div id="searchtags" style="width:60%; margin-left:auto;margin-right:auto">
-<a href="/trs/ranklist" target="_blank" class="btn btn-raised btn-link">热搜索榜单</a>
-</div>
+<p class="text-warning">请勿将本站数据用作任何非法用途。本站数据均由机器得出，无法保证准确性，请悉知。</p>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- TRS -->
 <ins class="adsbygoogle"
@@ -371,28 +341,12 @@ function toggleDiv(divId) {
 function showTeachdetInfo() {
    var ipt = document.getElementById('focusedInput_name').value;
    if(ipt.length == 0){
-     $.snackbar({content: "x_x~ 错误！请输入正确的老师姓名！！！"});
+     $.snackbar({content: "x_x~ 错误！请输入正确的贴吧ID！！！"});
      return ;
    }
-   window.open("http://akakanch.com/trs/teacher/"+ipt); 
+   window.open("/tiebabigdata/"+ipt); 
 }
-function submitEmail(){
-                var commentsbaseurl = "/trs/regmail/";
-                var email =  document.getElementById('mailaddr').value;
-                var Regex = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;           
 
-　　if (!Regex.test(email)){                
-
-　　$.snackbar({content: "请输入正确的E-mail地址！"});
-return;          
-
-　　}            
-                       commentsbaseurl += email
-                $.get(commentsbaseurl, function(data) {
-                    $.snackbar({content: "你已经成功订阅本站！"});
-                    toggleDiv("subscribe");
-                });
-}
 </script>
 <!--智能提示框 -->
 <script type="text/javascript">
@@ -407,15 +361,6 @@ function showautofill(){
                     }
                 });
 }
-function searchTags(){
-    var commentsbaseurl = "/trs/getsearchtags"
-                $.get(commentsbaseurl, function(data) {
-                    if (data != "NULL") {
-                         document.getElementById("searchtags").innerHTML = data;
-                    }
-                });
-}
-searchTags()
 </script>
 <script type="text/javascript">
             $(document).ready(function() {
