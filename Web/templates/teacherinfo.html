@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>成信好老师 | TeacherRating System | CUIT Helper</title>
 
-    <link href="../static/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/static/images/favicon.ico" rel="icon" type="image/x-icon" />
     <!-- Material Design fonts
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <!-- Bootstrap  -->
-    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Material Design -->
-    <link href="../static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
-    <link href="../static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
+    <link href="/static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
+    <link href="/static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
     <!-- core CSS of SnackbarJS, find it in /dist -->
-    <link href="../static/snackbar/dist/snackbar.min.css" rel="stylesheet">
+    <link href="/static/snackbar/dist/snackbar.min.css" rel="stylesheet">
     <!-- the default theme of SnackbarJS, find it in /themes-css -->
-    <link href="../static/snackbar/themes-css/material.css" rel="stylesheet">
+    <link href="/static/snackbar/themes-css/material.css" rel="stylesheet">
 
     <style>
         #banner {
@@ -284,7 +284,7 @@
                     <div class="list-group">
                         <div class="list-group-item">
                             <div class="row-picture">
-                                <img class="circle" src="../static/images/teacheravtor.png" alt="icon">
+                                <img class="circle" src="/static/images/teacheravtor.png" alt="icon">
                             </div>
                             <div class="row-content">
                                 <div class="alert alert-dismissible alert-success">
@@ -299,7 +299,7 @@
                         </div>
                         <div class="list-group-item">
                             <div class="row-picture">
-                                <img class="rect" src="../static/images/like.png" alt="好评率">
+                                <img class="rect" src="/static/images/like.png" alt="好评率">
                             </div>
                             <div class="row-content" style="text-align:right">
                                 <div class="progress">
@@ -358,16 +358,16 @@
 
 
                 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-                <script src="../static/jquery-3.1.1.min.js"></script>
+                <script src="/static/jquery-3.1.1.min.js"></script>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
-                <script src="../static/dist/js/bootstrap.min.js"></script>
+                <script src="/static/dist/js/bootstrap.min.js"></script>
                 <!-- Material Design for Bootstrap -->
-                <script src="../static/bmaterial/dist/js/material.js"></script>
-                <script src="../static/bmaterial/dist/js/ripples.min.js"></script>
+                <script src="/static/bmaterial/dist/js/material.js"></script>
+                <script src="/static/bmaterial/dist/js/ripples.min.js"></script>
                 <!-- SnackbarJS, find it in /dist -->
-                <script src="../static/snackbar/dist/snackbar.min.js"></script>
+                <script src="/static/snackbar/dist/snackbar.min.js"></script>
                 <!-- Kanch's JS Common libary' -->
-                <script src="../static/kjslib.js"></script>
+                <script src="/static/kjslib.js"></script>
                 <script>
                     $.material.init();
                 </script>
@@ -379,9 +379,12 @@
                 </script>
 
                 <script type="text/javascript">
+                    x = 0;
+                    y = 0;
+
                     function onLike() {
                         var tid = document.getElementById("tid").innerHTML;
-                        $.get("http://akakanch.com/trs/addlikeweb/" + getUID() + "/" + tid, function(info) {
+                        $.get("/trs/addlikeweb/" + getUID() + "/" + tid, function(info) {
                             if (info == "OK") {
                                 $.snackbar({
                                     content: " 赞 +1 "
@@ -394,7 +397,7 @@
                         });
 
                         //刷新
-                        $.get("/refreshld/" + tid, function(data) {
+                        $.get("/trs/refreshld/" + tid, function(data) {
                             if (data != "NULL") {
                                 document.getElementById("ldsq").innerHTML = data;
                             }
@@ -404,7 +407,7 @@
 
                     function onDislike() {
                         var tid = document.getElementById("tid").innerHTML;
-                        $.get("http://akakanch.com/trs/adddislikeweb/" + getUID() + "/" + tid, function(info) {
+                        $.get("/trs/adddislikeweb/" + getUID() + "/" + tid, function(info) {
                             if (info == "OK") {
                                 $.snackbar({
                                     content: " 不赞 +1 "
@@ -426,7 +429,7 @@
 
                     function getCommentsSum() {
                         var tid = document.getElementById("tid").innerHTML;
-                        $.get("http://akakanch.com/trs/getcommentssum/" + tid + "/", function(info) {
+                        $.get("/trs/getcommentssum/" + tid + "/", function(info) {
                             document.getElementById("totalcomments").innerHTML = info;
                         });
                     }
@@ -434,7 +437,7 @@
                     function onFillinfo() {
 
                         var ipt = document.getElementById('tid').innerHTML;
-                        window.open("http://akakanch.com/trs/filllostinfo/" + ipt);
+                        window.open("/trs/filllostinfo/" + ipt);
                     }
                     getCommentsSum()
                 </script>
@@ -449,7 +452,7 @@
                             });
                             return;
                         }
-                        $.post('http://akakanch.com/trs/submitacomment', {
+                        $.post('/trs/submitacomment', {
                             "id": tid,
                             "comment": comments
                         });

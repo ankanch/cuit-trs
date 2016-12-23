@@ -139,7 +139,25 @@ def getComments(id,linestart):
             COMMENTSBODY = COMMENTSBODY + IW.COMMENTS_HEAD + com + IW.COMMENTS_TAIL
     return COMMENTSBODY
 
+@app.route('/trs/getcommentssum/<int:id>/')
+def getCommentsSum(id):
+    return TI.getCommentSum(id)
+@app.route('/trs/submitacomment', methods=['POST'])
+def submitAComment():
+    id = request.form['id']
+    comment = request.form['comment']
+    if comment.find("</a>") > -1 or comment.find("</script>") > -1 or comment.find("href") > -1:
+        return "ERROR"
+    return TI.addComment(int(id),comment)
 
+@app.route('/trs/filllostinfo', methods=['POST'])
+def fillLostInfo():
+    id = request.form['id']
+    subject = request.form['subject']
+    school = request.form['school']
+    gender = request.form['gender']
+    print("Fill Info Recived:",id,subject,school,gender)
+    return TI.fillLostInfo(id,subject,school,gender)
 #FOR ANDROID APPLICATIONS
 #FOR ANDROID APPLICATIONS
 #FOR ANDROID APPLICATIONS
@@ -162,30 +180,15 @@ def registeUser(UID):
 def getRatingList(UID):
     return TI.getRatingList(UID)
 
-@app.route('/submitacomment', methods=['POST'])
-def submitAComment():
-    id = request.form['id']
-    comment = request.form['comment']
-    if comment.find("</a>") > -1 or comment.find("</script>") > -1 or comment.find("href") > -1:
-        return "ERROR"
-    return TI.addComment(int(id),comment)
 
-@app.route('/filllostinfo', methods=['POST'])
-def fillLostInfo():
-    id = request.form['id']
-    subject = request.form['subject']
-    school = request.form['school']
-    gender = request.form['gender']
-    print("Fill Info Recived:",id,subject,school,gender)
-    return TI.fillLostInfo(id,subject,school,gender)
+
+
 
 @app.route('/getcomment/<int:id>/<int:linestart>/<int:lineend>/')
 def getComment(id,linestart,lineend):
     return TI.getComment(id,linestart,lineend)
 
-@app.route('/getcommentssum/<int:id>/')
-def getCommentsSum(id):
-    return TI.getCommentSum(id)
+
 
 @app.route('/getinfo/<int:id>/')
 def getinfobyID(id):

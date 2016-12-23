@@ -1,7 +1,7 @@
 //<!--用户自动注册 -->
 //<script type = "text/javascript" >
 function autoRegiste() {
-    var commentsbaseurl = "/autoregiste";
+    var commentsbaseurl = "/trs/autoregiste";
     $.get(commentsbaseurl, function(data) {
         if (data != "NULL") {
             return data
@@ -32,7 +32,7 @@ function setCookie(c_name, value, expiredays) {
 function getUID() {
     uid = getCookie('uid')
     if (uid != null && uid != "" && uid != "undefined	" && uid != "undefined") { return uid } else {
-        var commentsbaseurl = "/autoregiste";
+        var commentsbaseurl = "/trs/autoregiste";
         $.get(commentsbaseurl, function(data) {
             if (data != "NULL") {
                 setCookie('uid', data, 365)
