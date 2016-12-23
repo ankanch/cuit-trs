@@ -5,6 +5,13 @@
 如果你对该份代码有任何问题，请联系：[kanch@akakanch.com](kanch@akakanch.com)
 
 理论上讲，成信好老师这个站点会运行到我毕业（2019年）
+***
+[更多功能]
+
+目前新闻抓取拥有Google App Engine 和Microsoft Azure App Service两个部署版本。
+
+该README文件更新非常慢。
+***
 
 ######关于Android客户端【弃用】
 原来是想的以客户端形式分发，后来根据@misszhang的建议，做成了Web版本，当时客户端 已经基本完成了。不过现在看来Android客户端已经作废，故同样上传到GitHub上来。
@@ -60,12 +67,12 @@ Android项目需要Android Studio 2.3及以上打开。
 
 tr_teacherlist：
 
-	
+
     ID NAME RATING LIKES DISLIKES SUBJECT SCHOOL GENDER
 
 tr_teacher_comments：
 
-	
+
     ID NAME SUM FILENAME
 
 tr_userlist：
@@ -75,4 +82,3 @@ tr_userlist：
 tr_subscriber：
 
     EMAIL
-
