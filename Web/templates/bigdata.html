@@ -281,7 +281,7 @@
             <div class="form-group label-floating">
                 <div class="input-group">
                     <label class="control-label" for="focusedInput2">请输入要查询的贴吧ID</label>
-                    <input class="form-control" id="focusedInput_name" type="text" onkeydown="javascript:keydown();" oninput="javascript:showautofill()" list="word">
+                    <input class="form-control" id="focusedInput_name" type="text" onkeydown="javascript:showTip();" oninput="javascript:showautofillxxxxx()" list="word">
                     <datalist id="word">
 						<!--智能k提示-->
 					</datalist>
@@ -292,17 +292,6 @@
                 </button>
 </div><br/>
 <p class="text-warning">请勿将本站数据用作任何非法用途。本站数据均由机器得出，无法保证准确性，请悉知。</p>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- TRS -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6425922486772410"
-     data-ad-slot="3278080489"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 
 
 
@@ -335,6 +324,10 @@
 function toggleDiv(divId) {
    $("#"+divId).toggle();
 }
+function showTip()
+{
+     $.snackbar({content: "该功能暂未开放！预计将会在寒假期间开放。"});
+}
 </script>
 
 <script type="text/javascript">
@@ -351,7 +344,7 @@ function showTeachdetInfo() {
 <!--智能提示框 -->
 <script type="text/javascript">
 function showautofill(){
-    var commentsbaseurl = "/trs/autofill/"
+    var commentsbaseurl = ""
                 var qord = document.getElementById('focusedInput_name').value;
                 
                 commentsbaseurl = commentsbaseurl + qord;

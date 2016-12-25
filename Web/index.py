@@ -36,7 +36,8 @@ def newslist():
 
 @app.route('/getnews/<ntype>')
 def getnews(ntype):
-    return News.getNews(ntype)
+    #return News.getNews(ntype)
+    return 'null'
 
 @app.route('/subscrible/<email>/<stype>')
 def sbuscrible(email,stype):
