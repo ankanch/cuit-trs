@@ -53,6 +53,7 @@
   <ItemGroup>
     <None Include="CUITHelperAPIX20161223042625 - Web Deploy.pubxml" />
     <None Include="CUITHelperAPIX - Web Deploy.pubxml" />
+    <Content Include="CUITHelperAPIX\templates\newslist.html" />
     <Content Include="requirements.txt" />
     <Content Include="CUITHelperAPIX\static\content\bootstrap.css" />
     <Content Include="CUITHelperAPIX\static\content\bootstrap.min.css" />

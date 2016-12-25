@@ -274,3 +274,8 @@ __pycache__/
 
 # Cake - Uncomment if you are using it
 # tools/
+# database
+database.py
+database.pyc
+datasource.py
+datasource.pyc

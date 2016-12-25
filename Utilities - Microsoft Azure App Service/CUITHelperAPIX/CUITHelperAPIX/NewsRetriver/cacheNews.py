@@ -14,7 +14,7 @@ def checkNewNews(newsdata,cachefilename):
     sourcedata = ""
     newslist = newsdata
     try:
-        f = gcs.open(cachefilename,'r')
+        f = open(cachefilename,'r')
         sourcedata = f.read()
         f.close()
     except Exception as e:
