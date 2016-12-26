@@ -246,7 +246,7 @@ def getSearchTags():
     x = 1
     DD = "<p class=\"text-success\"><strong>大家最近在搜：</strong></p>"
     for tt in sl:
-        DD = DD + TAG_HEAD + "teacher\\" + tt[0] + TAG_MID + tt[0] +"(" + str(tt[1]) + ")" + TAG_TAIL + "&nbsp;&nbsp;"
+        DD = DD + TAG_HEAD + "trs\\teacher\\" + tt[0] + TAG_MID + tt[0] +"(" + str(tt[1]) + ")" + TAG_TAIL + "&nbsp;&nbsp;"
         if x%5==0:
             DD+="<br/>"
         if x>9:

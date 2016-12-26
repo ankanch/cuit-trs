@@ -3,9 +3,9 @@ get_summaries
 utils
 UpdatingDefaultsHelpFormatter
 InstallationError
-models
-operations
 __main__
+operations
+models
 baseparser
 wheel
 exceptions

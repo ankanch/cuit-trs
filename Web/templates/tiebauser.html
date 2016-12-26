@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{username}}的数据 | 成信助手 | CUIT Helper</title>
+
+    <link href="/static/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <!-- Material Design fonts
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <!-- Bootstrap  -->
+    <link href="/static/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Material Design -->
+    <link href="/static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
+    <link href="/static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
+    <!-- core CSS of SnackbarJS, find it in /dist -->
+    <link href="/static/snackbar/dist/snackbar.min.css" rel="stylesheet">
+    <!-- the default theme of SnackbarJS, find it in /themes-css -->
+    <link href="/static/snackbar/themes-css/material.css" rel="stylesheet">
+
+    <style>
+        #banner {
+            border-bottom: none
+        }
+        
+        .page-header h1 {
+            font-size: 4em
+        }
+        
+        .bs-docs-section {
+            margin-top: 8em
+        }
+        
+        .bs-component {
+            position: relative
+        }
+        
+        .bs-component .modal {
+            position: relative;
+            top: auto;
+            right: auto;
+            left: auto;
+            bottom: auto;
+            z-index: 1;
+            display: block
+        }
+        
+        .bs-component .modal-dialog {
+            width: 90%
+        }
+        
+        .bs-component .popover {
+            position: relative;
+            display: inline-block;
+            width: 220px;
+            margin: 20px
+        }
+        
+        #source-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 100;
+            font-weight: bold;
+            padding: 5px 10px;
+        }
+        
+        .progress {
+            margin-bottom: 10px
+        }
+        
+        footer {
+            margin: 5em 0
+        }
+        
+        footer li {
+            float: left;
+            margin-right: 1.5em;
+            margin-bottom: 1.5em
+        }
+        
+        footer p {
+            clear: left;
+            margin-bottom: 0
+        }
+        
+        .splash {
+            padding: 4em 0 0;
+            background-color: #141d27;
+            color: #fff;
+            text-align: center
+        }
+        
+        .splash h1 {
+            font-size: 4em
+        }
+        
+        .splash #social {
+            margin: 2em 0
+        }
+        
+        .splash .alert {
+            margin: 2em 0
+        }
+        
+        .section-tout {
+            padding: 4em 0 3em;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            background-color: #eaf1f1
+        }
+        
+        .section-tout .fa {
+            margin-right: .5em
+        }
+        
+        .section-tout p {
+            margin-bottom: 3em
+        }
+        
+        .section-preview {
+            padding: 4em 0 4em
+        }
+        
+        .section-preview .preview {
+            margin-bottom: 4em;
+            background-color: #eaf1f1
+        }
+        
+        .section-preview .preview .image {
+            position: relative
+        }
+        
+        .section-preview .preview .image:before {
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: "";
+            pointer-events: none
+        }
+        
+        .section-preview .preview .options {
+            padding: 1em 2em 2em;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: none;
+            text-align: center
+        }
+        
+        .section-preview .preview .options p {
+            margin-bottom: 2em
+        }
+        
+        .section-preview .dropdown-menu {
+            text-align: left
+        }
+        
+        .section-preview .lead {
+            margin-bottom: 2em
+        }
+        
+        @media (max-width: 767px) {
+            .section-preview .image img {
+                width: 100%
+            }
+        }
+        
+        .sponsor {
+            text-align: center
+        }
+        
+        .sponsor a:hover {
+            text-decoration: none
+        }
+        
+        @media (max-width: 767px) {
+            #banner {
+                margin-bottom: 2em;
+                text-align: center
+            }
+        }
+        
+        .infobox .btn-sup {
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+            font-size: 15px;
+            line-height: 30px;
+        }
+        
+        .infobox .btn-sup img {
+            opacity: 0.5;
+            height: 30px;
+        }
+        
+        .infobox .btn-sup span {
+            padding-left: 10px;
+            position: relative;
+            top: 2px;
+        }
+        
+        .icons-material .row {
+            margin-bottom: 20px;
+        }
+        
+        .icons-material .col-xs-2 {
+            text-align: center;
+        }
+        
+        .icons-material i {
+            font-size: 34pt;
+        }
+        
+        .icon-preview {
+            display: inline-block;
+            padding: 10px;
+            margin: 10px;
+            background: #D5D5D5;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .icon-preview span {
+            display: none;
+            position: absolute;
+            background: black;
+            color: #EEE;
+            padding: 5px 8px;
+            font-size: 15px;
+            border-radius: 2px;
+            z-index: 10;
+        }
+        
+        .icon-preview:hover i {
+            color: #4285f4;
+        }
+        
+        .icon-preview:hover span {
+            display: block;
+            cursor: text;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bs-component">
+        <div class="navbar navbar-warning">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                    <a class="navbar-brand" href="/">成信助手</a>
+                </div>
+                <div class="navbar-collapse collapse navbar-warning-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/trs">成信好老师</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li><a href="/tiebabigdata">成信贴吧大数据（即将上线）</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="infodiv" style="display:none; alignment-baseline:central">
+        </div>
+        <!--在下面添加自定义代码-->
+        <div class="container">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{username}}的分析结果</h3>
+                </div>
+                <div class="panel-body">
+                    <h2>基本信息</h2>
+                    <div class="row" style="width: 80%; margin: 0px auto;background: black;">
+                        <font color="white">
+                            <br/>
+                            <div class="col-md-6">
+                                <h4 id="data_tiebaid">贴吧ID:</h4>
+                                <h4 id="data_totalpost">累计发帖量:</h4>
+                                <h4 id="data_monthlypost">近30天发帖量:</h4>
+                                <h4 id="data_fivekeyword">关键字:</h4>
+                                <h4 id="data_tag">被贴上的标签:</h4>
+                                <ul class="nav nav-pills">
+                                    <li class="active"><a href="javascript:void(0)" id="data_friendlylevel">友善评级<span class="badge">B</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 id="data_realname">该ID拥有者:</h4>
+                                <h4 id="data_sid">学号:</h4>
+                                <h4 id="data_college">学院-年级:</h4>
+                                <h4 id="data_contact_QQ">联系信息：</h4>
+                                <h4 id="data_contact_Email">电子邮件：</h4>
+                                <h4 id="data_contact_Phone">手机：</h4>
+                            </div>
+                            <p>对该用户的任何数据统计全部是基于成都信息工程大学贴吧数据。</p>
+                            <p class="text-danger">知道这个贴吧用户的真实信息？
+                                <a href="javascript:void(0)" class="btn btn-raised btn-link">点此补全真实信息</a>帮助我们完善数据库。
+                            </p>
+                        </font>
+                    </div>
+                    <h2>更多分析</h2>
+                    <div class="row" style="width: 80%; margin: 0px auto;">
+                        <br/>
+                        <p class="text-info">下面的图像显示的该用户在我们学校贴吧的一些基本统计信息。你可以在下面选择不同的数据浏览</p>
+                        <div class="row">
+                            <a href="javascript:loadActivityTimeLine()" class="btn btn-raised btn-primary">活跃度图</a>
+                            <a href="javascript:loadActivityTimeZone()" class="btn btn-raised btn-primary">活跃时间段</a>
+                            <a href="javascript:loadUserRelation()" class="btn btn-raised btn-primary">用户互动图</a>
+                            <a href="javascript:loadKeyword()" class="btn btn-raised btn-primary">回帖关键字</a>
+                        </div>
+                        <h4 id="graph_title">图表标题</h4>
+                        <p id="graph_note">图表说明</p>
+                        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                        <div id="echarts" style="width: 100%;height:400px;margin: 0px auto;"></div>
+
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="/static/jquery-3.1.1.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="/static/dist/js/bootstrap.min.js"></script>
+        <!-- Material Design for Bootstrap -->
+        <script src="/static/bmaterial/dist/js/material.js"></script>
+        <script src="/static/bmaterial/dist/js/ripples.min.js"></script>
+        <!-- SnackbarJS, find it in /dist -->
+        <script src="/static/snackbar/dist/snackbar.min.js"></script>
+        <!-- Kanch's JS Common libary' -->
+        <script src="/static/kjslib.js"></script>
+        <!-- 引入 ECharts 文件 -->
+        <script src="/static/echarts/echarts.min.js"></script>
+        <script>
+            $.material.init();
+            var myChart = echarts.init(document.getElementById('echarts'));
+        </script>
+        <!-- 显示关于 -->
+        <script type="text/javascript">
+            function toggleDiv(divId) {
+                $("#" + divId).toggle();
+            }
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                document.getElementById("infodiv").innerHTML = getabout();
+                console.log("1");
+            });
+        </script>
+        <script type="text/javascript">
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: ''
+                },
+                tooltip: {},
+                legend: {
+                    data: ['销量']
+                },
+                xAxis: {
+                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        </script>
+        <!--下面的代码用于加载图像-->
+        <script type="text/javascript">
+            //加载活跃度图
+            function loadActivityTimeLine() {
+                myChart.showLoading();
+                $.get(url, function(data) {
+                    myChart.hideLoading();
+                    if (data != "NULL" && data != "ERROR") {
+                        //设置图表数据
+                        myChart.setOption();
+                    }
+                });
+            }
+            //加载活跃时间段图
+            function loadActivityTimeZone() {
+                myChart.showLoading();
+                $.get(url, function(data) {
+                    myChart.hideLoading();
+                    if (data != "NULL" && data != "ERROR") {
+                        //设置图表数据
+                        myChart.setOption({
+                            title: {
+                                text: '活跃时间段'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            toolbox: {
+                                feature: {
+                                    saveAsImage: {}
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: [{
+                                type: 'category',
+                                boundaryGap: false,
+                                data: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+                            }],
+                            yAxis: [{
+                                type: 'value'
+                            }],
+                            series: [{
+                                name: '发帖量',
+                                type: 'line',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'top'
+                                    }
+                                },
+                                areaStyle: {
+                                    normal: {}
+                                },
+                                data: [820, 932, 901, 934, 1290, 1330, 1320, 11, 11, 11, 11, 254, 545, 33, 443, 443, 656, 343, 232, 334, 323, 121, 334, 323]
+                            }]
+                        });
+                    }
+                });
+            }
+            //加载用户互动图
+            function loadUserRelation() {
+                myChart.showLoading();
+                $.get(url, function(data) {
+                    myChart.hideLoading();
+                    if (data != "NULL" && data != "ERROR") {
+                        //设置图表数据
+                        myChart.setOption();
+                    }
+                });
+            }
+            //加载回帖关键字
+            function loadKeyword() {
+                myChart.showLoading();
+                $.get(url, function(data) {
+                    myChart.hideLoading();
+                    if (data != "NULL" && data != "ERROR") {
+                        //设置图表数据
+                        myChart.setOption();
+                    }
+                });
+            }
+        </script>
+        <script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-53245384-4', 'auto');
+            ga('send', 'pageview');
+        </script>
+
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+datetime
+imp
+unittest2
+text_type
+time
+sys
+warnings
+TestGitHubIssues
+TestNewIssues
+__all__
+reload
+pymysql
+base
+cursors
+TestOldIssues

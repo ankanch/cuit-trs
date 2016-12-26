@@ -1,0 +1,12 @@
+PY2
+long_type
+CoreModule
+base
+FIELD_TYPE
+_mysql
+CoreAPI
+pymysql
+basestring
+TestDBAPISet
+sys
+unittest

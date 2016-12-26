@@ -3,11 +3,12 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template,redirect
 from CUITHelperAPIX import app
 from CUITHelperAPIX.NewsRetriver import zhuaqu as CUIT
 from CUITHelperAPIX.NewsRetriver import MailService as MailService
 from CUITHelperAPIX.NewsRetriver import cacheNews as NewsCache
+from CUITHelperAPIX.QueryAPI import verifyMail as VerifyMail
 
 @app.route('/')
 @app.route('/home')
@@ -23,7 +24,12 @@ def howto():
 ############################333
 #       下面是邮箱验证接口
 ############################333
-
+@app.route('/verify/bigdata/<hashdata>')
+def mailcheck(hashdata):
+    if VerifyMail.checkHash(hashdata) == True:
+        return redirect('http://cuit.akakanch.com')
+    else:
+        return redirect('http://trs.akakanch.com')
 
 ############################333
 #       下面的都是新闻

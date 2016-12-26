@@ -1,0 +1,16 @@
+_map_error
+DatabaseError
+raise_mysql_exception
+OperationalError
+IntegrityError
+struct
+Warning
+ProgrammingError
+InternalError
+Error
+ER
+InterfaceError
+error_map
+NotSupportedError
+MySQLError
+DataError

@@ -37,12 +37,22 @@
     <Compile Include="CUITHelperAPIX\NewsRetriver\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CUITHelperAPIX\QueryAPI\database.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CUITHelperAPIX\QueryAPI\verifyMail.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CUITHelperAPIX\QueryAPI\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="CUITHelperAPIX\__init__.py" />
     <Compile Include="CUITHelperAPIX\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CUITHelperAPIX\" />
+    <Folder Include="CUITHelperAPIX\QueryAPI\" />
     <Folder Include="CUITHelperAPIX\NewsRetriver\" />
     <Folder Include="CUITHelperAPIX\static\" />
     <Folder Include="CUITHelperAPIX\static\content\" />

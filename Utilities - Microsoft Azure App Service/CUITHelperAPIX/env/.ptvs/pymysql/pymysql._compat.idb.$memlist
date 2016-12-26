@@ -1,0 +1,12 @@
+PY2
+unichr
+IRONPYTHON
+text_type
+PYPY
+range_type
+str_type
+JYTHON
+long_type
+__builtin__
+sys
+CPYTHON

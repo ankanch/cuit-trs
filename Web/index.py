@@ -29,6 +29,10 @@ def hello():
 def bigdata():
     return render_template("bigdata.html")
 
+@app.route('/tiebabigdata/user/<sessiondata>/<xid>')
+def bigdata_user(sessiondata,xid):
+    return render_template("tiebauser.html")
+
 #成信助手
 @app.route('/newslist')
 def newslist():

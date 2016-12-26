@@ -1,0 +1,9 @@
+unittest2
+os
+PyMySQLTestCase
+json
+warnings
+pymysql
+gc
+re
+CPYTHON
