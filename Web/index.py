@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template,jsonify
+from flask import render_template,jsonify,redirect
 from flask import request
 import flask
 import time
@@ -7,6 +7,7 @@ import worklib.getTeacherInfo as TI
 import worklib.getInfoWeb as IW
 import worklib.getnews as News
 import worklib.subscrible as SUB
+import bigdataQuery.checkmail as VerifyBigDataMail
 app = Flask(__name__)
 
 PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
@@ -29,9 +30,29 @@ def hello():
 def bigdata():
     return render_template("bigdata.html")
 
+#查看用户数据（经过邮箱验证后）
 @app.route('/tiebabigdata/user/<sessiondata>/<xid>')
 def bigdata_user(sessiondata,xid):
     return render_template("tiebauser.html")
+
+#邮箱验证发送成功页面
+@app.route('/verify/bigdata/success')
+def bigdata_verifyMail_success():
+    return render_template('verifyMailSent.html',MAIL="",NAME="")
+
+#验证邮箱页面
+@app.route('/verify/bigdata', methods=['POST'])
+def bigdata_verifyMail():
+    searchtarget = request.form['searchtarget']
+    email = request.form['email']
+    sig = VerifyBigDataMail.generateHash(email,searchtarget)
+    VerifyBigDataMail.sendVerifyMail(email,sig)
+    return redirect('/verify/bigdata/success')
+
+#转向该链接以启用邮箱验证
+@app.route('/verify/bigdata/<searchtarget>')
+def bigdata_verify_open(searchtarget):
+    return render_template('requestVerifyMail.html',SEG=searchtarget)
 
 #成信助手
 @app.route('/newslist')

@@ -29,5 +29,21 @@ def Mail(TO,TITLE,CONTENT):
   except Exception:  
     ret=False
   return ret
+
+def MailTo(TO,TITLE,CONTENT,sender,senderpass):
+  ret=True
+  my_user = TO
+  msg=MIMEText(CONTENT,'plain','utf-8')
+  msg['From']=formataddr(["成信助手 CUIT Helper",sender])  
+  msg['To']=formataddr(["Subscriber",my_user])
+  msg['Subject']="no-reply:" + TITLE + "\t成信助手 | CUIT Helper" #邮件的主题
+  try:
+    server=smtplib.SMTP_SSL("smtp.exmail.qq.com",465) 
+    server.login(sender,senderpass) 
+    server.sendmail(sender,my_user,msg.as_string()) 
+    server.quit() 
+  except Exception:  
+    ret=False
+  return ret
  
 #SendMail("1075900121@qq.com",'测试邮件','括号中对应的是发件人邮箱账号、括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件邮箱密码')

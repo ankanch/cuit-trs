@@ -279,3 +279,4 @@ database.py
 database.pyc
 datasource.py
 datasource.pyc
+verifyMail.py
