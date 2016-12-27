@@ -8,6 +8,7 @@ import worklib.getInfoWeb as IW
 import worklib.getnews as News
 import worklib.subscrible as SUB
 import bigdataQuery.checkmail as VerifyBigDataMail
+import bigdataQuery.userFunctions as UserFunctions
 app = Flask(__name__)
 
 PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
@@ -33,7 +34,18 @@ def bigdata():
 #查看用户数据（经过邮箱验证后）
 @app.route('/tiebabigdata/user/<sessiondata>/<xid>')
 def bigdata_user(sessiondata,xid):
-    return render_template("tiebauser.html")
+    veristatus = VerifyBigDataMail.checkSession(sessiondata)
+    if veristatus == 1:
+        info = UserFunctions.getBasicInfo(xid)
+        if info[0] == False:
+            return render_template('error.html')
+        return render_template('tiebauser.html',xid=xid,session=sessiondata,TIEBAID=info[1],KEYWORD=info[10],TAGS=info[9],REALNAME=info[2],XUEHAO=info[3],GRADECLASS=info[8],QQ=info[4],EMAIL=info[6],PHONE=info[5])
+    elif veristatus == -1:  #未查找到
+        return render_template('error_verify.html',WHY="链接无效！<br/>您可能没有通过邮件验证！")
+    elif veristatus == -2:  #过期
+        return render_template('error_verify.html',WHY="链接已经过期！<br/>该链接已经过期，您需要重新验证以获取新的链接！<p>链接仅在24小时内有效！</p>")
+    else:
+        return render_template('error_verify.html',WHY="发生未知错误！")
 
 #邮箱验证发送成功页面
 @app.route('/verify/bigdata/success')
@@ -45,8 +57,16 @@ def bigdata_verifyMail_success():
 def bigdata_verifyMail():
     searchtarget = request.form['searchtarget']
     email = request.form['email']
+    xid = 0
+    status = UserFunctions.checkUser(searchtarget)
+    if status == -1:
+        xid = UserFunctions.insertIntoBigData(searchtarget)
+        if xid == -1:
+            return render_template('error.html')
+    else:
+        xid = status
     sig = VerifyBigDataMail.generateHash(email,searchtarget)
-    VerifyBigDataMail.sendVerifyMail(email,sig)
+    VerifyBigDataMail.sendVerifyMail(email,sig,str(xid))
     return redirect('/verify/bigdata/success')
 
 #转向该链接以启用邮箱验证
