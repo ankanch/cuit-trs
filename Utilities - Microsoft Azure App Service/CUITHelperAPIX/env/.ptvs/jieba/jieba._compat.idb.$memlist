@@ -1,0 +1,14 @@
+PY2
+os
+text_type
+itervalues
+iterkeys
+xrange
+iteritems
+strdecode
+pkg_resources
+default_encoding
+string_types
+resolve_filename
+sys
+get_module_res

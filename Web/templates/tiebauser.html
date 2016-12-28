@@ -305,7 +305,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <h4>
-                                            <font color="grey" id="data_totalpost_text"></font>
+                                            <font color="grey" id="data_totalpost_text">获取中...</font>
                                         </h4>
                                     </div>
                                 </div>
@@ -315,7 +315,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <h4>
-                                            <font color="grey" id="data_monthlypost_text"></font>
+                                            <font color="grey" id="data_monthlypost_text">获取中...</font>
                                         </h4>
                                     </div>
                                 </div>
@@ -450,7 +450,7 @@
             $.material.init();
             var myChart = echarts.init(document.getElementById('echarts'));
             var xid = "{{xid}}";
-            var URLSUFFIX = "http://cuithelperapix.azurewebsites.net";
+            var URLSUFFIX = "http://ec2-54-238-225-195.ap-northeast-1.compute.amazonaws.com:5555";
         </script>
         <!-- 显示关于 -->
         <script type="text/javascript">
@@ -466,6 +466,7 @@
                     document.getElementById("data_totalpost_text").innerText = ld[0];
                     document.getElementById("data_monthlypost_text").innerText = ld[1];
                 });
+                loadActivityTimeLine();
                 console.log("1");
             });
         </script>
@@ -501,27 +502,76 @@
             //加载活跃度图
             function loadActivityTimeLine() {
                 myChart.showLoading();
+                document.getElementById("graph_title").innerText = "用户活跃度图";
+                document.getElementById("graph_note").innerText = "该图展示了该用户在最近90天的活跃度（发帖量）";
                 $.get(URLSUFFIX + "/api/tiebabigdata/activitytimeline/{{session}}/{{xid}}/90", function(data) {
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
+                        //解析数据
+                        data.replace("'", "");
+                        rawl = data.split("], [");
+                        rawl[0].replace("[[", "");
+                        rawl[1].replace("]]", "");
+                        //转换为整形数组
+                        var xstr = rawl[0].split(",");
+                        var dataStrArr = rawl[1].split(",");
+                        var dataIntArr = [];
+                        dataStrArr.forEach(function(data, index, arr) {
+                            dataIntArr.push(+data);
+                        });
                         //设置图表数据
-                        myChart.setOption();
+                        myChart.setOption(option = {
+                            title: {
+                                text: '近90天活跃数据'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            xAxis: {
+                                data: xstr
+                            },
+                            yAxis: {
+                                splitLine: {
+                                    show: false
+                                }
+                            },
+                            toolbox: {
+                                left: 'center',
+                                feature: {
+                                    dataZoom: {
+                                        yAxisIndex: 'none'
+                                    },
+                                    restore: {},
+                                    saveAsImage: {}
+                                }
+                            },
+                            dataZoom: [{
+                                startValue: '2014-06-01'
+                            }, {
+                                type: 'inside'
+                            }],
+                            series: {
+                                name: '当日发帖量',
+                                type: 'line',
+                                data: dataIntArr
+                            }
+                        });
                     }
                 });
             }
             //加载活跃时间段图
             function loadActivityTimeZone() {
                 myChart.showLoading();
+                document.getElementById("graph_title").innerText = "用户活跃时间段图";
+                document.getElementById("graph_note").innerText = "该图展示了该用户每日的活跃时间段（基于所有发帖）";
                 $.get(URLSUFFIX + "/api/tiebabigdata/activitytimezon/{{session}}/{{xid}}", function(data) {
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
                         data = data.replace("[", "");
                         data = data.replace("]", "");
                         //转换为整形数组
-                        var dataStrArr = data.split(","); //分割成字符串数组
-                        var dataIntArr = []; //保存转换后的整型字符串
-
-                        //方法一
+                        var dataStrArr = data.split(",");
+                        var dataIntArr = [];
                         dataStrArr.forEach(function(data, index, arr) {
                             dataIntArr.push(+data);
                         });
@@ -574,6 +624,8 @@
             //加载用户互动图
             function loadUserRelation() {
                 myChart.showLoading();
+                document.getElementById("graph_title").innerText = "用户互动关系图";
+                document.getElementById("graph_note").innerText = "该图展示了与该用户互动频率最高的前10位用户";
                 $.get(URLSUFFIX + "/api/tiebabigdata/relationcircle/{{session}}/{{xid}}", function(data) {
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
@@ -585,11 +637,55 @@
             //加载回帖关键字
             function loadKeyword() {
                 myChart.showLoading();
+                document.getElementById("graph_title").innerText = "用户回帖关键字";
+                document.getElementById("graph_note").innerText = "该图展示了该用户在回帖时使用频率最高的关键字";
                 $.get(URLSUFFIX + "/api/tiebabigdata/keymap/{{session}}/{{xid}}", function(data) {
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
+                        //解析数据
+                        data.replace("'", "");
+                        rawl = data.split("], [");
+                        rawl[0].replace("[[", "");
+                        rawl[1].replace("]]", "");
+                        //转换为整形数组
+                        var xstr = rawl[0].split(",");
+                        var dataStrArr = rawl[1].split(",");
+                        var dataIntArr = [];
+                        dataStrArr.forEach(function(data, index, arr) {
+                            dataIntArr.push(+data);
+                        });
                         //设置图表数据
-                        myChart.setOption();
+                        myChart.setOption({
+                            color: ['#3398DB'],
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: [{
+                                type: 'category',
+                                data: xstr,
+                                axisTick: {
+                                    alignWithLabel: true
+                                }
+                            }],
+                            yAxis: [{
+                                type: 'value'
+                            }],
+                            series: [{
+                                name: '频次',
+                                type: 'bar',
+                                barWidth: '60%',
+                                data: dataIntArr
+                            }]
+                        });
                     }
                 });
             }

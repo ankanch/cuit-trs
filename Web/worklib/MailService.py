@@ -3,8 +3,8 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.utils import formataddr
-my_sender= #发件人邮箱账号，为了后面易于维护，所以写成了变量
-my_sender_password =   #发件人邮箱
+my_sender='test@akakanch.com' #发件人邮箱账号，为了后面易于维护，所以写成了变量
+my_sender_password = "Test12345678910"  #发件人邮箱
 
 #请调用该函数发送邮件
 def SendMail(TO,TITLE,CONTENT):

@@ -37,7 +37,13 @@
     <Compile Include="CUITHelperAPIX\NewsRetriver\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CUITHelperAPIX\QueryAPI\BigDataQueryAPI.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CUITHelperAPIX\QueryAPI\database.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CUITHelperAPIX\QueryAPI\QueryFunctions.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CUITHelperAPIX\QueryAPI\verifyMail.py">

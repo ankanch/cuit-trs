@@ -37,8 +37,8 @@ def sendVerifyMail(email,hashdata,target):
     hashurl = "http://cuithelperapix.azurewebsites.net/verify/bigdata/" + hashdata + "/" + target
     CONTENT += "<a href=\""+ hashurl +"\" target=\"_blank\">"+ hashurl + "</a>"
     CONTENT+= "<br/><br/>您之所以会收到该邮件是因为您最近在 成信贴吧大数据（http://cuit.akakanch.com） 进行了查询。"
-    sender = 
-    senderpass = 
+    sender = "noreply.cuit-helper@akakanch.com"
+    senderpass = "CUITbyKANCH1996"
     if MailService.MailTo(email,"成信助手贴吧大数据查询邮箱验证",CONTENT,sender,senderpass) == True:
         return True
     return False
