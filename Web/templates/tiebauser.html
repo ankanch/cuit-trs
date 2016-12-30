@@ -446,6 +446,7 @@
         <script src="/static/kjslib.js"></script>
         <!-- 引入 ECharts 文件 -->
         <script src="/static/echarts/echarts.min.js"></script>
+        <script src="/static/json.js"></script>
         <script>
             $.material.init();
             var myChart = echarts.init(document.getElementById('echarts'));
@@ -478,16 +479,16 @@
                 },
                 tooltip: {},
                 legend: {
-                    data: ['销量']
+                    data: ['by kanch']
                 },
                 xAxis: {
-                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                    data: ["by ", "Kanch"]
                 },
                 yAxis: {},
                 series: [{
-                    name: '销量',
+                    name: 'by kanch',
                     type: 'bar',
-                    data: [5, 20, 36, 10, 10, 20]
+                    data: [5, 20]
                 }]
             };
 
@@ -629,8 +630,39 @@
                 $.get(URLSUFFIX + "/api/tiebabigdata/relationcircle/{{session}}/{{xid}}", function(data) {
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
+                        //var obj = JSON.parse(data);
+                        var obj = data;
                         //设置图表数据
-                        myChart.setOption();
+                        myChart.setOption({
+                            title: {
+                                text: '',
+                                subtext: '',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: obj.label
+                            },
+                            series: [{
+                                name: '交互次数',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                data: obj.value,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }]
+                        });
                     }
                 });
             }
