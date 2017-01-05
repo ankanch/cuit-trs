@@ -632,6 +632,19 @@
                     if (data != "NULL" && data != "ERROR") {
                         //var obj = JSON.parse(data);
                         var obj = data;
+                        //构建字典
+                        var arr = new Array();
+                        var i = 0;
+                        var pd = eval(data.value);
+                        console.log(data.value);
+                        for (; i < pd.length; i++) {
+                            var p = eval(pd[i]);
+                            var dicArray = new Array();
+                            dicArray["value"] = p[1].values;
+                            dicArray["name"] = p[0].name;
+                            arr.push(dicArray);
+                        }
+                        console.log(arr.toString());
                         //设置图表数据
                         myChart.setOption({
                             title: {
@@ -653,7 +666,7 @@
                                 type: 'pie',
                                 radius: '55%',
                                 center: ['50%', '60%'],
-                                data: obj.value,
+                                data: arr,
                                 itemStyle: {
                                     emphasis: {
                                         shadowBlur: 10,
