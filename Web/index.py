@@ -31,6 +31,11 @@ def hello():
 def bigdata():
     return render_template("bigdata.html")
 
+#搜索指定词语的数据
+@app.route('/tiebabigdata/term/<term>')
+def showterm(term):
+    return render_template("wordsstatus.html");
+
 #查看用户数据（经过邮箱验证后）
 @app.route('/tiebabigdata/user/<sessiondata>/<xid>')
 def bigdata_user(sessiondata,xid):

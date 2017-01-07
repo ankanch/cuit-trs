@@ -280,18 +280,39 @@
         <div id="searchdiv" style="width:60%; margin-left:auto;margin-right:auto;margin-top:10%;">
             <div class="form-group label-floating">
                 <div class="input-group">
-                    <label class="control-label" for="focusedInput2">请输入要查询的贴吧ID</label>
-                    <input class="form-control" id="focusedInput_name" type="text" onkeydown="javascript:showTip();" oninput="javascript:showautofillxxxxx()" list="word">
+                    <label class="control-label" for="focusedInput2" id="q_input">请输入要查询的贴吧ID</label>
+                    <input class="form-control" id="focusedInput_name" type="text" onkeydown="javascript:keydown();" oninput="javascript:showautofillxxxxx()" list="word">
                     <datalist id="word">
 						<!--智能k提示-->
 					</datalist>
-                    <p class="help-block">请输入正确的贴吧ID，否则会出错！为了保护隐私，目前仅运行通过贴吧ID查找学生。</p>
+                    <p class="help-block" id="q_tips">请输入正确的贴吧ID，否则会出错！为了保护隐私，目前仅运行通过贴吧ID查找学生。</p>
                     <span class="input-group-btn">
-                <button type="button" class="btn btn-fab btn-fab-mini "  onclick="javascript:showTeachdetInfo();">
+                <button type="button" class="btn btn-fab btn-fab-mini "  onclick="javascript:showresult();">
                   <i class="material-icons">></i>
                 </button>
 </div><br/>
-<p class="text-warning">请勿将本站数据用作任何非法用途。本站数据均由机器得出，无法保证准确性，请悉知。</p>
+<div class="row">
+     <div class="col-md-4">
+        <div class="radio radio-primary">
+          <label>
+            <input type="radio" name="optionsRadios" id="q_user" value="option1" checked="" onclick="setEss(1)">
+           查询特定贴吧用户
+          </label>
+        </div>
+     </div>
+<div class="col-md-4">
+        <div class="radio radio-primary">
+          <label>
+            <input type="radio" name="optionsRadios" id="q_term" value="option2" onclick="setEss(0)">
+           查询特定词语
+          </label>
+        </div>
+</div>
+      </div>
+      <p class="text-warning">请勿将本站数据用作任何非法用途。本站数据均由机器得出，无法保证准确性，请悉知。</p>
+      <br/>
+      <div class="row" style="text-align:center" id="footer">
+        </div>
 
 
 
@@ -309,12 +330,13 @@
     <script src="../static/kjslib.js"></script>
 <script>
   $.material.init();
+  var qtype = 1;  //默认为搜索贴吧用户
 </script>
 <script language="javascript"> 
  function keydown() { 
   if(event.keyCode == 13) 
   { 
-   showTeachdetInfo(); 
+   showresult(); 
   } 
  } 
 </script> 
@@ -324,24 +346,39 @@
 function toggleDiv(divId) {
    $("#"+divId).toggle();
 }
-function showTip()
-{
-     
-}
 </script>
 
 <script type="text/javascript">
-function showTeachdetInfo() {
-    $.snackbar({content: "该功能暂未开放！预计将会在寒假期间开放。"});
+function showresult() {
+    $.snackbar({content: "该功能处理测试状态--->无法保证可用性。"});
    var ipt = document.getElementById('focusedInput_name').value;
    if(ipt.length == 0){
      $.snackbar({content: "x_x~ 错误！请输入正确的贴吧ID！！！"});
      return ;
    }
-   //window.open("/tiebabigdata/"+ipt); 
+   if(qtype == 1)//搜索贴吧用户
+   {
    window.open("/verify/bigdata/"+ipt);
+   }
+   else if(qtype ==0)  //搜索词语
+   {
+       window.open("/tiebabigdata/term/"+ipt);
+   }
 }
 
+function setEss(val){
+    if(val == 1)
+    {
+        document.getElementById("q_input").innerText = "请输入要查询的贴吧ID";
+        document.getElementById("q_tips").innerText = "请输入正确的贴吧ID，否则会出错！为了保护隐私，目前仅运行通过贴吧ID查找学生。";
+    }
+    else
+    {
+         document.getElementById("q_input").innerText = "请输入要查短语";
+        document.getElementById("q_tips").innerText = "短语数据根据目前已有所有数据得出。";
+    }
+    qtype = val;
+}
 </script>
 <!--智能提示框 -->
 <script type="text/javascript">
@@ -360,6 +397,7 @@ function showautofill(){
 <script type="text/javascript">
             $(document).ready(function() {
                 document.getElementById("infodiv").innerHTML = getabout();
+                document.getElementById("footer").innerHTML = getfooter();
                 console.log("1");
             });
         </script>

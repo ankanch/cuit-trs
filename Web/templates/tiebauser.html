@@ -432,7 +432,8 @@
             </div>
         </div>
 
-
+        <div class="row" style="text-align:center" id="footer">
+        </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="/static/jquery-3.1.1.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -462,6 +463,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 document.getElementById("infodiv").innerHTML = getabout();
+                document.getElementById("footer").innerHTML = getfooter();
                 $.get(URLSUFFIX + "/api/tiebabigdata/postsum/{{session}}/{{xid}}", function(data) {
                     ld = data.split(",");
                     document.getElementById("data_totalpost_text").innerText = ld[0];

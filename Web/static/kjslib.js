@@ -75,3 +75,8 @@ function getabout() {
         "</div>";
     return abouttext;
 }
+
+function getfooter() {
+    var footertext = [" <p class=\"text-info\">hcnak \'s stcejorp © 2016 All Rights Reserved </p>"].join("");
+    return footertext;
+}

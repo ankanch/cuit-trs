@@ -287,7 +287,7 @@
                                 <h4 class="modal-title"><b>反数据滥用验证</b></h4>
                             </div>
                             <div class="modal-body">
-                                <p class="text-muted"><b>为了防止数据被滥用，我们需要验证您的邮箱。请在下面输入您的邮箱，带有您查询用户资料页面的链接将会发送到您的邮箱.</b></p>
+                                <p class="text-muted"><b>为了防止数据被滥用，我们需要验证您的邮箱。请在下面输入您的邮箱，带有您查询用户资料页面的链接将会发送到您的邮箱.<br/>测试期间，URL不会过期。</b></p>
                                 <p>查询目标：
                                     <a id="searchtarget">{{SEG}}</a>
                                 </p>
@@ -306,8 +306,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin: 0px auto;text-align: center;">
-                <p class="text-info">hcnak 's stcejorp © 2016 All Rights Reserved </p>
+            <div class="row" style="text-align:center" id="footer">
             </div>
         </div>
 
@@ -335,6 +334,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 document.getElementById("infodiv").innerHTML = getabout();
+                document.getElementById("footer").innerHTML = getfooter();
                 console.log("1");
             });
         </script>

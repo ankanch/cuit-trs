@@ -291,7 +291,8 @@
             </div>
         </div>
 
-
+        <div class="row" style="text-align:center" id="footer">
+        </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="../static/jquery-3.1.1.min.js"></script>
@@ -332,6 +333,7 @@
                 $.get(commentsbaseurl, function(data) {
                     if (data != "NULL") {
                         document.getElementById("ranklist").innerHTML = data;
+
                         $.snackbar({
                             content: "加载完毕"
                         });
@@ -364,6 +366,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 document.getElementById("infodiv").innerHTML = getabout();
+                document.getElementById("footer").innerHTML = getfooter();
                 console.log("1");
             });
         </script>
