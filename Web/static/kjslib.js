@@ -50,6 +50,24 @@ function copyToClipBoard(data) {
     window.clipboardData.setData("Text", clipBoardContent);
 }
 
+function getusertable(userlist) {
+    var usertable = "";
+    TABLE_HEAD = "<tr> <td > "
+    TABLE_MID_A = "</td> <td > "
+    TABLE_MID_B = "</td> <td >"
+    TABLE_MID_C = "</td> <td > "
+    TABLE_TAIL = "</td> </tr>"
+    userd = userlist.split(",");
+    var i = 0;
+    for (var user in userd) {
+        pu = user.split(":");
+        pmd = TABLE_HEAD + i.toString() + TABLE_MID_A + pu[0] + TABLE_MID_B + pu[1] + TABLE_MID_C + pu[2] + TABLE_TAIL;
+        i++;
+        usertable += pmd;
+    }
+    return usertable;
+}
+
 function getabout() {
     var abouttext = "<div style=\"width:55%;margin: 0 auto\">" +
         "    <div class=\"modal\">" +

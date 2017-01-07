@@ -270,5 +270,5 @@ if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
     #app.run(host='216.45.55.153')
-    #app.run(host='127.0.0.1')
-    app.run(host='127.0.0.1',debug=True)
+    app.run(host='127.0.0.1')
+    #app.run(host='127.0.0.1',debug=True)

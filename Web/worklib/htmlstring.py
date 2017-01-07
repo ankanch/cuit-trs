@@ -17,4 +17,4 @@ STRING_TAIL_RANKLIST = """</tbody>
                 </table>
                 """
 
-WORDSTATUS_TABLE_BODY = """<tr><td>2</td><td>无数据</td><td>无数据</td><td>无数据</td></tr><tr class="info"><td>3</td><td>无数据</td><td>无数据</td><td>无数据</td></tr><tr class="success"><td>4</td><td>无数据</td><td>无数据</td><td>无数据</td></tr>"""
+WORDSTATUS_TABLE_BODY = """<tr><td>2</td><td>加载中...</td><td>加载中...</td><td>加载中...</td></tr><tr class="info"><td>3</td><td>加载中...</td><td>加载中...</td><td>加载中...</td></tr><tr class="success"><td>4</td><td>加载中...</td><td>加载中...</td><td>加载中...</td></tr>"""

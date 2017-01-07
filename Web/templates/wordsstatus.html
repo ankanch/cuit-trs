@@ -279,7 +279,7 @@
         </div>
         <!--在下面添加自定义代码-->
         <div class="container" style="margin: center 0px;">
-            <div class="row">
+            <div class="row" style="display: none">
                 <div id="searchdiv" style="width:60%; margin-left:auto;margin-right:auto;margin-top:3%;">
                     <div class="form-group label-floating">
                         <div class="input-group">
@@ -287,22 +287,22 @@
                             <input class="form-control" id="focusedInput_name" type="text" onkeydown="javascript:keydown();" oninput="javascript:showautofill()" list="word">
                             <datalist id="word">
 					</datalist>
-                            <p class="help-block">不建议输入单个字，网站可能崩溃。</p>
+                            <p class="help-block">不建议输入单个字，网站可能崩溃。(加载时间会非常长！)</p>
                             <span class="input-group-btn">
-                <button type="button" class="btn btn-fab btn-fab-mini "  onclick="javascript:search();">
+                <button type="button" class="btn btn-fab btn-fab-mini "  onclick="javascript:qsearch();">
                   <i class="material-icons">></i>
                 </button></div><br/><p class="text-warning">网站的响应速度会被词语的频率影响。</p></div></div>
                 
             </div>
             <div class="row" style="width:80%;margin-left:auto;margin-right:auto;">
-                <a href="javascript:getLDRankList()" class="btn btn-raised btn-primary disabled" id="title1">标题：【词语】时间频率图</a>
+                <a href="javascript:getLDRankList()" class="btn btn-raised btn-primary disabled" id="title1">【{{TERM}}】时间频率图</a>
             </div>
             <div class="row" >
                 <div id="graph" style="width: 90%;height:400px;margin: 0px auto;">
                 </div>
             </div>
             <div class="row" style="width:80%;margin-left:auto;margin-right:auto;">
-                <a href="javascript:getLDRankList()" class="btn btn-raised btn-primary disabled" id="title2">标题：【词语】用户使用情况</a>
+                <a href="javascript:getLDRankList()" class="btn btn-raised btn-primary disabled" id="title2">【{{TERM}}】用户使用情况</a>
             </div>
              <div class="row" id="userlist" style="min-width: 120px;">
                  <table class="table table-striped table-hover " style="width:80%;margin-left:auto;margin-right:auto;">
@@ -314,7 +314,7 @@
     <th>占比（相对于该用户发帖量/词总量）</th>
   </tr>
   </thead>
-  <tbody>
+  <tbody id="usertable">
 {{TBODY|safe}}
   </tbody>
 </table>
@@ -349,8 +349,76 @@
             function toggleDiv(divId) {
                 $("#" + divId).toggle();
             }
-            function search(){
-                
+            function qsearch(){
+                var term = document.getElementById("focusedInput_name").outerText;
+                console.log("term="+term);
+                search(term);
+            }
+            function search(word){
+                purl= "http://ec2-54-238-225-195.ap-northeast-1.compute.amazonaws.com:5555/api/tiebabigdata/wordstatisc/";
+                myChart.showLoading();
+                document.getElementById("title1").innerText = "【"+word+"】时间频率图";
+                document.getElementById("title2").innerText = "【"+word+"】时用户使用情况";
+                console.log("start retrive data");
+                 $.snackbar({content: "加载数据中..."});
+                 $.get(purl + word, function(data) {
+                     myChart.hideLoading();
+                     if(data=="错误！数据已经存在！")
+                     {
+                         $.snackbar({content: "x_x~ 错误！遇到未知错误！请联系站长。"});
+                         return;
+                     }
+                     location.reload() ;
+            
+                     //解析数据
+                     rpd = data.split("<hr/>");  // #0 for user table data #1 for timeline
+                     value = rpd[1].substring(rpd[1].indexOf("],[")+3);
+                     value = "[" + value;
+                     label = rpd[1].substring(0,rpd[1].indexOf("],["));
+                     value = eval(value);
+                     label = eval(label);
+                     usertable = getusertable(rpd[0]);
+                     //设置数据
+                     document.getElementById("usertable").innerHTML = usertable;
+                     //设置图表数据
+            myChart.setOption({
+                            title: {
+                                text: '{{TERM}}时频图'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            xAxis: {
+                                data: label
+                            },
+                            yAxis: {
+                                splitLine: {
+                                    show: false
+                                }
+                            },
+                            toolbox: {
+                                left: 'center',
+                                feature: {
+                                    dataZoom: {
+                                        yAxisIndex: 'none'
+                                    },
+                                    restore: {},
+                                    saveAsImage: {}
+                                }
+                            },
+                            dataZoom: [{
+                                startValue: '2014-06-01'
+                            }, {
+                                type: 'inside'
+                            }],
+                            series: {
+                                name: '当日发帖量',
+                                type: 'line',
+                                data: value
+                            }
+                        });
+                        console.log("success");
+                 });
             }
         </script>
         <script type="text/javascript">
@@ -359,7 +427,7 @@
                 document.getElementById("footer").innerHTML = getfooter();
                 if(bautoretrive == "T")  //要求浏览器自行获取
                 {
-                    
+                    search(analyzeterm);
                 }
                 console.log("1");
             });
