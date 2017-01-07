@@ -9,6 +9,8 @@ import worklib.getnews as News
 import worklib.subscrible as SUB
 import bigdataQuery.checkmail as VerifyBigDataMail
 import bigdataQuery.userFunctions as UserFunctions
+import bigdataQuery.termgather as TG
+import worklib.htmlstring as HS
 app = Flask(__name__)
 
 PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
@@ -34,7 +36,14 @@ def bigdata():
 #搜索指定词语的数据
 @app.route('/tiebabigdata/term/<term>')
 def showterm(term):
-    return render_template("wordsstatus.html");
+    status,data = TG.checkExistInTD(term)
+    if status == True:  #已经被查询过，直接返回历史数据
+        ID,TIMELINE,USERTABLESTR,COUNT =  TG.generateByResult(data)
+        #return str(TIMELINE[0][0]) + "<hr/>" + str(TIMELINE[0][1])
+        return render_template("wordsstatus.html",TERM=term,ATR="F",TBODY=USERTABLESTR,GDATA=TIMELINE[0][0],GDATAY=TIMELINE[0][1]);
+    else:       #未被查询过，渲染模版，要求JS查询
+        return render_template("wordsstatus.html",TERM=term,ATR="T",TBODY=HS.WORDSTATUS_TABLE_BODY,GDATA=['by','kanch'],GDATAY=[9,6]);
+    return render_template('error.html')
 
 #查看用户数据（经过邮箱验证后）
 @app.route('/tiebabigdata/user/<sessiondata>/<xid>')
@@ -261,4 +270,5 @@ if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
     #app.run(host='216.45.55.153')
-    app.run(host='127.0.0.1')
+    #app.run(host='127.0.0.1')
+    app.run(host='127.0.0.1',debug=True)

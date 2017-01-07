@@ -276,6 +276,7 @@ __pycache__/
 # tools/
 # database
 database.py
+database_settings
 database.pyc
 datasource.py
 datasource.pyc

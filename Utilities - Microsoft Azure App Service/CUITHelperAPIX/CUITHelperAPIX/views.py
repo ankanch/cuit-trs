@@ -4,12 +4,14 @@ Routes and views for the flask application.
 
 from datetime import datetime
 from flask import render_template,redirect
+from flask_json  import FlaskJSON, JsonError, json_response, as_json
 from CUITHelperAPIX import app
 from CUITHelperAPIX.NewsRetriver import zhuaqu as CUIT
 from CUITHelperAPIX.NewsRetriver import MailService as MailService
 from CUITHelperAPIX.NewsRetriver import cacheNews as NewsCache
 from CUITHelperAPIX.QueryAPI import verifyMail as VerifyMail
 from CUITHelperAPIX.QueryAPI import BigDataQueryAPI as QueryAPI
+from CUITHelperAPIX.QueryAPI import termanalyze as TermAnalyze
 
 @app.route('/')
 @app.route('/home')
@@ -22,6 +24,18 @@ def home():
 @app.route('/howto')
 def howto():
     return "这是一个测试页面，显示API的用法"
+############################333
+#       下面是单词数据查询接口
+############################333
+#获取一个单词的发帖量最高的前10位用户和单词的时间线
+@app.route('/api/tiebabigdata/wordstatisc/<word>')
+def api_statisword(word):
+    if TermAnalyze.checkExist(word) == True:
+        return "错误！数据已经存在！"
+    usercount,timeline = TermAnalyze.statisANDTimeline(TermAnalyze.searchForInclude(word))
+    tstr,ustr = TermAnalyze.slice(usercount,timeline)
+    TermAnalyze.saveToDB(ustr,tstr,word)
+    return ustr+"<hr/>"+tstr
 ############################333
 #       下面是用户数据查询接口
 ############################333
@@ -52,11 +66,18 @@ def api_activitytimeline(session,xid,days):
 
 #获取用户关系图数据
 @app.route('/api/tiebabigdata/relationcircle/<session>/<int:xid>')
+@as_json
 def api_relationcircle(session,xid):
     if QueryAPI.checkSession(session) == False:
         return  "会话无效或已经过期！"
     listt =  QueryAPI.getReadlationCircle(xid)
-    return str(listt)
+    i=0
+    iljson = []
+    for v in listt[1]:
+        iljson.append([dict(name=listt[0][i],values=v)])
+        i+=1
+    ditt = {}
+    return dict(label=listt[0],value=iljson)
 
 #获取常用关键字图
 @app.route('/api/tiebabigdata/keymap/<session>/<int:xid>')

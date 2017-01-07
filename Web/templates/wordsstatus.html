@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> | 成信助手 | CUIT Helper</title>
+    <title>{{TERM}}的数据 | 成信助手 | CUIT Helper</title>
 
     <link href="/static/images/favicon.ico" rel="icon" type="image/x-icon" />
     <!-- Material Design fonts
@@ -286,13 +286,13 @@
                             <label class="control-label" for="focusedInput2">分析其它短语</label>
                             <input class="form-control" id="focusedInput_name" type="text" onkeydown="javascript:keydown();" oninput="javascript:showautofill()" list="word">
                             <datalist id="word">
-						<!--智能k提示-->
 					</datalist>
                             <p class="help-block">不建议输入单个字，网站可能崩溃。</p>
                             <span class="input-group-btn">
-                <button type="button" class="btn btn-fab btn-fab-mini "  onclick="javascript:showTeachdetInfo();">
+                <button type="button" class="btn btn-fab btn-fab-mini "  onclick="javascript:search();">
                   <i class="material-icons">></i>
                 </button></div><br/><p class="text-warning">网站的响应速度会被词语的频率影响。</p></div></div>
+                
             </div>
             <div class="row" style="width:80%;margin-left:auto;margin-right:auto;">
                 <a href="javascript:getLDRankList()" class="btn btn-raised btn-primary disabled" id="title1">标题：【词语】时间频率图</a>
@@ -315,48 +315,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>1</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="info">
-    <td>3</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="success">
-    <td>4</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="danger">
-    <td>5</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="warning">
-    <td>6</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="active">
-    <td>7</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
+{{TBODY|safe}}
   </tbody>
 </table>
             </div>
@@ -382,40 +341,67 @@
             $.material.init();
             var analyzeterm = "{{TERM}}";
             var myChart = echarts.init(document.getElementById('graph'));
+            var bautoretrive = "{{ATR}}";   //标记是否需要自动获取
+            var ID="{{ID}}";
         </script>
         <!-- 显示关于 -->
         <script type="text/javascript">
             function toggleDiv(divId) {
                 $("#" + divId).toggle();
             }
+            function search(){
+                
+            }
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
                 document.getElementById("infodiv").innerHTML = getabout();
                 document.getElementById("footer").innerHTML = getfooter();
+                if(bautoretrive == "T")  //要求浏览器自行获取
+                {
+                    
+                }
                 console.log("1");
             });
         </script>
          <script type="text/javascript">
             // 指定图表的配置项和数据
-            var option = {
-                title: {
-                    text: ''
-                },
-                tooltip: {},
-                legend: {
-                    data: ['by kanch']
-                },
-                xAxis: {
-                    data: ["by ", "Kanch"]
-                },
-                yAxis: {},
-                series: [{
-                    name: 'by kanch',
-                    type: 'bar',
-                    data: [45, 200]
-                }]
-            };
+            var option =  {
+                            title: {
+                                text: '{{TERM}}时频图'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            xAxis: {
+                                data: {{GDATA|safe}}
+                            },
+                            yAxis: {
+                                splitLine: {
+                                    show: false
+                                }
+                            },
+                            toolbox: {
+                                left: 'center',
+                                feature: {
+                                    dataZoom: {
+                                        yAxisIndex: 'none'
+                                    },
+                                    restore: {},
+                                    saveAsImage: {}
+                                }
+                            },
+                            dataZoom: [{
+                                startValue: '2014-06-01'
+                            }, {
+                                type: 'inside'
+                            }],
+                            series: {
+                                name: '当日发帖量',
+                                type: 'line',
+                                data: {{GDATAY|safe}}
+                            }
+                        };
 
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);

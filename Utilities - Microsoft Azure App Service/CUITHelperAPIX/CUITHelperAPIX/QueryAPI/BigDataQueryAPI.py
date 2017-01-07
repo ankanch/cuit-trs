@@ -193,7 +193,6 @@ def getReadlationCircle(xid):
         per = count/replygotsum*100
         psum += per
         sum += count
-        print(statis[i][0],":",count,"\t占",str(int(per))+"%")
         i+=1
     return [label,value]
 
