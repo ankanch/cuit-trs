@@ -418,7 +418,7 @@
                         <div class="row">
                             <a href="javascript:loadActivityTimeLine()" class="btn btn-raised btn-primary">活跃度图</a>
                             <a href="javascript:loadActivityTimeZone()" class="btn btn-raised btn-primary">活跃时间段</a>
-                            <a href="javascript:loadUserRelation()" class="btn btn-raised btn-primary disabled">用户互动图</a>
+                            <a href="javascript:loadUserRelation()" class="btn btn-raised btn-primary ">用户互动图</a>
                             <a href="javascript:loadKeyword()" class="btn btn-raised btn-primary">回帖关键字</a>
                         </div>
                         <h4 id="graph_title">图表标题</h4>
@@ -468,9 +468,15 @@
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
+                $.snackbar({
+                    content: "获取数据中..."
+                });
                 document.getElementById("infodiv").innerHTML = getabout();
                 document.getElementById("footer").innerHTML = getfooter();
                 $.get(URLSUFFIX + "/api/tiebabigdata/postsum/{{session}}/{{xid}}", function(data) {
+                     $.snackbar({
+                    content: "用户发帖量和近30天发帖情况加载完成！"
+                });
                     ld = data.split(",");
                     document.getElementById("data_totalpost_text").innerText = ld[0];
                     document.getElementById("data_monthlypost_text").innerText = ld[1];
@@ -503,19 +509,21 @@
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
         </script>
-        <!--获取发帖量等相关信息-->
-        <script type="text/javascript">
-        </script>
         <!--下面的代码用于加载图像-->
         <script type="text/javascript">
             //加载活跃度图
             function loadActivityTimeLine() {
+                var myChart = echarts.init(document.getElementById('echarts'));
                 myChart.showLoading();
                 document.getElementById("graph_title").innerText = "用户活跃度图";
                 document.getElementById("graph_note").innerText = "该图展示了该用户在最近90天的活跃度（发帖量）";
                 $.get(URLSUFFIX + "/api/tiebabigdata/activitytimeline/{{session}}/{{xid}}/90", function(data) {
+                    
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
+                        $.snackbar({
+                    content: "用户活跃度图加载完成！"
+                });
                         //解析数据
                         data.replace("'", "");
                         rawl = data.split("], [");
@@ -570,12 +578,17 @@
             }
             //加载活跃时间段图
             function loadActivityTimeZone() {
+                var myChart = echarts.init(document.getElementById('echarts'));
                 myChart.showLoading();
                 document.getElementById("graph_title").innerText = "用户活跃时间段图";
                 document.getElementById("graph_note").innerText = "该图展示了该用户每日的活跃时间段（基于所有发帖）";
                 $.get(URLSUFFIX + "/api/tiebabigdata/activitytimezon/{{session}}/{{xid}}", function(data) {
+                   
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
+                         $.snackbar({
+                    content: "用户活跃度时间段图加载完成！"
+                });
                         data = data.replace("[", "");
                         data = data.replace("]", "");
                         //转换为整形数组
@@ -632,27 +645,33 @@
             }
             //加载用户互动图
             function loadUserRelation() {
+                var myChart = echarts.init(document.getElementById('echarts'));
                 myChart.showLoading();
                 document.getElementById("graph_title").innerText = "用户互动关系图";
                 document.getElementById("graph_note").innerText = "该图展示了与该用户互动频率最高的前10位用户";
                 $.get(URLSUFFIX + "/api/tiebabigdata/relationcircle/{{session}}/{{xid}}", function(data) {
+                    
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
-                        //var obj = JSON.parse(data);
-                        var obj = data;
+                         $.snackbar({
+                    content: "用户活互动图加载完成！"
+                });
+                        var obj = new Array();
                         //构建字典
                         var arr = new Array();
                         var i = 0;
-                        var pd = eval(data.value);
-                        console.log(data.value);
+                        var pd = eval(data['value']);
+                        console.log(data['value']);
                         for (; i < pd.length; i++) {
                             var p = eval(pd[i]);
-                            var dicArray = new Array();
-                            dicArray["value"] = p[1].values;
-                            dicArray["name"] = p[0].name;
-                            arr.push(dicArray);
+                            var dt = {
+                                value: p[0]['values'],
+                                name: p[0]['name']
+                            };
+                            obj.push(p[0]['name']);
+                            arr.push(dt);
+                            console.log("p[0]['name']=" + p[0]['name'] +  "\tdt=" + dt.toString());
                         }
-                        console.log(arr.toString());
                         //设置图表数据
                         myChart.setOption({
                             title: {
@@ -667,7 +686,7 @@
                             legend: {
                                 orient: 'vertical',
                                 left: 'left',
-                                data: obj.label
+                                data: obj
                             },
                             series: [{
                                 name: '交互次数',
@@ -689,12 +708,17 @@
             }
             //加载回帖关键字
             function loadKeyword() {
+                var myChart = echarts.init(document.getElementById('echarts'));
                 myChart.showLoading();
                 document.getElementById("graph_title").innerText = "用户回帖关键字";
                 document.getElementById("graph_note").innerText = "该图展示了该用户在回帖时使用频率最高的关键字";
                 $.get(URLSUFFIX + "/api/tiebabigdata/keymap/{{session}}/{{xid}}", function(data) {
+                   
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
+                         $.snackbar({
+                    content: "用户回帖关键字图加载完成！"
+                });
                         //解析数据
                         data.replace("'", "");
                         rawl = data.split("], [");
