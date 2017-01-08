@@ -294,6 +294,10 @@
                 </button></div><br/><p class="text-warning">网站的响应速度会被词语的频率影响。</p></div></div>
                 
             </div>
+            <div class="alert alert-dismissible alert-danger" style="width:80%;margin-left:auto;margin-right:auto;">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>提示：</strong>现在数据显示效果可能不太震撼，由于粒度为每天，稍后会改为每周/月。<br/>所有数据全都基于可公开获取的发帖数据。我们的行为类似于挖坟。
+</div>
             <div class="row" style="width:80%;margin-left:auto;margin-right:auto;">
                 <a href="javascript:getLDRankList()" class="btn btn-raised btn-primary disabled" id="title1">【{{TERM}}】时间频率图</a>
             </div>
@@ -369,7 +373,7 @@
                          return;
                      }
                      location.reload() ;
-            
+            /*/
                      //解析数据
                      rpd = data.split("<hr/>");  // #0 for user table data #1 for timeline
                      value = rpd[1].substring(rpd[1].indexOf("],[")+3);
@@ -417,6 +421,8 @@
                                 data: value
                             }
                         });
+                        /*/
+                        
                         console.log("success");
                  });
             }

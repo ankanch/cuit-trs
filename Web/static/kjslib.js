@@ -95,6 +95,6 @@ function getabout() {
 }
 
 function getfooter() {
-    var footertext = [" <p class=\"text-info\">hcnak \'s stcejorp © 2016 All Rights Reserved </p>"].join("");
+    var footertext = [" <br/><br/><p class=\"text-info\">hcnak \'s stcejorp © 2017 All Rights Reserved </p>"].join("");
     return footertext;
 }

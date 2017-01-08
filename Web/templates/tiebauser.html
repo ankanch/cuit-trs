@@ -265,7 +265,7 @@
                         <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
                     </ul>
                     <ul class="nav navbar-nav">
-                        <li><a href="/tiebabigdata">成信贴吧大数据（即将上线）</a></li>
+                        <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
@@ -407,7 +407,7 @@
                             </div>
                             <p>对该用户的任何数据统计全部是基于成都信息工程大学贴吧数据。</p>
                             <p class="text-danger">知道这个贴吧用户的真实信息？
-                                <a href="javascript:void(0)" class="btn btn-raised btn-link">点此补全真实信息</a>帮助我们完善数据库。
+                                <a href="javascript:void(0)" class="btn btn-raised btn-link" onclick="fillinfo()">点此补全真实信息</a>帮助我们完善数据库。
                             </p>
                         </font>
                     </div>
@@ -418,7 +418,7 @@
                         <div class="row">
                             <a href="javascript:loadActivityTimeLine()" class="btn btn-raised btn-primary">活跃度图</a>
                             <a href="javascript:loadActivityTimeZone()" class="btn btn-raised btn-primary">活跃时间段</a>
-                            <a href="javascript:loadUserRelation()" class="btn btn-raised btn-primary">用户互动图</a>
+                            <a href="javascript:loadUserRelation()" class="btn btn-raised btn-primary disabled">用户互动图</a>
                             <a href="javascript:loadKeyword()" class="btn btn-raised btn-primary">回帖关键字</a>
                         </div>
                         <h4 id="graph_title">图表标题</h4>
@@ -458,6 +458,12 @@
         <script type="text/javascript">
             function toggleDiv(divId) {
                 $("#" + divId).toggle();
+            }
+
+            function fillinfo() {
+                $.snackbar({
+                    content: "该功能暂时不可用！"
+                });
             }
         </script>
         <script type="text/javascript">
