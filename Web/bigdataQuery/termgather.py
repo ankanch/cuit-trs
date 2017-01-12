@@ -1,5 +1,6 @@
 import pymysql as SQL
 import datasourceconfig.database_settings as DBS
+import ast
 
 #该文件用来处理按单词查询
 
@@ -66,3 +67,29 @@ def checkExistInTD(word):
     else:
         return True,result
 
+
+#该函数用来将时间频率数据按照指定粒度聚合
+def ScaleData(timelinedata,scale_factor):
+    if scale_factor == 1:
+        return timelinedata
+    newtldata = [[]]
+    datelist = []
+    valuelist = []
+    ct = 1
+    i=0
+    stb = 0
+    rdl = ast.literal_eval(timelinedata[0][0])
+    rvl = ast.literal_eval(str(timelinedata[0][1]))
+    for date in rdl:
+        if ct != scale_factor:
+            stb += int(rvl[i])
+            ct+=1
+        else:
+            datelist.append(date)
+            valuelist.append(stb)
+            ct = 1
+            stb = 0
+        i+=1
+    newtldata[0].append(datelist)
+    newtldata[0].append(valuelist)
+    return newtldata

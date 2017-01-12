@@ -298,6 +298,17 @@
   <button type="button" class="close" data-dismiss="alert">×</button>
   <strong>提示：</strong>现在数据显示效果可能不太震撼，由于粒度为每天，稍后会改为每周/月。<br/>所有数据全都基于可公开获取的发帖数据。我们的行为类似于挖坟。
 </div>
+<div class="row" style="width:80%;">
+                <ul class="pager">
+                    数据显示粒度（默认为30天）：
+  <li><a class="withripple" href="javascript:scalediff(7)">7天</a></li>
+  <li><a class="withripple" href="javascript:scalediff(15)">15天</a></li>
+  <li><a class="withripple" href="javascript:scalediff(30)">30天</a></li>
+  <li><a class="withripple" href="javascript:scalediff(90)">90天</a></li>
+  <li><a class="withripple" href="javascript:scalediff(180)">180天</a></li>
+  <li><a class="withripple" href="javascript:scalediff(365)">365天</a></li>
+</ul>
+            </div>
             <div class="row" style="width:80%;margin-left:auto;margin-right:auto;">
                 <a href="javascript:getLDRankList()" class="btn btn-raised btn-primary disabled" id="title1">【{{TERM}}】时间频率图</a>
             </div>
@@ -343,6 +354,7 @@
         <script src="/static/json.js"></script>
         <script>
             $.material.init();
+            var url = "{{URL}}"
             var analyzeterm = "{{TERM}}";
             var myChart = echarts.init(document.getElementById('graph'));
             var bautoretrive = "{{ATR}}";   //标记是否需要自动获取
@@ -373,58 +385,13 @@
                          return;
                      }
                      location.reload() ;
-            /*/
-                     //解析数据
-                     rpd = data.split("<hr/>");  // #0 for user table data #1 for timeline
-                     value = rpd[1].substring(rpd[1].indexOf("],[")+3);
-                     value = "[" + value;
-                     label = rpd[1].substring(0,rpd[1].indexOf("],["));
-                     value = eval(value);
-                     label = eval(label);
-                     usertable = getusertable(rpd[0]);
-                     //设置数据
-                     document.getElementById("usertable").innerHTML = usertable;
-                     //设置图表数据
-            myChart.setOption({
-                            title: {
-                                text: '{{TERM}}时频图'
-                            },
-                            tooltip: {
-                                trigger: 'axis'
-                            },
-                            xAxis: {
-                                data: label
-                            },
-                            yAxis: {
-                                splitLine: {
-                                    show: false
-                                }
-                            },
-                            toolbox: {
-                                left: 'center',
-                                feature: {
-                                    dataZoom: {
-                                        yAxisIndex: 'none'
-                                    },
-                                    restore: {},
-                                    saveAsImage: {}
-                                }
-                            },
-                            dataZoom: [{
-                                startValue: '2014-06-01'
-                            }, {
-                                type: 'inside'
-                            }],
-                            series: {
-                                name: '当日发帖量',
-                                type: 'line',
-                                data: value
-                            }
-                        });
-                        /*/
+ 
                         
                         console.log("success");
                  });
+            }
+            function scalediff(typeq){
+                window.location.href = url + "/" + typeq;
             }
         </script>
         <script type="text/javascript">
@@ -442,7 +409,7 @@
             // 指定图表的配置项和数据
             var option =  {
                             title: {
-                                text: '{{TERM}}时频图'
+                                text: ''
                             },
                             tooltip: {
                                 trigger: 'axis'
