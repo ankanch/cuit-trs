@@ -428,6 +428,10 @@
 
                         <br/>
                     </div>
+                    <h2>随机10条回帖记录</h2>
+                    <div class="row" style="width: 80%; margin: 0px auto;">
+                        {{RANDOM|safe}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -474,9 +478,9 @@
                 document.getElementById("infodiv").innerHTML = getabout();
                 document.getElementById("footer").innerHTML = getfooter();
                 $.get(URLSUFFIX + "/api/tiebabigdata/postsum/{{session}}/{{xid}}", function(data) {
-                     $.snackbar({
-                    content: "用户发帖量和近30天发帖情况加载完成！"
-                });
+                    $.snackbar({
+                        content: "用户发帖量和近30天发帖情况加载完成！"
+                    });
                     ld = data.split(",");
                     document.getElementById("data_totalpost_text").innerText = ld[0];
                     document.getElementById("data_monthlypost_text").innerText = ld[1];
@@ -518,12 +522,12 @@
                 document.getElementById("graph_title").innerText = "用户活跃度图";
                 document.getElementById("graph_note").innerText = "该图展示了该用户在最近90天的活跃度（发帖量）";
                 $.get(URLSUFFIX + "/api/tiebabigdata/activitytimeline/{{session}}/{{xid}}/90", function(data) {
-                    
+
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
                         $.snackbar({
-                    content: "用户活跃度图加载完成！"
-                });
+                            content: "用户活跃度图加载完成！"
+                        });
                         //解析数据
                         data.replace("'", "");
                         rawl = data.split("], [");
@@ -583,12 +587,12 @@
                 document.getElementById("graph_title").innerText = "用户活跃时间段图";
                 document.getElementById("graph_note").innerText = "该图展示了该用户每日的活跃时间段（基于所有发帖）";
                 $.get(URLSUFFIX + "/api/tiebabigdata/activitytimezon/{{session}}/{{xid}}", function(data) {
-                   
+
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
-                         $.snackbar({
-                    content: "用户活跃度时间段图加载完成！"
-                });
+                        $.snackbar({
+                            content: "用户活跃度时间段图加载完成！"
+                        });
                         data = data.replace("[", "");
                         data = data.replace("]", "");
                         //转换为整形数组
@@ -650,12 +654,12 @@
                 document.getElementById("graph_title").innerText = "用户互动关系图";
                 document.getElementById("graph_note").innerText = "该图展示了与该用户互动频率最高的前10位用户";
                 $.get(URLSUFFIX + "/api/tiebabigdata/relationcircle/{{session}}/{{xid}}", function(data) {
-                    
+
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
-                         $.snackbar({
-                    content: "用户活互动图加载完成！"
-                });
+                        $.snackbar({
+                            content: "用户活互动图加载完成！"
+                        });
                         var obj = new Array();
                         //构建字典
                         var arr = new Array();
@@ -670,7 +674,7 @@
                             };
                             obj.push(p[0]['name']);
                             arr.push(dt);
-                            console.log("p[0]['name']=" + p[0]['name'] +  "\tdt=" + dt.toString());
+                            console.log("p[0]['name']=" + p[0]['name'] + "\tdt=" + dt.toString());
                         }
                         //设置图表数据
                         myChart.setOption({
@@ -713,12 +717,12 @@
                 document.getElementById("graph_title").innerText = "用户回帖关键字";
                 document.getElementById("graph_note").innerText = "该图展示了该用户在回帖时使用频率最高的关键字";
                 $.get(URLSUFFIX + "/api/tiebabigdata/keymap/{{session}}/{{xid}}", function(data) {
-                   
+
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
-                         $.snackbar({
-                    content: "用户回帖关键字图加载完成！"
-                });
+                        $.snackbar({
+                            content: "用户回帖关键字图加载完成！"
+                        });
                         //解析数据
                         data.replace("'", "");
                         rawl = data.split("], [");
