@@ -34,26 +34,38 @@ def bigdata():
     return render_template("bigdata.html")
 
 #搜索指定词语的数据
+@app.route('/tiebabigdata/term/<term>/<int:scale>')
 @app.route('/tiebabigdata/term/<term>')
-def showterm(term):
+def showterm(term,scale=1):
     status,data = TG.checkExistInTD(term)
     if status == True:  #已经被查询过，直接返回历史数据
         ID,TIMELINE,USERTABLESTR,COUNT =  TG.generateByResult(data)
         #return str(TIMELINE[0][0]) + "<hr/>" + str(TIMELINE[0][1])
-        return render_template("wordsstatus.html",TERM=term,ATR="F",TBODY=USERTABLESTR,GDATA=TIMELINE[0][0],GDATAY=TIMELINE[0][1]);
+        TIMELINE = TG.ScaleData(TIMELINE,scale)
+        return render_template("wordsstatus.html",TERM=term,ATR="F",TBODY=USERTABLESTR,GDATA=TIMELINE[0][0],GDATAY=TIMELINE[0][1],URL="/tiebabigdata/term/"+term)
     else:       #未被查询过，渲染模版，要求JS查询
-        return render_template("wordsstatus.html",TERM=term,ATR="T",TBODY=HS.WORDSTATUS_TABLE_BODY,GDATA=['by','kanch'],GDATAY=[9,6]);
+        return render_template("wordsstatus.html",TERM=term,ATR="T",TBODY=HS.WORDSTATUS_TABLE_BODY,GDATA=['by','kanch'],GDATAY=[9,6],URL="/tiebabigdata/term/"+term)
     return render_template('error.html')
 
-#查看用户数据（经过邮箱验证后）
+#查看用户数据
+@app.route('/tiebabigdata/user/<xid>')
 @app.route('/tiebabigdata/user/<sessiondata>/<xid>')
-def bigdata_user(sessiondata,xid):
+def bigdata_user(xid,sessiondata=""):
+    #no session
+    if sessiondata == "":
+        info = UserFunctions.getBasicInfo(xid)
+        RANDOM10 = UserFunctions.getRandom10Post(xid)
+        if info[0] == False:
+            return render_template('error.html')
+        return render_template('tiebauser.html',RANDOM=RANDOM10,xid=xid,session=sessiondata,TIEBAID=info[1],KEYWORD=info[10],TAGS=info[9],REALNAME=info[2],XUEHAO=info[3],GRADECLASS=info[8],QQ=info[4],EMAIL=info[6],PHONE=info[5])
+    #session 
     veristatus = VerifyBigDataMail.checkSession(sessiondata)
     if veristatus == 1:
         info = UserFunctions.getBasicInfo(xid)
+        RANDOM10 = UserFunctions.getRandom10Post(xid)
         if info[0] == False:
             return render_template('error.html')
-        return render_template('tiebauser.html',xid=xid,session=sessiondata,TIEBAID=info[1],KEYWORD=info[10],TAGS=info[9],REALNAME=info[2],XUEHAO=info[3],GRADECLASS=info[8],QQ=info[4],EMAIL=info[6],PHONE=info[5])
+        return render_template('tiebauser.html',RANDOM=RANDOM10,xid=xid,session=sessiondata,TIEBAID=info[1],KEYWORD=info[10],TAGS=info[9],REALNAME=info[2],XUEHAO=info[3],GRADECLASS=info[8],QQ=info[4],EMAIL=info[6],PHONE=info[5])
     elif veristatus == -1:  #未查找到
         return render_template('error_verify.html',WHY="链接无效！<br/>您可能没有通过邮件验证！")
     elif veristatus == -2:  #过期

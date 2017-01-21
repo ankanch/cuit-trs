@@ -96,5 +96,7 @@ function getabout() {
 
 function getfooter() {
     var footertext = [" <br/><br/><p class=\"text-info\">hcnak \'s stcejorp © 2017 All Rights Reserved </p>"].join("");
-    return footertext;
+    var uptimecode = "<a href=\"http://www.host-tracker.com/UptimeGraph/UptimeInfo/bc6eac20-39a0-4ae9-9dfa-03c270b358cd\" target=\'_blank\'>";
+    uptimecode += "<img id=\'HostTrackerInformer\' width=\'80\' height=\'15\' border=\'0\' title=\'Check is site down - Website monitoring service Host-tracker.com\' alt=\'Check is site down - Website monitoring service Host-tracker.com\' src=\"//i.h-t.co/test website.png?id=bc6eac20-39a0-4ae9-9dfa-03c270b358cd\" /></a>";
+    return footertext + uptimecode;
 }
