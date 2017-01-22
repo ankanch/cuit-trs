@@ -11,6 +11,7 @@ import bigdataQuery.checkmail as VerifyBigDataMail
 import bigdataQuery.userFunctions as UserFunctions
 import bigdataQuery.termgather as TG
 import worklib.htmlstring as HS
+import badposts.badposts as BP
 app = Flask(__name__)
 
 PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
@@ -32,6 +33,21 @@ def hello():
 @app.route('/tiebabigdata')
 def bigdata():
     return render_template("bigdata.html")
+
+#成信曝光台-时间线
+@app.route('/badborad')
+def badborad():
+    return render_template("badborad.html")
+
+#成信曝光台-发布新曝光
+@app.route('/badborad/newbad')
+def postbadposts():
+    return render_template("postNewBadposts.html")
+
+#成信曝光台-发布新曝光（POST）
+@app.route('/badborad/123')
+def getbadborad():
+    return render_template("badborad.html")
 
 #搜索指定词语的数据
 @app.route('/tiebabigdata/term/<term>/<int:scale>')
@@ -265,10 +281,6 @@ def registeUser(UID):
 @app.route('/getratinglist/<UID>/')
 def getRatingList(UID):
     return TI.getRatingList(UID)
-
-
-
-
 
 @app.route('/getcomment/<int:id>/<int:linestart>/<int:lineend>/')
 def getComment(id,linestart,lineend):
