@@ -309,6 +309,7 @@
         </div>
 </div>
       </div>
+       <p class="text-danger">数据区间：2004-8-20 -> 2016-11-26 （爬虫将会在近期进行新一轮的数据抓取）</p>
       <p class="text-warning">请勿将本站数据用作任何非法用途。本站数据均由机器得出，无法保证准确性，请悉知。<br/>目前该功能处于测试状态，如果访问缓慢属正常现象。<br/>本站所有数据全都来自可公开获取的数据，行为等同挖坟。</p>
       <br/>
       <div class="row" style="text-align:center" id="footer">
@@ -358,7 +359,8 @@ function showresult() {
    }
    if(qtype == 1)//搜索贴吧用户
    {
-   window.open("/verify/bigdata/"+ipt);
+   //window.open("/verify/bigdata/"+ipt);
+   window.open("/tiebabigdata/bigdata/"+ipt);
    }
    else if(qtype ==0)  //搜索词语
    {

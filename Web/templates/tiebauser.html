@@ -477,7 +477,7 @@
                 });
                 document.getElementById("infodiv").innerHTML = getabout();
                 document.getElementById("footer").innerHTML = getfooter();
-                $.get(URLSUFFIX + "/api/tiebabigdata/postsum/{{session}}/{{xid}}", function(data) {
+                $.get(URLSUFFIX + "/api/tiebabigdata/postsum/{{xid}}", function(data) {
                     $.snackbar({
                         content: "用户发帖量和近30天发帖情况加载完成！"
                     });
@@ -521,7 +521,7 @@
                 myChart.showLoading();
                 document.getElementById("graph_title").innerText = "用户活跃度图";
                 document.getElementById("graph_note").innerText = "该图展示了该用户在最近90天的活跃度（发帖量）";
-                $.get(URLSUFFIX + "/api/tiebabigdata/activitytimeline/{{session}}/{{xid}}/90", function(data) {
+                $.get(URLSUFFIX + "/api/tiebabigdata/activitytimeline/{{xid}}/90", function(data) {
 
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
@@ -586,7 +586,7 @@
                 myChart.showLoading();
                 document.getElementById("graph_title").innerText = "用户活跃时间段图";
                 document.getElementById("graph_note").innerText = "该图展示了该用户每日的活跃时间段（基于所有发帖）";
-                $.get(URLSUFFIX + "/api/tiebabigdata/activitytimezon/{{session}}/{{xid}}", function(data) {
+                $.get(URLSUFFIX + "/api/tiebabigdata/activitytimezon/{{xid}}", function(data) {
 
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
@@ -653,7 +653,7 @@
                 myChart.showLoading();
                 document.getElementById("graph_title").innerText = "用户互动关系图";
                 document.getElementById("graph_note").innerText = "该图展示了与该用户互动频率最高的前10位用户";
-                $.get(URLSUFFIX + "/api/tiebabigdata/relationcircle/{{session}}/{{xid}}", function(data) {
+                $.get(URLSUFFIX + "/api/tiebabigdata/relationcircle/{{xid}}", function(data) {
 
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {
@@ -716,7 +716,7 @@
                 myChart.showLoading();
                 document.getElementById("graph_title").innerText = "用户回帖关键字";
                 document.getElementById("graph_note").innerText = "该图展示了该用户在回帖时使用频率最高的关键字";
-                $.get(URLSUFFIX + "/api/tiebabigdata/keymap/{{session}}/{{xid}}", function(data) {
+                $.get(URLSUFFIX + "/api/tiebabigdata/keymap/{{xid}}", function(data) {
 
                     myChart.hideLoading();
                     if (data != "NULL" && data != "ERROR") {

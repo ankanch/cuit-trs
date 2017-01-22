@@ -57,7 +57,7 @@ def bigdata_user(xid,sessiondata=""):
         RANDOM10 = UserFunctions.getRandom10Post(xid)
         if info[0] == False:
             return render_template('error.html')
-        return render_template('tiebauser.html',RANDOM=RANDOM10,xid=xid,session=sessiondata,TIEBAID=info[1],KEYWORD=info[10],TAGS=info[9],REALNAME=info[2],XUEHAO=info[3],GRADECLASS=info[8],QQ=info[4],EMAIL=info[6],PHONE=info[5])
+        return render_template('tiebauser.html',RANDOM=RANDOM10,xid=xid,TIEBAID=info[1],KEYWORD=info[10],TAGS=info[9],REALNAME=info[2],XUEHAO=info[3],GRADECLASS=info[8],QQ=info[4],EMAIL=info[6],PHONE=info[5])
     #session 
     veristatus = VerifyBigDataMail.checkSession(sessiondata)
     if veristatus == 1:
@@ -65,13 +65,26 @@ def bigdata_user(xid,sessiondata=""):
         RANDOM10 = UserFunctions.getRandom10Post(xid)
         if info[0] == False:
             return render_template('error.html')
-        return render_template('tiebauser.html',RANDOM=RANDOM10,xid=xid,session=sessiondata,TIEBAID=info[1],KEYWORD=info[10],TAGS=info[9],REALNAME=info[2],XUEHAO=info[3],GRADECLASS=info[8],QQ=info[4],EMAIL=info[6],PHONE=info[5])
+        return render_template('tiebauser.html',RANDOM=RANDOM10,xid=xid,TIEBAID=info[1],KEYWORD=info[10],TAGS=info[9],REALNAME=info[2],XUEHAO=info[3],GRADECLASS=info[8],QQ=info[4],EMAIL=info[6],PHONE=info[5])
     elif veristatus == -1:  #未查找到
         return render_template('error_verify.html',WHY="链接无效！<br/>您可能没有通过邮件验证！")
     elif veristatus == -2:  #过期
         return render_template('error_verify.html',WHY="链接已经过期！<br/>该链接已经过期，您需要重新验证以获取新的链接！<p>链接仅在24小时内有效！</p>")
     else:
         return render_template('error_verify.html',WHY="发生未知错误！")
+
+#不经过邮件验证，直接查询用户
+@app.route('/tiebabigdata/bigdata/<searchtarget>')
+def bigdata_noverify(searchtarget):
+    xid = 0
+    status = UserFunctions.checkUser(searchtarget)
+    if status == -1:
+        xid = UserFunctions.insertIntoBigData(searchtarget)
+        if xid == -1:
+            return render_template('error.html')
+    else:
+        xid = status
+    return redirect('/tiebabigdata/user/'+ str(xid))
 
 #邮箱验证发送成功页面
 @app.route('/verify/bigdata/success')
@@ -91,6 +104,7 @@ def bigdata_verifyMail():
             return render_template('error.html')
     else:
         xid = status
+    return redirect('/tiebabigdata/user/'+ str(xid))
     sig = VerifyBigDataMail.generateHash(email,searchtarget)
     VerifyBigDataMail.sendVerifyMail(email,sig,str(xid))
     return redirect('/verify/bigdata/success')
@@ -282,5 +296,5 @@ if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
     #app.run(host='216.45.55.153')
-    #app.run(host='127.0.0.1')
-    app.run(host='127.0.0.1',debug=True)
+    app.run(host='127.0.0.1')
+    #app.run(host='127.0.0.1',debug=True)
