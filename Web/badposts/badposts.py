@@ -1,10 +1,47 @@
 import datasourceconfig.database_settings as DBS
 import pymysql as SQL
 import datetime
+import worklib.htmlstring as STR
+
+
+#将从数据库加载的曝光数据根据支持人数组合成表格
+def makeUpTable(pdata):
+    TABLESTR = ""
+    #我们将支持人数超过50的标记为热门（暂时）
+    #badpost = [ID,TITLE,CONTENT,DATE,UP]
+    #内容最多6排（333字）
+    for badposts in pdata:
+        pstr = ""
+        if badposts[4] >=50:
+            pstr = STR.BP_HEAD_HOT
+        else:
+            pstr = STR.BP_HEAD_NORMAL
+        content = badposts[2]
+        if len(content) > 333:
+            content = badposts[2][0:333]+"......"
+        pstr +=  badposts[1] + STR.BP_A_CONTENT + content + STR.BP_B_DATE \
+                + badposts[3].now().strftime('%Y-%m-%d %H:%M:%S') \
+                + STR.BP_C_UPS + str(badposts[4]) + STR.BP_D_LINK + str(badposts[0]) + STR.BP_TAIL
+        TABLESTR += pstr
+    return TABLESTR
 
 #从数据库加载指定条数的曝光数据，按照时间排序
-def queryBadposts(qsum):
-    pass
+def queryBadposts(qsum,curid):
+    SEL = ""
+    if int(curid) == 0:
+        SEL = "SELECT * FROM `badposts` WHERE ID<=(SELECT MAX(ID) FROM `badposts`) LIMIT 5"
+    else:
+        SEL = "SELECT * FROM `badposts` WHERE (ID<" + curid + " AND ID>" + str(int(curid) + int(qsum)) + ")"
+    DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
+    DBCONN.set_charset('utf8mb4')
+    DBCUR = DBCONN.cursor()
+    print(SEL)
+    DBCUR.execute(SEL)
+    DBCONN.commit()
+    result = DBCUR.fetchall()
+    DBCUR.close()
+    DBCONN.close()
+    return result
 
 
 #插入新的曝光数据到数据库
@@ -40,7 +77,16 @@ def getBadposts(xid):
 
 #搜索包含指定关键字的曝光数据
 def searchFor(tags):
-    pass
+    DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
+    DBCONN.set_charset('utf8mb4')
+    DBCUR = DBCONN.cursor()
+    SEL = "SELECT * FROM `badposts` WHERE TITLE LIKE'%" + tags + "%' UNION SELECT * FROM `badposts` WHERE CONTENT LIKE'%"  + tags + "%' "
+    DBCUR.execute(SEL)
+    DBCONN.commit()
+    result = DBCUR.fetchall()
+    DBCUR.close()
+    DBCONN.close()
+    return result
 
 #支持了某一篇曝光
 def support(xid):
@@ -64,3 +110,4 @@ def support(xid):
 ###########################3
 #数据库辅助函数
 ###########################
+

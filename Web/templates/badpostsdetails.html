@@ -282,27 +282,40 @@
             </div>
             <!--在下面添加自定义代码-->
             <div class="container">
-                <div class="row" style="width: 70%;margin-left:auto;margin-right:auto;">
+                <div class="row" style="width: 75%;margin-left:auto;margin-right:auto;">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h2 class="panel-title">{{TITLE}}</h2>
+                            <h2 class="panel-title">曝光内容</h2>
                         </div>
                         <div class="panel-body">
+                            <div class="row" style="text-align: center;margin-right: 12px;margin-left: 12px;">
+                                <h2>{{TITLE}}</h2>
+                            </div>
                             <div class="row">
                                 <div class="row" style="text-align: right; margin-right: 12px;">
-                                    <div class="col-md-6"><br/>
-                                        <p id="howmany">当前有{{UP}}人支持</p>
+                                    <div class="col-md-4">
+                                        <a id="howmany" class="btn btn-raised btn-warning disabled">当前有{{UP}}人支持</a>
                                     </div>
-                                    <div class="col-md-6">
-                                        <a href="javascript:void(0)" class="btn btn-raised btn-primary">支持</a>
+                                    <div class="col-md-4" style="text-align: center;">
+                                        <br/>
+                                        <p class="text-info">{{DATE}}</p>
+                                    </div>
+                                    <div class="col-md-4" style="text-align: right;">
+                                        <a href="javascript:void(0)" class="btn btn-raised btn-danger">支持</a>
+                                        <div class="alert alert-dismissible alert-info" id="recap" style="text-align: left;">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <input class="form-control" id="rv" type="text" placeholder="请输入验证码">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <br/>
                             <div class="row" style="margin-left: 12px;margin-right: 12px;">
                                 {{CONTENT}}
                             </div>
-                            <div class="row" style="margin-left: 30px;">
-                                <p class="text-info">曝光日期：{{DATE}}</p>
+                            <div class="row" style="margin-left: 11px;">
+                                <br/><br/>
+                                <p class="text-info">所有曝光在发布前已由曝光人确定真实可靠且无夸大成分。可是我们仍然无法避免夸大其词的情况出现。如果你认为该曝光违反了该准则，请点击这里举报</p>
                             </div>
                         </div>
                     </div>

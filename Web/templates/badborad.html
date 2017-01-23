@@ -283,7 +283,7 @@
                     <div class="form-group label-floating">
                         <div class="input-group">
                             <label class="control-label" for="focusedInput2">请输入要搜索的帖子关键字</label>
-                            <input class="form-control" id="focusedInput_name" type="text" onkeydown="javascript:keydown();" oninput="javascript:showautofill()" list="word">
+                            <input class="form-control" id="tagss" type="text" list="word">
                             <datalist id="word">
 						<!--智能k提示-->
 					</datalist>
@@ -311,50 +311,21 @@
   <h4>卧槽！</h4>
 
   <p>系统没有查询到任何与已知关键字匹配的曝光。<br/>看来你可以成为第一个曝光它的！<br/>曝光完全匿名，来吧骚年！
-    <a href="javascript:void(0)" class="alert-link">我要曝光！</a></p>
+    <a href="/badborad/newbad" class="alert-link">我要曝光！</a></p>
 </div>
         </div>
         <div class="row" id="badposts" style="width: 60%;margin-left:auto;margin-right:auto;">
             
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h3 class="panel-title">【支持人数】系统公告/</h3>
+    <h3 class="panel-title">系统公告</h3>
   </div>
   <div class="panel-body">
       <div class="row" style="margin-left: 10px;margin-right: 10px;">
-    Panel content
-    <p>只是一条测试信息</p>
-    </div>
-    <div class="row" style="text-align: right; margin-right: 12px;">
-        <a href="javascript:void(0)" class="btn btn-raised btn-primary">支持</a>
-    </div>
-  </div>
-</div>
-<div class="panel panel-success">
-  <div class="panel-heading">
-    <h3 class="panel-title">【支持人数】曝光帖：初始状态</h3>
-  </div>
-  <div class="panel-body">
-      <div class="row" style="margin-left: 10px;margin-right: 10px;">
-    刚刚发布的曝光信息为绿色，随着热度的上升，颜色也会改变。
-    <p>只是一条测试信息</p>
-    </div>
-    <div class="row" style="text-align: right; margin-right: 12px;">
-        <a href="javascript:void(0)" class="btn btn-raised btn-primary">支持</a>
-    </div>
-  </div>
-</div>
-<div class="panel panel-danger">
-  <div class="panel-heading">
-    <h3 class="panel-title">【支持人数】曝光帖：热门</h3>
-  </div>
-  <div class="panel-body">
-      <div class="row" style="margin-left: 10px;margin-right: 10px;">
-    当非常热门的时候，就会变成红色
-    <p>只是一条测试信息</p>
-    </div>
-    <div class="row" style="text-align: right; margin-right: 12px;">
-        <a href="javascript:void(0)" class="btn btn-raised btn-primary">支持</a>
+    目前该系统仍然处于开发阶段。您可能会遇到一些意外情况。
+    <p>搜索功能暂时无法使用。</p>
+    <p>如果你要发布新的曝光，<a href="/badborad/newbad" class="alert-link" target="_blank">点击这里可以开始曝光</a>。</p>
+    <p>下拉该页面可以加载更多曝光。</p>
     </div>
   </div>
 </div>
@@ -378,14 +349,17 @@
         </script>
         <!-- 显示关于 -->
         <script type="text/javascript">
+        var curxid = "{{CURID}}";
             function toggleDiv(divId) {
                 $("#" + divId).toggle();
             }
-            function loadbadposts(){
+            function loadbadposts(curid){
                 $.snackbar({content: "加载中...."});   
-                $.get("/badborad/load/<fromd>/<sum>", function(data) {
+                $.get("/badborad/load/ " + curid + "/5", function(data) {
                             if (data != "NULL") {
-                                document.getElementById("commentslist").innerHTML = document.getElementById("commentslist").innerHTML + data;
+                                document.getElementById("badposts").innerHTML = document.getElementById("badposts").innerHTML + data;
+                                curxid =  Number(curxid) + 5;
+                                console.log(curxid);
                             } else {
                                 $.snackbar({
                                     content: "已经全部加载完毕。"
@@ -393,12 +367,35 @@
                             }
                         });
             }
+            function searchfor(){
+                 $.snackbar({content: "搜索中...."});   
+                 tags = document.getElementById("tagss").value;
+                $.get("/badborad/search/" +tags, function(data) {
+                            if (data != "NULL") {
+                                document.getElementById("badposts").innerHTML = data;
+                            } else {
+                               
+                            }
+                             $.snackbar({
+                                    content: "搜索完毕。"
+                                });
+                        });
+            }
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
+                 $(window).scroll(function() {
+                            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                                var div1tem = $('#container').height()
+
+                                loadbadposts(curxid);
+                            }
+                        });
                 document.getElementById("infodiv").innerHTML = getabout();
                 document.getElementById("footer").innerHTML = getfooter();
                 console.log("1");
+                loadbadposts(curxid);
+                console.log("2");
             });
         </script>
         <script>

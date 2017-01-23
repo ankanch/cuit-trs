@@ -34,15 +34,22 @@ def hello():
 def bigdata():
     return render_template("bigdata.html")
 
+#成信曝光台-搜索
+@app.route('/badborad/search/<tags>')
+def searchbadposts(tags):
+    result = BP.searchFor(tags)
+    return BP.makeUpTable(result)
+
 #成信曝光台-时间线
 @app.route('/badborad')
 def badborad():
-    return render_template("badborad.html")
+    return render_template("badborad.html",CURID=0)
 
-#成信曝光台-时间线
-@app.route('/badborad/load/<fromd>/<sum>')
-def loadbp(fromd,sum):
-    return render_template("badborad.html")
+#成信曝光台-时间线-获取
+@app.route('/badborad/load/<curid>/<qsum>')
+def loadbp(qsum,curid):
+    result = BP.queryBadposts(qsum,curid)
+    return BP.makeUpTable(result)
 
 #成信曝光台-具体页面
 @app.route('/badborad/<int:xid>')
