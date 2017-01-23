@@ -1,17 +1,19 @@
-from flask import Flask
-from flask import render_template,jsonify,redirect
-from flask import request
-import flask
 import time
-import worklib.getTeacherInfo as TI
+
+import flask
+from flask import Flask, jsonify, redirect, render_template, request
+
+import badposts.badposts as BP
+import badposts.vaildatecode as VC
+import bigdataQuery.checkmail as VerifyBigDataMail
+import bigdataQuery.termgather as TG
+import bigdataQuery.userFunctions as UserFunctions
 import worklib.getInfoWeb as IW
 import worklib.getnews as News
-import worklib.subscrible as SUB
-import bigdataQuery.checkmail as VerifyBigDataMail
-import bigdataQuery.userFunctions as UserFunctions
-import bigdataQuery.termgather as TG
+import worklib.getTeacherInfo as TI
 import worklib.htmlstring as HS
-import badposts.badposts as BP
+import worklib.subscrible as SUB
+
 app = Flask(__name__)
 
 PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
@@ -41,6 +43,7 @@ def searchbadposts(tags):
     return BP.makeUpTable(result)
 
 #成信曝光台-时间线
+@app.route('/badborad/')
 @app.route('/badborad')
 def badborad():
     return render_template("badborad.html",CURID=0)
@@ -55,7 +58,7 @@ def loadbp(qsum,curid):
 @app.route('/badborad/<int:xid>')
 def showbadborad(xid):
     rl = BP.getBadposts(xid)
-    return render_template("badpostsdetails.html",ID=rl[0],TITLE=rl[1],CONTENT=rl[2],DATE=rl[3],UP=rl[4])
+    return render_template("badpostsdetails.html",ID=rl[0],TITLE=rl[1],CONTENT=rl[2],DATE=rl[3],UP=rl[4],QUESTION=VC.getVaildateCode()[0])
 
 #成信曝光台-发布新曝光
 @app.route('/badborad/newbad')
@@ -68,7 +71,19 @@ def getbadborad():
     title = request.form['title']
     content = request.form['content']
     xid = BP.insertBadposts(title,content)
-    return redirect("/badborad/" + str(xid))
+    return  str(xid)
+
+#成信曝光台-支持曝光
+@app.route('/badborad/up', methods=['POST'])
+def supportbadborad():
+    question = request.form['q']
+    answer = request.form['a']
+    xid = request.form['i']
+    if VC.check(question,str(answer)) == False:
+        return "ERROR:VC"
+    if BP.support(xid) == False:
+        return "ERROR:NB"
+    return "O"
 
 #搜索指定词语的数据
 @app.route('/tiebabigdata/term/<term>/<int:scale>')

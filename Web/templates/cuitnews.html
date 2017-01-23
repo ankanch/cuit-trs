@@ -1,515 +1,518 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>成信新闻列表 | CUIT Helper</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>成信新闻列表 | CUIT Helper</title>
 
-    <link href="../static/images/favicon.ico" rel="icon" type="image/x-icon" />
-    <!-- Material Design fonts
+        <link href="../static/images/favicon.ico" rel="icon" type="image/x-icon" />
+        <!-- Material Design fonts
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-    <!-- Bootstrap  -->
-    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Material Design -->
-    <link href="../static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
-    <link href="../static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
-    <!-- core CSS of SnackbarJS, find it in /dist -->
-    <link href="../static/snackbar/dist/snackbar.min.css" rel="stylesheet">
-    <!-- the default theme of SnackbarJS, find it in /themes-css -->
-    <link href="../static/snackbar/themes-css/material.css" rel="stylesheet">
+        <!-- Bootstrap  -->
+        <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap Material Design -->
+        <link href="../static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
+        <link href="../static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
+        <!-- core CSS of SnackbarJS, find it in /dist -->
+        <link href="../static/snackbar/dist/snackbar.min.css" rel="stylesheet">
+        <!-- the default theme of SnackbarJS, find it in /themes-css -->
+        <link href="../static/snackbar/themes-css/material.css" rel="stylesheet">
 
-    <style>
-        #banner {
-            border-bottom: none
-        }
-        
-        .page-header h1 {
-            font-size: 4em
-        }
-        
-        .bs-docs-section {
-            margin-top: 8em
-        }
-        
-        .bs-component {
-            position: relative
-        }
-        
-        .bs-component .modal {
-            position: relative;
-            top: auto;
-            right: auto;
-            left: auto;
-            bottom: auto;
-            z-index: 1;
-            display: block
-        }
-        
-        .bs-component .modal-dialog {
-            width: 90%
-        }
-        
-        .bs-component .popover {
-            position: relative;
-            display: inline-block;
-            width: 220px;
-            margin: 20px
-        }
-        
-        #source-button {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 100;
-            font-weight: bold;
-            padding: 5px 10px;
-        }
-        
-        .progress {
-            margin-bottom: 10px
-        }
-        
-        footer {
-            margin: 5em 0
-        }
-        
-        footer li {
-            float: left;
-            margin-right: 1.5em;
-            margin-bottom: 1.5em
-        }
-        
-        footer p {
-            clear: left;
-            margin-bottom: 0
-        }
-        
-        .splash {
-            padding: 4em 0 0;
-            background-color: #141d27;
-            color: #fff;
-            text-align: center
-        }
-        
-        .splash h1 {
-            font-size: 4em
-        }
-        
-        .splash #social {
-            margin: 2em 0
-        }
-        
-        .splash .alert {
-            margin: 2em 0
-        }
-        
-        .section-tout {
-            padding: 4em 0 3em;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            background-color: #eaf1f1
-        }
-        
-        .section-tout .fa {
-            margin-right: .5em
-        }
-        
-        .section-tout p {
-            margin-bottom: 3em
-        }
-        
-        .section-preview {
-            padding: 4em 0 4em
-        }
-        
-        .section-preview .preview {
-            margin-bottom: 4em;
-            background-color: #eaf1f1
-        }
-        
-        .section-preview .preview .image {
-            position: relative
-        }
-        
-        .section-preview .preview .image:before {
-            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            content: "";
-            pointer-events: none
-        }
-        
-        .section-preview .preview .options {
-            padding: 1em 2em 2em;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-top: none;
-            text-align: center
-        }
-        
-        .section-preview .preview .options p {
-            margin-bottom: 2em
-        }
-        
-        .section-preview .dropdown-menu {
-            text-align: left
-        }
-        
-        .section-preview .lead {
-            margin-bottom: 2em
-        }
-        
-        @media (max-width: 767px) {
-            .section-preview .image img {
-                width: 100%
-            }
-        }
-        
-        .sponsor {
-            text-align: center
-        }
-        
-        .sponsor a:hover {
-            text-decoration: none
-        }
-        
-        @media (max-width: 767px) {
+        <style>
             #banner {
-                margin-bottom: 2em;
+                border-bottom: none
+            }
+            
+            .page-header h1 {
+                font-size: 4em
+            }
+            
+            .bs-docs-section {
+                margin-top: 8em
+            }
+            
+            .bs-component {
+                position: relative
+            }
+            
+            .bs-component .modal {
+                position: relative;
+                top: auto;
+                right: auto;
+                left: auto;
+                bottom: auto;
+                z-index: 1;
+                display: block
+            }
+            
+            .bs-component .modal-dialog {
+                width: 90%
+            }
+            
+            .bs-component .popover {
+                position: relative;
+                display: inline-block;
+                width: 220px;
+                margin: 20px
+            }
+            
+            #source-button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 100;
+                font-weight: bold;
+                padding: 5px 10px;
+            }
+            
+            .progress {
+                margin-bottom: 10px
+            }
+            
+            footer {
+                margin: 5em 0
+            }
+            
+            footer li {
+                float: left;
+                margin-right: 1.5em;
+                margin-bottom: 1.5em
+            }
+            
+            footer p {
+                clear: left;
+                margin-bottom: 0
+            }
+            
+            .splash {
+                padding: 4em 0 0;
+                background-color: #141d27;
+                color: #fff;
                 text-align: center
             }
-        }
-        
-        .infobox .btn-sup {
-            color: rgba(0, 0, 0, 0.5);
-            font-weight: bold;
-            font-size: 15px;
-            line-height: 30px;
-        }
-        
-        .infobox .btn-sup img {
-            opacity: 0.5;
-            height: 30px;
-        }
-        
-        .infobox .btn-sup span {
-            padding-left: 10px;
-            position: relative;
-            top: 2px;
-        }
-        
-        .icons-material .row {
-            margin-bottom: 20px;
-        }
-        
-        .icons-material .col-xs-2 {
-            text-align: center;
-        }
-        
-        .icons-material i {
-            font-size: 34pt;
-        }
-        
-        .icon-preview {
-            display: inline-block;
-            padding: 10px;
-            margin: 10px;
-            background: #D5D5D5;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        
-        .icon-preview span {
-            display: none;
-            position: absolute;
-            background: black;
-            color: #EEE;
-            padding: 5px 8px;
-            font-size: 15px;
-            border-radius: 2px;
-            z-index: 10;
-        }
-        
-        .icon-preview:hover i {
-            color: #4285f4;
-        }
-        
-        .icon-preview:hover span {
-            display: block;
-            cursor: text;
-        }
-    </style>
-</head>
+            
+            .splash h1 {
+                font-size: 4em
+            }
+            
+            .splash #social {
+                margin: 2em 0
+            }
+            
+            .splash .alert {
+                margin: 2em 0
+            }
+            
+            .section-tout {
+                padding: 4em 0 3em;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                background-color: #eaf1f1
+            }
+            
+            .section-tout .fa {
+                margin-right: .5em
+            }
+            
+            .section-tout p {
+                margin-bottom: 3em
+            }
+            
+            .section-preview {
+                padding: 4em 0 4em
+            }
+            
+            .section-preview .preview {
+                margin-bottom: 4em;
+                background-color: #eaf1f1
+            }
+            
+            .section-preview .preview .image {
+                position: relative
+            }
+            
+            .section-preview .preview .image:before {
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                content: "";
+                pointer-events: none
+            }
+            
+            .section-preview .preview .options {
+                padding: 1em 2em 2em;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                border-top: none;
+                text-align: center
+            }
+            
+            .section-preview .preview .options p {
+                margin-bottom: 2em
+            }
+            
+            .section-preview .dropdown-menu {
+                text-align: left
+            }
+            
+            .section-preview .lead {
+                margin-bottom: 2em
+            }
+            
+            @media (max-width: 767px) {
+                .section-preview .image img {
+                    width: 100%
+                }
+            }
+            
+            .sponsor {
+                text-align: center
+            }
+            
+            .sponsor a:hover {
+                text-decoration: none
+            }
+            
+            @media (max-width: 767px) {
+                #banner {
+                    margin-bottom: 2em;
+                    text-align: center
+                }
+            }
+            
+            .infobox .btn-sup {
+                color: rgba(0, 0, 0, 0.5);
+                font-weight: bold;
+                font-size: 15px;
+                line-height: 30px;
+            }
+            
+            .infobox .btn-sup img {
+                opacity: 0.5;
+                height: 30px;
+            }
+            
+            .infobox .btn-sup span {
+                padding-left: 10px;
+                position: relative;
+                top: 2px;
+            }
+            
+            .icons-material .row {
+                margin-bottom: 20px;
+            }
+            
+            .icons-material .col-xs-2 {
+                text-align: center;
+            }
+            
+            .icons-material i {
+                font-size: 34pt;
+            }
+            
+            .icon-preview {
+                display: inline-block;
+                padding: 10px;
+                margin: 10px;
+                background: #D5D5D5;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            
+            .icon-preview span {
+                display: none;
+                position: absolute;
+                background: black;
+                color: #EEE;
+                padding: 5px 8px;
+                font-size: 15px;
+                border-radius: 2px;
+                z-index: 10;
+            }
+            
+            .icon-preview:hover i {
+                color: #4285f4;
+            }
+            
+            .icon-preview:hover span {
+                display: block;
+                cursor: text;
+            }
+        </style>
+    </head>
 
-<body>
+    <body>
 
-    <div class="bs-component">
-        <div class="navbar navbar-warning">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
+        <div class="bs-component">
+            <div class="navbar navbar-warning">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="/">成信助手>>>成信新闻列表←CUIT Helper</a>
-                </div>
-                <div class="navbar-collapse collapse navbar-warning-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/trs" target="_blank">成信好老师</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="/" target="_blank">返回首页</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="infodiv" style="display:none; alignment-baseline:central">
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 ">
-                    <div class="alert alert-dismissible alert-danger">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>关于新闻再抓取提示</strong> 如果你想要抓取本站的新闻，请使用我们的
-                        <a href="http://cuithelperapix.azurewebsites.net/newslist" target="_blank" class="alert-link">【公开接口】</a>
+                        <a class="navbar-brand" href="/">成信助手>>>成信新闻列表←CUIT Helper</a>
                     </div>
-                    <p class="text-primary">我们建议您订阅新闻更新，这样在你关注的新闻类别（比如学术讲座，国际交流）有更新的时候，本站将会发送邮件提醒您。<a href="javascript:toggleDiv('subscriable')" class="btn btn-raised btn-primary">订阅新闻更新</a></p>
+                    <div class="navbar-collapse collapse navbar-warning-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/trs" target="_blank">成信好老师</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/badborad" target="_blank">成信曝光台</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/" target="_blank">返回首页</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div style="width:65%;margin: 0 auto">
-                    <div class="modal">
-                        <div class="modal-dialog" id="subscriable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="toggleDiv('subscriable')">×</button>
-                                    <h4 class="modal-title"><b>订阅新闻更新</b></h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="text-muted">当您选择的新闻有更新的时候，我们将会发送邮件提醒您。</p>
-                                    <div class="checkbox">
-                                        <p class="text-primary">请勾选要订阅的新闻：</p>
-                                        <label><input type="checkbox" id="sub_xueshu"> 学术动态</label>
-                                        <label><input type="checkbox" id="sub_wenhua"> 文化活动</label>
-                                        <label><input type="checkbox" id="sub_zonghe"> 综合新闻</label>
-                                        <label><input type="checkbox" id="sub_jiaodian"> 焦点新闻</label>
-                                        <label><input type="checkbox" id="sub_xingxi"> 信息公告</label>
-                                        <label><input type="checkbox" id="sub_gongzuo"> 工作交流</label>
-                                        <label><input type="checkbox" id="sub_guoji"> 国际交流</label>
+
+
+            <div id="infodiv" style="display:none; alignment-baseline:central">
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>关于新闻再抓取提示</strong> 如果你想要抓取本站的新闻，请使用我们的
+                            <a href="http://cuithelperapix.azurewebsites.net/newslist" target="_blank" class="alert-link">【公开接口】</a>
+                        </div>
+                        <p class="text-primary">我们建议您订阅新闻更新，这样在你关注的新闻类别（比如学术讲座，国际交流）有更新的时候，本站将会发送邮件提醒您。<a href="javascript:toggleDiv('subscriable')" class="btn btn-raised btn-primary">订阅新闻更新</a></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:65%;margin: 0 auto">
+                        <div class="modal">
+                            <div class="modal-dialog" id="subscriable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="toggleDiv('subscriable')">×</button>
+                                        <h4 class="modal-title"><b>订阅新闻更新</b></h4>
                                     </div>
-                                    <br/>
-                                    <div class="form-group">
-                                        <p class="text-primary">您的邮箱地址：</p>
-                                        <div class="col-md-10">
-                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    <div class="modal-body">
+                                        <p class="text-muted">当您选择的新闻有更新的时候，我们将会发送邮件提醒您。</p>
+                                        <div class="checkbox">
+                                            <p class="text-primary">请勾选要订阅的新闻：</p>
+                                            <label><input type="checkbox" id="sub_xueshu"> 学术动态</label>
+                                            <label><input type="checkbox" id="sub_wenhua"> 文化活动</label>
+                                            <label><input type="checkbox" id="sub_zonghe"> 综合新闻</label>
+                                            <label><input type="checkbox" id="sub_jiaodian"> 焦点新闻</label>
+                                            <label><input type="checkbox" id="sub_xingxi"> 信息公告</label>
+                                            <label><input type="checkbox" id="sub_gongzuo"> 工作交流</label>
+                                            <label><input type="checkbox" id="sub_guoji"> 国际交流</label>
                                         </div>
-                                    </div>
-                                    <div class="checkbox" style="text-align:right">
-                                        <label><input type="checkbox" id="agreeagreement"> 我同意服务协议</label>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="toggleDiv('subscriable')">取消</button>
-                                        <button type="button" class="btn btn-primary" onclick="subscrible()">订阅</button>
+                                        <br/>
+                                        <div class="form-group">
+                                            <p class="text-primary">您的邮箱地址：</p>
+                                            <div class="col-md-10">
+                                                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="checkbox" style="text-align:right">
+                                            <label><input type="checkbox" id="agreeagreement"> 我同意服务协议</label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="toggleDiv('subscriable')">取消</button>
+                                            <button type="button" class="btn btn-primary" onclick="subscrible()">订阅</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row ">
-                <div class="col-md-6 ">
-                    <div class="panel panel-success ">
-                        <div class="panel-heading ">
-                            <h3 class="panel-title ">学术动态（还包括了学术讲座预告，不错）</h3>
+                <div class="row ">
+                    <div class="col-md-6 ">
+                        <div class="panel panel-success ">
+                            <div class="panel-heading ">
+                                <h3 class="panel-title ">学术动态（还包括了学术讲座预告，不错）</h3>
+                            </div>
+                            <div class="panel-body " id="news_xueshu">
+                                id="news_xueshu "
+                            </div>
                         </div>
-                        <div class="panel-body " id="news_xueshu">
-                            id="news_xueshu "
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="panel panel-success ">
+                            <div class="panel-heading ">
+                                <h3 class="panel-title ">文化活动（社团，团组织活动）</h3>
+                            </div>
+                            <div class="panel-body " id="news_wenhua">
+                                id="news_wenhua "
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 ">
-                    <div class="panel panel-success ">
-                        <div class="panel-heading ">
-                            <h3 class="panel-title ">文化活动（社团，团组织活动）</h3>
+                <div class="row ">
+                    <div class="col-md-6 ">
+                        <div class="panel panel-success ">
+                            <div class="panel-heading ">
+                                <h3 class="panel-title ">国际交流机会</h3>
+                            </div>
+                            <div class="panel-body " id="guojijiaoliu">
+                                id="guojijiaoliu "
+                            </div>
                         </div>
-                        <div class="panel-body " id="news_wenhua">
-                            id="news_wenhua "
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="panel panel-success ">
+                            <div class="panel-heading ">
+                                <h3 class="panel-title ">学科竞赛 - 教务处</h3>
+                            </div>
+                            <div class="panel-body " id="jwc_xuekejinsai">
+                                id="jwc_xuekejinsai "
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row ">
-                <div class="col-md-6 ">
-                    <div class="panel panel-success ">
-                        <div class="panel-heading ">
-                            <h3 class="panel-title ">国际交流机会</h3>
-                        </div>
-                        <div class="panel-body " id="guojijiaoliu">
-                            id="guojijiaoliu "
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="panel panel-success ">
-                        <div class="panel-heading ">
-                            <h3 class="panel-title ">学科竞赛 - 教务处</h3>
-                        </div>
-                        <div class="panel-body " id="jwc_xuekejinsai">
-                            id="jwc_xuekejinsai "
+                <div class="row ">
+                    <div class="col-md-6 ">
+                        <div class="panel panel-success ">
+                            <div class="panel-heading ">
+                                <h3 class="panel-title ">综合新闻（个人觉得没什么用处）</h3>
+                            </div>
+                            <div class="panel-body " id="news_zonghe">
+                                id="news_zonghe "
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-md-6 ">
-                    <div class="panel panel-success ">
-                        <div class="panel-heading ">
-                            <h3 class="panel-title ">综合新闻（个人觉得没什么用处）</h3>
-                        </div>
-                        <div class="panel-body " id="news_zonghe">
-                            id="news_zonghe "
+                    <div class="col-md-6 ">
+                        <div class="panel panel-success ">
+                            <div class="panel-heading ">
+                                <h3 class="panel-title ">焦点新闻（作用自行判断）</h3>
+                            </div>
+                            <div class="panel-body " id="news_jiaodian">
+                                id="news_jiaodian "
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="panel panel-success ">
-                        <div class="panel-heading ">
-                            <h3 class="panel-title ">焦点新闻（作用自行判断）</h3>
-                        </div>
-                        <div class="panel-body " id="news_jiaodian">
-                            id="news_jiaodian "
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-            <div class="row ">
-                <div class="col-md-6 ">
-                    <div class="panel panel-success ">
-                        <div class="panel-heading ">
-                            <h3 class="panel-title ">信息公告（个人觉得没什么用处）</h3>
+                </div>
+                <div class="row ">
+                    <div class="col-md-6 ">
+                        <div class="panel panel-success ">
+                            <div class="panel-heading ">
+                                <h3 class="panel-title ">信息公告（个人觉得没什么用处）</h3>
+                            </div>
+                            <div class="panel-body " id="news_gonggao">
+                                id="news_gonggao "
+                            </div>
                         </div>
-                        <div class="panel-body " id="news_gonggao">
-                            id="news_gonggao "
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="panel panel-success ">
+                            <div class="panel-heading ">
+                                <h3 class="panel-title ">工作交流（个人觉得没什么用处）</h3>
+                            </div>
+                            <div class="panel-body " id="news_jiaoliu">
+                                id="news_jiaoliu "
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 ">
-                    <div class="panel panel-success ">
-                        <div class="panel-heading ">
-                            <h3 class="panel-title ">工作交流（个人觉得没什么用处）</h3>
-                        </div>
-                        <div class="panel-body " id="news_jiaoliu">
-                            id="news_jiaoliu "
-                        </div>
-                    </div>
-                </div>
-            </div>
-
 
 
+
+            </div>
         </div>
-    </div>
-    <div class="row" style="text-align:center" id="footer">
-    </div>
+        <div class="row" style="text-align:center" id="footer">
+        </div>
 
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="../static/jquery-3.1.1.min.js "></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../static/dist/js/bootstrap.min.js "></script>
-    <!-- Material Design for Bootstrap -->
-    <script src="../static/bmaterial/dist/js/material.js "></script>
-    <script src="../static/bmaterial/dist/js/ripples.min.js "></script>
-    <!-- SnackbarJS, find it in /dist -->
-    <script src="../static/snackbar/dist/snackbar.min.js "></script>
-    <!-- Kanch's JS Common libary' -->
-    <script src="../static/kjslib.js "></script>
-    <script src="../static/kjslib_sub.js "></script>
-    <script>
-        $.material.init();
-    </script>
-    <!-- 显示关于 -->
-    <script type="text/javascript ">
-        function toggleDiv(divId) {
-            $("#" + divId).toggle();
-        }
-    </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="../static/jquery-3.1.1.min.js "></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="../static/dist/js/bootstrap.min.js "></script>
+        <!-- Material Design for Bootstrap -->
+        <script src="../static/bmaterial/dist/js/material.js "></script>
+        <script src="../static/bmaterial/dist/js/ripples.min.js "></script>
+        <!-- SnackbarJS, find it in /dist -->
+        <script src="../static/snackbar/dist/snackbar.min.js "></script>
+        <!-- Kanch's JS Common libary' -->
+        <script src="../static/kjslib.js "></script>
+        <script src="../static/kjslib_sub.js "></script>
+        <script>
+            $.material.init();
+        </script>
+        <!-- 显示关于 -->
+        <script type="text/javascript ">
+            function toggleDiv(divId) {
+                $("#" + divId).toggle();
+            }
+        </script>
 
-    <!-- 获取并设置新闻的函数 -->
-    <script type="text/javascript ">
-        function getNews(newstype, cid) {
-            htmldata = "获取新闻中...";
-            $.get("http://cuithelperapix.azurewebsites.net/" + newstype, function(data) {
-                if (data != "") {
-                    buf = data.split("<br/>");
-                    htmldata = "";
-                    for (x = 0; x < buf.length - 1; x++) {
-                        xd = buf[x].split("<@>");
-                        link = "<p><a href=\"" + xd[2] + "\" " + "target=\"_blank\">" + xd[0] + xd[1] + "</a></p>";
-                        htmldata += link;
+        <!-- 获取并设置新闻的函数 -->
+        <script type="text/javascript ">
+            function getNews(newstype, cid) {
+                htmldata = "获取新闻中...";
+                $.get("http://cuithelperapix.azurewebsites.net/" + newstype, function(data) {
+                    if (data != "") {
+                        buf = data.split("<br/>");
+                        htmldata = "";
+                        for (x = 0; x < buf.length - 1; x++) {
+                            xd = buf[x].split("<@>");
+                            link = "<p><a href=\"" + xd[2] + "\" " + "target=\"_blank\">" + xd[0] + xd[1] + "</a></p>";
+                            htmldata += link;
+                        }
+                        document.getElementById(cid).innerHTML = htmldata;
                     }
-                    document.getElementById(cid).innerHTML = htmldata;
-                }
+                });
+                document.getElementById(cid).innerHTML = htmldata;
+            }
+        </script>
+
+        <!-- 设置新闻 -->
+        <script type="text/javascript">
+            toggleDiv('subscriable')
+            $.snackbar({
+                content: "加载新闻中！请稍候...."
             });
-            document.getElementById(cid).innerHTML = htmldata;
-        }
-    </script>
+            getNews("guojijiaoliu", "guojijiaoliu");
+            getNews("news_zonghe", "news_zonghe");
+            getNews("news_xueshu", "news_xueshu");
+            getNews("news_wenghua", "news_wenhua");
+            getNews("news_xingxigonggao", "news_gonggao");
+            getNews("news_gongzuojiaoliu", "news_jiaoliu");
+            getNews("news_jiaodian", "news_jiaodian");
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                document.getElementById("infodiv").innerHTML = getabout();
+                document.getElementById("footer").innerHTML = getfooter();
+                console.log("1");
+            });
+        </script>
+        <script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    <!-- 设置新闻 -->
-    <script type="text/javascript">
-        toggleDiv('subscriable')
-        $.snackbar({
-            content: "加载新闻中！请稍候...."
-        });
-        getNews("guojijiaoliu", "guojijiaoliu");
-        getNews("news_zonghe", "news_zonghe");
-        getNews("news_xueshu", "news_xueshu");
-        getNews("news_wenghua", "news_wenhua");
-        getNews("news_xingxigonggao", "news_gonggao");
-        getNews("news_gongzuojiaoliu", "news_jiaoliu");
-        getNews("news_jiaodian", "news_jiaodian");
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            document.getElementById("infodiv").innerHTML = getabout();
-            document.getElementById("footer").innerHTML = getfooter();
-            console.log("1");
-        });
-    </script>
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-53245384-4', 'auto');
+            ga('send', 'pageview');
+        </script>
 
-        ga('create', 'UA-53245384-4', 'auto');
-        ga('send', 'pageview');
-    </script>
-
-</body>
+    </body>
 
 </html>

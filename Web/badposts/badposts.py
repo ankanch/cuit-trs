@@ -5,11 +5,12 @@ import worklib.htmlstring as STR
 
 
 #将从数据库加载的曝光数据根据支持人数组合成表格
-def makeUpTable(pdata):
+def makeUpTable(tupdata):
     TABLESTR = ""
     #我们将支持人数超过50的标记为热门（暂时）
     #badpost = [ID,TITLE,CONTENT,DATE,UP]
     #内容最多6排（333字）
+    pdata = reversed(tupdata)
     for badposts in pdata:
         pstr = ""
         if badposts[4] >=50:
@@ -19,10 +20,14 @@ def makeUpTable(pdata):
         content = badposts[2]
         if len(content) > 333:
             content = badposts[2][0:333]+"......"
+        #content = content.replace("<","--")
+        content = content.replace("\n","<br/>")
         pstr +=  badposts[1] + STR.BP_A_CONTENT + content + STR.BP_B_DATE \
-                + badposts[3].now().strftime('%Y-%m-%d %H:%M:%S') \
+                + badposts[3].strftime('%Y-%m-%d %H:%M:%S') \
                 + STR.BP_C_UPS + str(badposts[4]) + STR.BP_D_LINK + str(badposts[0]) + STR.BP_TAIL
         TABLESTR += pstr
+    if TABLESTR == "":
+        TABLESTR = "NULL"
     return TABLESTR
 
 #从数据库加载指定条数的曝光数据，按照时间排序
@@ -35,7 +40,6 @@ def queryBadposts(qsum,curid):
     DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
     DBCONN.set_charset('utf8mb4')
     DBCUR = DBCONN.cursor()
-    print(SEL)
     DBCUR.execute(SEL)
     DBCONN.commit()
     result = DBCUR.fetchall()
@@ -99,7 +103,7 @@ def support(xid):
     result = DBCUR.fetchall()
     if len(result) == 0:
         return False   #false为未查找到指定回帖
-    ADD = "UPDATE `badposts` SET `UP`=`UP`+1 WHERE `ID`=" + str(id)
+    ADD = "UPDATE `badposts` SET `UP`=`UP`+1 WHERE `ID`=" + str(xid)
     DBCUR.execute(ADD)
     DBCONN.commit()
     DBCUR.close()

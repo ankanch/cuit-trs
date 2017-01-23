@@ -353,9 +353,19 @@
                     $.snackbar({
                         content: "提交中...请稍候。"
                     });
+                    document.getElementById("submita").disabled = true;
                     $.post('/badborad/submit', {
                         "title": tl,
-                        "content": ct
+                        "content": ct,
+                        async: false,
+                        dataType: "text",
+                        function(data) {
+                            $.snackbar({
+                                content: "您已成功支持该曝光！把它分享给您的朋友获取更大影响力吧。"
+                            });
+                            console.log(data);
+                            window.location.href = "/badborad";
+                        }
                     });
                 }
             </script>

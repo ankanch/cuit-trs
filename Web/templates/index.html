@@ -1,314 +1,317 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>成信助手 | CUIT Helper</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>成信助手 | CUIT Helper</title>
 
-    <link href="../static/images/favicon.ico" rel="icon" type="image/x-icon" />
-    <!-- Material Design fonts
+        <link href="../static/images/favicon.ico" rel="icon" type="image/x-icon" />
+        <!-- Material Design fonts
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-    <!-- Bootstrap  -->
-    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Material Design -->
-    <link href="../static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
-    <link href="../static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
-    <!-- core CSS of SnackbarJS, find it in /dist -->
-    <link href="../static/snackbar/dist/snackbar.min.css" rel="stylesheet">
-    <!-- the default theme of SnackbarJS, find it in /themes-css -->
-    <link href="../static/snackbar/themes-css/material.css" rel="stylesheet">
+        <!-- Bootstrap  -->
+        <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap Material Design -->
+        <link href="../static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
+        <link href="../static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
+        <!-- core CSS of SnackbarJS, find it in /dist -->
+        <link href="../static/snackbar/dist/snackbar.min.css" rel="stylesheet">
+        <!-- the default theme of SnackbarJS, find it in /themes-css -->
+        <link href="../static/snackbar/themes-css/material.css" rel="stylesheet">
 
-    <style>
-        #banner {
-            border-bottom: none
-        }
-        
-        .page-header h1 {
-            font-size: 4em
-        }
-        
-        .bs-docs-section {
-            margin-top: 8em
-        }
-        
-        .bs-component {
-            position: relative
-        }
-        
-        .bs-component .modal {
-            position: relative;
-            top: auto;
-            right: auto;
-            left: auto;
-            bottom: auto;
-            z-index: 1;
-            display: block
-        }
-        
-        .bs-component .modal-dialog {
-            width: 90%
-        }
-        
-        .bs-component .popover {
-            position: relative;
-            display: inline-block;
-            width: 220px;
-            margin: 20px
-        }
-        
-        #source-button {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 100;
-            font-weight: bold;
-            padding: 5px 10px;
-        }
-        
-        .progress {
-            margin-bottom: 10px
-        }
-        
-        footer {
-            margin: 5em 0
-        }
-        
-        footer li {
-            float: left;
-            margin-right: 1.5em;
-            margin-bottom: 1.5em
-        }
-        
-        footer p {
-            clear: left;
-            margin-bottom: 0
-        }
-        
-        .splash {
-            padding: 4em 0 0;
-            background-color: #141d27;
-            color: #fff;
-            text-align: center
-        }
-        
-        .splash h1 {
-            font-size: 4em
-        }
-        
-        .splash #social {
-            margin: 2em 0
-        }
-        
-        .splash .alert {
-            margin: 2em 0
-        }
-        
-        .section-tout {
-            padding: 4em 0 3em;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            background-color: #eaf1f1
-        }
-        
-        .section-tout .fa {
-            margin-right: .5em
-        }
-        
-        .section-tout p {
-            margin-bottom: 3em
-        }
-        
-        .section-preview {
-            padding: 4em 0 4em
-        }
-        
-        .section-preview .preview {
-            margin-bottom: 4em;
-            background-color: #eaf1f1
-        }
-        
-        .section-preview .preview .image {
-            position: relative
-        }
-        
-        .section-preview .preview .image:before {
-            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            content: "";
-            pointer-events: none
-        }
-        
-        .section-preview .preview .options {
-            padding: 1em 2em 2em;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-top: none;
-            text-align: center
-        }
-        
-        .section-preview .preview .options p {
-            margin-bottom: 2em
-        }
-        
-        .section-preview .dropdown-menu {
-            text-align: left
-        }
-        
-        .section-preview .lead {
-            margin-bottom: 2em
-        }
-        
-        @media (max-width: 767px) {
-            .section-preview .image img {
-                width: 100%
-            }
-        }
-        
-        .sponsor {
-            text-align: center
-        }
-        
-        .sponsor a:hover {
-            text-decoration: none
-        }
-        
-        @media (max-width: 767px) {
+        <style>
             #banner {
-                margin-bottom: 2em;
+                border-bottom: none
+            }
+            
+            .page-header h1 {
+                font-size: 4em
+            }
+            
+            .bs-docs-section {
+                margin-top: 8em
+            }
+            
+            .bs-component {
+                position: relative
+            }
+            
+            .bs-component .modal {
+                position: relative;
+                top: auto;
+                right: auto;
+                left: auto;
+                bottom: auto;
+                z-index: 1;
+                display: block
+            }
+            
+            .bs-component .modal-dialog {
+                width: 90%
+            }
+            
+            .bs-component .popover {
+                position: relative;
+                display: inline-block;
+                width: 220px;
+                margin: 20px
+            }
+            
+            #source-button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 100;
+                font-weight: bold;
+                padding: 5px 10px;
+            }
+            
+            .progress {
+                margin-bottom: 10px
+            }
+            
+            footer {
+                margin: 5em 0
+            }
+            
+            footer li {
+                float: left;
+                margin-right: 1.5em;
+                margin-bottom: 1.5em
+            }
+            
+            footer p {
+                clear: left;
+                margin-bottom: 0
+            }
+            
+            .splash {
+                padding: 4em 0 0;
+                background-color: #141d27;
+                color: #fff;
                 text-align: center
             }
-        }
-        
-        .infobox .btn-sup {
-            color: rgba(0, 0, 0, 0.5);
-            font-weight: bold;
-            font-size: 15px;
-            line-height: 30px;
-        }
-        
-        .infobox .btn-sup img {
-            opacity: 0.5;
-            height: 30px;
-        }
-        
-        .infobox .btn-sup span {
-            padding-left: 10px;
-            position: relative;
-            top: 2px;
-        }
-        
-        .icons-material .row {
-            margin-bottom: 20px;
-        }
-        
-        .icons-material .col-xs-2 {
-            text-align: center;
-        }
-        
-        .icons-material i {
-            font-size: 34pt;
-        }
-        
-        .icon-preview {
-            display: inline-block;
-            padding: 10px;
-            margin: 10px;
-            background: #D5D5D5;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        
-        .icon-preview span {
-            display: none;
-            position: absolute;
-            background: black;
-            color: #EEE;
-            padding: 5px 8px;
-            font-size: 15px;
-            border-radius: 2px;
-            z-index: 10;
-        }
-        
-        .icon-preview:hover i {
-            color: #4285f4;
-        }
-        
-        .icon-preview:hover span {
-            display: block;
-            cursor: text;
-        }
-    </style>
-</head>
+            
+            .splash h1 {
+                font-size: 4em
+            }
+            
+            .splash #social {
+                margin: 2em 0
+            }
+            
+            .splash .alert {
+                margin: 2em 0
+            }
+            
+            .section-tout {
+                padding: 4em 0 3em;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                background-color: #eaf1f1
+            }
+            
+            .section-tout .fa {
+                margin-right: .5em
+            }
+            
+            .section-tout p {
+                margin-bottom: 3em
+            }
+            
+            .section-preview {
+                padding: 4em 0 4em
+            }
+            
+            .section-preview .preview {
+                margin-bottom: 4em;
+                background-color: #eaf1f1
+            }
+            
+            .section-preview .preview .image {
+                position: relative
+            }
+            
+            .section-preview .preview .image:before {
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                content: "";
+                pointer-events: none
+            }
+            
+            .section-preview .preview .options {
+                padding: 1em 2em 2em;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                border-top: none;
+                text-align: center
+            }
+            
+            .section-preview .preview .options p {
+                margin-bottom: 2em
+            }
+            
+            .section-preview .dropdown-menu {
+                text-align: left
+            }
+            
+            .section-preview .lead {
+                margin-bottom: 2em
+            }
+            
+            @media (max-width: 767px) {
+                .section-preview .image img {
+                    width: 100%
+                }
+            }
+            
+            .sponsor {
+                text-align: center
+            }
+            
+            .sponsor a:hover {
+                text-decoration: none
+            }
+            
+            @media (max-width: 767px) {
+                #banner {
+                    margin-bottom: 2em;
+                    text-align: center
+                }
+            }
+            
+            .infobox .btn-sup {
+                color: rgba(0, 0, 0, 0.5);
+                font-weight: bold;
+                font-size: 15px;
+                line-height: 30px;
+            }
+            
+            .infobox .btn-sup img {
+                opacity: 0.5;
+                height: 30px;
+            }
+            
+            .infobox .btn-sup span {
+                padding-left: 10px;
+                position: relative;
+                top: 2px;
+            }
+            
+            .icons-material .row {
+                margin-bottom: 20px;
+            }
+            
+            .icons-material .col-xs-2 {
+                text-align: center;
+            }
+            
+            .icons-material i {
+                font-size: 34pt;
+            }
+            
+            .icon-preview {
+                display: inline-block;
+                padding: 10px;
+                margin: 10px;
+                background: #D5D5D5;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            
+            .icon-preview span {
+                display: none;
+                position: absolute;
+                background: black;
+                color: #EEE;
+                padding: 5px 8px;
+                font-size: 15px;
+                border-radius: 2px;
+                z-index: 10;
+            }
+            
+            .icon-preview:hover i {
+                color: #4285f4;
+            }
+            
+            .icon-preview:hover span {
+                display: block;
+                cursor: text;
+            }
+        </style>
+    </head>
 
-<body>
-    <div class="bs-component">
-        <div class="navbar navbar-warning">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
+    <body>
+        <div class="bs-component">
+            <div class="navbar navbar-warning">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="/">成信助手</a>
-                </div>
-                <div class="navbar-collapse collapse navbar-warning-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/trs">成信好老师</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
-                    </ul>
+                        <a class="navbar-brand" href="/">成信助手</a>
+                    </div>
+                    <div class="navbar-collapse collapse navbar-warning-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/trs">成信好老师</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/badborad" target="_blank">成信曝光台</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="infodiv" style="display:none; alignment-baseline:central">
-        </div>
+            <div id="infodiv" style="display:none; alignment-baseline:central">
+            </div>
 
 
-        <div class="row">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="container" style="width: 90%; margin-right: 0px; ">
-                        <div class="jumbotron">
-                            <h2 class="text-warning">成信好老师</h2>
-                            <p>这是一个对我们学校老师点赞/不赞，评分，评价的匿名平台。你可以在这里自由的写下你对该老师的看法，包括老师是否严格，他的课程是否水等。且完全匿名。你写下的看法可能会在作为其他同学选课的依据。</p>
-                            <p><small><a href="/trs">点我进入</a></small></p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="container" style="width: 90%; margin-right: 0px; ">
+                            <div class="jumbotron">
+                                <h2 class="text-warning">成信好老师</h2>
+                                <p>这是一个对我们学校老师点赞/不赞，评分，评价的匿名平台。你可以在这里自由的写下你对该老师的看法，包括老师是否严格，他的课程是否水等。且完全匿名。你写下的看法可能会在作为其他同学选课的依据。</p>
+                                <p><small><a href="/trs">点我进入</a></small></p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="container" style="width: 90%;">
-                        <div class="jumbotron">
-                            <h2 class="text-warning">成信贴吧大数据</h2>
-                            <p>对我们学校的贴吧进行一些简单的分析，包括用户维度和贴吧维度的分析。分析词语的时频，分析某一位用户的数据。大家可以标记贴吧用户与真实用户。然后贴上些标签啥的。</p>
-                            <br/><br/><br/><br/>
-                            <p><small><a href="/tiebabigdata">点我进入</a></small></p>
+                    <div class="col-md-4">
+                        <div class="container" style="width: 90%;">
+                            <div class="jumbotron">
+                                <h2 class="text-warning">成信贴吧大数据</h2>
+                                <p>对我们学校的贴吧进行一些简单的分析，包括用户维度和贴吧维度的分析。分析词语的时频，分析某一位用户的数据。大家可以标记贴吧用户与真实用户。然后贴上些标签啥的。</p>
+                                <br/><br/><br/><br/>
+                                <p><small><a href="/tiebabigdata">点我进入</a></small></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container" style="width: 90%;margin-left: 0px;">
-                        <div class="jumbotron">
-                            <h2 class="text-warning">成信新闻列表</h2>
-                            <p>集中展示我们学校各方面新闻的地方比如学术预告，国际交流处的访问机会，教务处的通知等。大家也可以在这里订阅新闻更新，当有更新时，我们会发送邮件提醒。</p>
-                            <br/><br/><br/>
-                            <p><small><a href="/newslist">点我进入</a></small></p>
+                    <div class="col-md-4">
+                        <div class="container" style="width: 90%;margin-left: 0px;">
+                            <div class="jumbotron">
+                                <h2 class="text-warning">成信新闻列表</h2>
+                                <p>集中展示我们学校各方面新闻的地方比如学术预告，国际交流处的访问机会，教务处的通知等。大家也可以在这里订阅新闻更新，当有更新时，我们会发送邮件提醒。</p>
+                                <br/><br/><br/>
+                                <p><small><a href="/newslist">点我进入</a></small></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!--div class="container" style="width: 80%;">
+                    <!--div class="container" style="width: 80%;">
                     <div class="jumbotron">
                         <h2 class="text-warning">成信好老师</h2>
                         <p>这是一个对我们学校老师点赞/不赞，评分，评价的匿名平台。你可以在这里自由的写下你对该老师的看法，包括老师是否严格，他的课程是否水等。且完全匿名。你写下的看法可能会在作为其他同学选课的依据。</p>
@@ -325,59 +328,59 @@
                     </div>
 
                 </div-->
+                </div>
             </div>
-        </div>
 
-        <!--在下面添加自定义代码-->
-        <div class="row" style="text-align:center" id="footer">
+            <!--在下面添加自定义代码-->
+            <div class="row" style="text-align:center" id="footer">
 
-        </div>
+            </div>
 
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="../static/jquery-3.1.1.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="../static/dist/js/bootstrap.min.js"></script>
-        <!-- Material Design for Bootstrap -->
-        <script src="../static/bmaterial/dist/js/material.js"></script>
-        <script src="../static/bmaterial/dist/js/ripples.min.js"></script>
-        <!-- SnackbarJS, find it in /dist -->
-        <script src="../static/snackbar/dist/snackbar.min.js"></script>
-        <!-- Kanch's JS Common libary' -->
-        <script src="../static/kjslib.js"></script>
-        <script>
-            $.material.init();
-        </script>
-        <!-- 显示关于 -->
-        <script type="text/javascript">
-            function toggleDiv(divId) {
-                $("#" + divId).toggle();
-            }
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                document.getElementById("infodiv").innerHTML = getabout();
-                document.getElementById("footer").innerHTML = getfooter();
-                console.log("1");
-            });
-        </script>
-        <script>
-            (function(i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function() {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="../static/jquery-3.1.1.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="../static/dist/js/bootstrap.min.js"></script>
+            <!-- Material Design for Bootstrap -->
+            <script src="../static/bmaterial/dist/js/material.js"></script>
+            <script src="../static/bmaterial/dist/js/ripples.min.js"></script>
+            <!-- SnackbarJS, find it in /dist -->
+            <script src="../static/snackbar/dist/snackbar.min.js"></script>
+            <!-- Kanch's JS Common libary' -->
+            <script src="../static/kjslib.js"></script>
+            <script>
+                $.material.init();
+            </script>
+            <!-- 显示关于 -->
+            <script type="text/javascript">
+                function toggleDiv(divId) {
+                    $("#" + divId).toggle();
+                }
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    document.getElementById("infodiv").innerHTML = getabout();
+                    document.getElementById("footer").innerHTML = getfooter();
+                    console.log("1");
+                });
+            </script>
+            <script>
+                (function(i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function() {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-            ga('create', 'UA-53245384-4', 'auto');
-            ga('send', 'pageview');
-        </script>
+                ga('create', 'UA-53245384-4', 'auto');
+                ga('send', 'pageview');
+            </script>
 
-</body>
+    </body>
 
 </html>

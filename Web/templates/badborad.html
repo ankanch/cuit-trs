@@ -264,6 +264,9 @@
                             <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
+                            <li><a href="/badborad" target="_blank">成信曝光台</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
                             <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -289,7 +292,7 @@
 					</datalist>
                             <p class="help-block">没找到的话，要不你来曝个光？</p>
                             <span class="input-group-btn">
-                <button type="button" class="btn btn-fab btn-fab-mini "  onclick="javascript:searchfor();">
+                <button type="button" class="btn btn-fab btn-fab-mini "  onkeydown="javascript:keydown();" onclick="javascript:searchfor();">
                     
                   <i class="material-icons">></i>
                 </button>
@@ -305,13 +308,13 @@
           </div> 
         </div>
         </div>
-        <div class="row" style="width: 60%;margin-left:auto;margin-right:auto;display: none;">
+        <div class="row" id="noshow" style="width: 60%;margin-left:auto;margin-right:auto;display: none;">
             <div class="alert alert-dismissible alert-warning">
   <button type="button" class="close" data-dismiss="alert">×</button>
   <h4>卧槽！</h4>
 
   <p>系统没有查询到任何与已知关键字匹配的曝光。<br/>看来你可以成为第一个曝光它的！<br/>曝光完全匿名，来吧骚年！
-    <a href="/badborad/newbad" class="alert-link">我要曝光！</a></p>
+    <a href="/badborad/newbad" class="alert-link">点我开始曝光！</a></p>
 </div>
         </div>
         <div class="row" id="badposts" style="width: 60%;margin-left:auto;margin-right:auto;">
@@ -323,8 +326,7 @@
   <div class="panel-body">
       <div class="row" style="margin-left: 10px;margin-right: 10px;">
     目前该系统仍然处于开发阶段。您可能会遇到一些意外情况。
-    <p>搜索功能暂时无法使用。</p>
-    <p>如果你要发布新的曝光，<a href="/badborad/newbad" class="alert-link" target="_blank">点击这里可以开始曝光</a>。</p>
+    <p>如果你要发布新的曝光，<a href="/badborad/newbad" class="alert-link" target="_blank">点击这里可以开始曝光</a>。发布前请搜索是否有相同的曝光。</p>
     <p>下拉该页面可以加载更多曝光。</p>
     </div>
   </div>
@@ -374,13 +376,20 @@
                             if (data != "NULL") {
                                 document.getElementById("badposts").innerHTML = data;
                             } else {
-                               
+                                document.getElementById("badposts").innerHTML = "";
+                               toggleDiv("noshow");
                             }
                              $.snackbar({
                                     content: "搜索完毕。"
                                 });
                         });
             }
+              function keydown(){ 
+                 if(event.keyCode == 13) 
+                 { 
+                        searchfor(); 
+                } 
+             } 
         </script>
         <script type="text/javascript">
             $(document).ready(function() {

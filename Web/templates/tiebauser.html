@@ -1,793 +1,796 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{TIEBAID}}的数据 | 成信助手 | CUIT Helper</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{TIEBAID}}的数据 | 成信助手 | CUIT Helper</title>
 
-    <link href="/static/images/favicon.ico" rel="icon" type="image/x-icon" />
-    <!-- Material Design fonts
+        <link href="/static/images/favicon.ico" rel="icon" type="image/x-icon" />
+        <!-- Material Design fonts
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-    <!-- Bootstrap  -->
-    <link href="/static/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Material Design -->
-    <link href="/static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
-    <link href="/static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
-    <!-- core CSS of SnackbarJS, find it in /dist -->
-    <link href="/static/snackbar/dist/snackbar.min.css" rel="stylesheet">
-    <!-- the default theme of SnackbarJS, find it in /themes-css -->
-    <link href="/static/snackbar/themes-css/material.css" rel="stylesheet">
+        <!-- Bootstrap  -->
+        <link href="/static/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap Material Design -->
+        <link href="/static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
+        <link href="/static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
+        <!-- core CSS of SnackbarJS, find it in /dist -->
+        <link href="/static/snackbar/dist/snackbar.min.css" rel="stylesheet">
+        <!-- the default theme of SnackbarJS, find it in /themes-css -->
+        <link href="/static/snackbar/themes-css/material.css" rel="stylesheet">
 
-    <style>
-        #banner {
-            border-bottom: none
-        }
-        
-        .page-header h1 {
-            font-size: 4em
-        }
-        
-        .bs-docs-section {
-            margin-top: 8em
-        }
-        
-        .bs-component {
-            position: relative
-        }
-        
-        .bs-component .modal {
-            position: relative;
-            top: auto;
-            right: auto;
-            left: auto;
-            bottom: auto;
-            z-index: 1;
-            display: block
-        }
-        
-        .bs-component .modal-dialog {
-            width: 90%
-        }
-        
-        .bs-component .popover {
-            position: relative;
-            display: inline-block;
-            width: 220px;
-            margin: 20px
-        }
-        
-        #source-button {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 100;
-            font-weight: bold;
-            padding: 5px 10px;
-        }
-        
-        .progress {
-            margin-bottom: 10px
-        }
-        
-        footer {
-            margin: 5em 0
-        }
-        
-        footer li {
-            float: left;
-            margin-right: 1.5em;
-            margin-bottom: 1.5em
-        }
-        
-        footer p {
-            clear: left;
-            margin-bottom: 0
-        }
-        
-        .splash {
-            padding: 4em 0 0;
-            background-color: #141d27;
-            color: #fff;
-            text-align: center
-        }
-        
-        .splash h1 {
-            font-size: 4em
-        }
-        
-        .splash #social {
-            margin: 2em 0
-        }
-        
-        .splash .alert {
-            margin: 2em 0
-        }
-        
-        .section-tout {
-            padding: 4em 0 3em;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            background-color: #eaf1f1
-        }
-        
-        .section-tout .fa {
-            margin-right: .5em
-        }
-        
-        .section-tout p {
-            margin-bottom: 3em
-        }
-        
-        .section-preview {
-            padding: 4em 0 4em
-        }
-        
-        .section-preview .preview {
-            margin-bottom: 4em;
-            background-color: #eaf1f1
-        }
-        
-        .section-preview .preview .image {
-            position: relative
-        }
-        
-        .section-preview .preview .image:before {
-            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            content: "";
-            pointer-events: none
-        }
-        
-        .section-preview .preview .options {
-            padding: 1em 2em 2em;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-top: none;
-            text-align: center
-        }
-        
-        .section-preview .preview .options p {
-            margin-bottom: 2em
-        }
-        
-        .section-preview .dropdown-menu {
-            text-align: left
-        }
-        
-        .section-preview .lead {
-            margin-bottom: 2em
-        }
-        
-        @media (max-width: 767px) {
-            .section-preview .image img {
-                width: 100%
-            }
-        }
-        
-        .sponsor {
-            text-align: center
-        }
-        
-        .sponsor a:hover {
-            text-decoration: none
-        }
-        
-        @media (max-width: 767px) {
+        <style>
             #banner {
-                margin-bottom: 2em;
+                border-bottom: none
+            }
+            
+            .page-header h1 {
+                font-size: 4em
+            }
+            
+            .bs-docs-section {
+                margin-top: 8em
+            }
+            
+            .bs-component {
+                position: relative
+            }
+            
+            .bs-component .modal {
+                position: relative;
+                top: auto;
+                right: auto;
+                left: auto;
+                bottom: auto;
+                z-index: 1;
+                display: block
+            }
+            
+            .bs-component .modal-dialog {
+                width: 90%
+            }
+            
+            .bs-component .popover {
+                position: relative;
+                display: inline-block;
+                width: 220px;
+                margin: 20px
+            }
+            
+            #source-button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 100;
+                font-weight: bold;
+                padding: 5px 10px;
+            }
+            
+            .progress {
+                margin-bottom: 10px
+            }
+            
+            footer {
+                margin: 5em 0
+            }
+            
+            footer li {
+                float: left;
+                margin-right: 1.5em;
+                margin-bottom: 1.5em
+            }
+            
+            footer p {
+                clear: left;
+                margin-bottom: 0
+            }
+            
+            .splash {
+                padding: 4em 0 0;
+                background-color: #141d27;
+                color: #fff;
                 text-align: center
             }
-        }
-        
-        .infobox .btn-sup {
-            color: rgba(0, 0, 0, 0.5);
-            font-weight: bold;
-            font-size: 15px;
-            line-height: 30px;
-        }
-        
-        .infobox .btn-sup img {
-            opacity: 0.5;
-            height: 30px;
-        }
-        
-        .infobox .btn-sup span {
-            padding-left: 10px;
-            position: relative;
-            top: 2px;
-        }
-        
-        .icons-material .row {
-            margin-bottom: 20px;
-        }
-        
-        .icons-material .col-xs-2 {
-            text-align: center;
-        }
-        
-        .icons-material i {
-            font-size: 34pt;
-        }
-        
-        .icon-preview {
-            display: inline-block;
-            padding: 10px;
-            margin: 10px;
-            background: #D5D5D5;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        
-        .icon-preview span {
-            display: none;
-            position: absolute;
-            background: black;
-            color: #EEE;
-            padding: 5px 8px;
-            font-size: 15px;
-            border-radius: 2px;
-            z-index: 10;
-        }
-        
-        .icon-preview:hover i {
-            color: #4285f4;
-        }
-        
-        .icon-preview:hover span {
-            display: block;
-            cursor: text;
-        }
-    </style>
-</head>
+            
+            .splash h1 {
+                font-size: 4em
+            }
+            
+            .splash #social {
+                margin: 2em 0
+            }
+            
+            .splash .alert {
+                margin: 2em 0
+            }
+            
+            .section-tout {
+                padding: 4em 0 3em;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                background-color: #eaf1f1
+            }
+            
+            .section-tout .fa {
+                margin-right: .5em
+            }
+            
+            .section-tout p {
+                margin-bottom: 3em
+            }
+            
+            .section-preview {
+                padding: 4em 0 4em
+            }
+            
+            .section-preview .preview {
+                margin-bottom: 4em;
+                background-color: #eaf1f1
+            }
+            
+            .section-preview .preview .image {
+                position: relative
+            }
+            
+            .section-preview .preview .image:before {
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                content: "";
+                pointer-events: none
+            }
+            
+            .section-preview .preview .options {
+                padding: 1em 2em 2em;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                border-top: none;
+                text-align: center
+            }
+            
+            .section-preview .preview .options p {
+                margin-bottom: 2em
+            }
+            
+            .section-preview .dropdown-menu {
+                text-align: left
+            }
+            
+            .section-preview .lead {
+                margin-bottom: 2em
+            }
+            
+            @media (max-width: 767px) {
+                .section-preview .image img {
+                    width: 100%
+                }
+            }
+            
+            .sponsor {
+                text-align: center
+            }
+            
+            .sponsor a:hover {
+                text-decoration: none
+            }
+            
+            @media (max-width: 767px) {
+                #banner {
+                    margin-bottom: 2em;
+                    text-align: center
+                }
+            }
+            
+            .infobox .btn-sup {
+                color: rgba(0, 0, 0, 0.5);
+                font-weight: bold;
+                font-size: 15px;
+                line-height: 30px;
+            }
+            
+            .infobox .btn-sup img {
+                opacity: 0.5;
+                height: 30px;
+            }
+            
+            .infobox .btn-sup span {
+                padding-left: 10px;
+                position: relative;
+                top: 2px;
+            }
+            
+            .icons-material .row {
+                margin-bottom: 20px;
+            }
+            
+            .icons-material .col-xs-2 {
+                text-align: center;
+            }
+            
+            .icons-material i {
+                font-size: 34pt;
+            }
+            
+            .icon-preview {
+                display: inline-block;
+                padding: 10px;
+                margin: 10px;
+                background: #D5D5D5;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            
+            .icon-preview span {
+                display: none;
+                position: absolute;
+                background: black;
+                color: #EEE;
+                padding: 5px 8px;
+                font-size: 15px;
+                border-radius: 2px;
+                z-index: 10;
+            }
+            
+            .icon-preview:hover i {
+                color: #4285f4;
+            }
+            
+            .icon-preview:hover span {
+                display: block;
+                cursor: text;
+            }
+        </style>
+    </head>
 
-<body>
+    <body>
 
-    <div class="bs-component">
-        <div class="navbar navbar-warning">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
+        <div class="bs-component">
+            <div class="navbar navbar-warning">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="/">成信助手</a>
-                </div>
-                <div class="navbar-collapse collapse navbar-warning-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/trs">成信好老师</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
-                    </ul>
+                        <a class="navbar-brand" href="/">成信助手</a>
+                    </div>
+                    <div class="navbar-collapse collapse navbar-warning-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/trs">成信好老师</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/badborad" target="_blank">成信曝光台</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <div id="infodiv" style="display:none; alignment-baseline:central">
-        </div>
-        <!--在下面添加自定义代码-->
-        <div class="container">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{TIEBAID}}的分析结果</h3>
-                </div>
-                <div class="panel-body">
-                    <h2>基本信息</h2>
-                    <div class="row" style="width: 80%; margin: 0px auto;background: black;">
-                        <font color="white">
-                            <br/>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_tiebaid" align="right">贴吧ID:</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey">{{TIEBAID}}</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_totalpost" align="right">累计发帖量:</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey" id="data_totalpost_text">获取中...</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_monthlypost" align="right">近30天发帖量:</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey" id="data_monthlypost_text">获取中...</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_fivekeyword" align="right">关键字:</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey">{{KEYWORD}}</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_tag" align="right">被贴上的标签:</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey">{{TAGS}}</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <ul class="nav nav-pills">
-                                    <li class="active"><a href="javascript:void(0)" id="data_friendlylevel">友善评级<span class="badge">B</span></a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_realname" align="right">该ID拥有者:</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey">{{REALNAME}}</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_sid" align="right">学号:</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey">{{XUEHAO}}</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_college" align="right">学院-年级:</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey">{{GRADECLASS}}</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_contact_QQ" align="right">QQ：</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey">{{QQ}}</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_contact_Email" align="right">电子邮件：</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey">{{EMAIL}}</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4 id="data_contact_Phone" align="right">手机：</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>
-                                            <font color="grey">{{PHONE}}</font>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>对该用户的任何数据统计全部是基于成都信息工程大学贴吧数据。</p>
-                            <p class="text-danger">知道这个贴吧用户的真实信息？
-                                <a href="javascript:void(0)" class="btn btn-raised btn-link" onclick="fillinfo()">点此补全真实信息</a>帮助我们完善数据库。
-                            </p>
-                        </font>
+            <div id="infodiv" style="display:none; alignment-baseline:central">
+            </div>
+            <!--在下面添加自定义代码-->
+            <div class="container">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{TIEBAID}}的分析结果</h3>
                     </div>
-                    <h2>更多分析</h2>
-                    <div class="row" style="width: 80%; margin: 0px auto;">
-                        <br/>
-                        <p class="text-info">下面的图像显示的该用户在我们学校贴吧的一些基本统计信息。你可以在下面选择不同的数据浏览</p>
-                        <div class="row">
-                            <a href="javascript:loadActivityTimeLine()" class="btn btn-raised btn-primary">活跃度图</a>
-                            <a href="javascript:loadActivityTimeZone()" class="btn btn-raised btn-primary">活跃时间段</a>
-                            <a href="javascript:loadUserRelation()" class="btn btn-raised btn-primary ">用户互动图</a>
-                            <a href="javascript:loadKeyword()" class="btn btn-raised btn-primary">回帖关键字</a>
+                    <div class="panel-body">
+                        <h2>基本信息</h2>
+                        <div class="row" style="width: 80%; margin: 0px auto;background: black;">
+                            <font color="white">
+                                <br/>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_tiebaid" align="right">贴吧ID:</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey">{{TIEBAID}}</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_totalpost" align="right">累计发帖量:</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey" id="data_totalpost_text">获取中...</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_monthlypost" align="right">近30天发帖量:</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey" id="data_monthlypost_text">获取中...</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_fivekeyword" align="right">关键字:</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey">{{KEYWORD}}</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_tag" align="right">被贴上的标签:</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey">{{TAGS}}</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <ul class="nav nav-pills">
+                                        <li class="active"><a href="javascript:void(0)" id="data_friendlylevel">友善评级<span class="badge">B</span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_realname" align="right">该ID拥有者:</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey">{{REALNAME}}</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_sid" align="right">学号:</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey">{{XUEHAO}}</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_college" align="right">学院-年级:</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey">{{GRADECLASS}}</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_contact_QQ" align="right">QQ：</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey">{{QQ}}</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_contact_Email" align="right">电子邮件：</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey">{{EMAIL}}</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 id="data_contact_Phone" align="right">手机：</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>
+                                                <font color="grey">{{PHONE}}</font>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>对该用户的任何数据统计全部是基于成都信息工程大学贴吧数据。</p>
+                                <p class="text-danger">知道这个贴吧用户的真实信息？
+                                    <a href="javascript:void(0)" class="btn btn-raised btn-link" onclick="fillinfo()">点此补全真实信息</a>帮助我们完善数据库。
+                                </p>
+                            </font>
                         </div>
-                        <h4 id="graph_title">图表标题</h4>
-                        <p id="graph_note">图表说明</p>
-                        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-                        <div id="echarts" style="width: 100%;height:400px;margin: 0px auto;"></div>
+                        <h2>更多分析</h2>
+                        <div class="row" style="width: 80%; margin: 0px auto;">
+                            <br/>
+                            <p class="text-info">下面的图像显示的该用户在我们学校贴吧的一些基本统计信息。你可以在下面选择不同的数据浏览</p>
+                            <div class="row">
+                                <a href="javascript:loadActivityTimeLine()" class="btn btn-raised btn-primary">活跃度图</a>
+                                <a href="javascript:loadActivityTimeZone()" class="btn btn-raised btn-primary">活跃时间段</a>
+                                <a href="javascript:loadUserRelation()" class="btn btn-raised btn-primary ">用户互动图</a>
+                                <a href="javascript:loadKeyword()" class="btn btn-raised btn-primary">回帖关键字</a>
+                            </div>
+                            <h4 id="graph_title">图表标题</h4>
+                            <p id="graph_note">图表说明</p>
+                            <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                            <div id="echarts" style="width: 100%;height:400px;margin: 0px auto;"></div>
 
-                        <br/>
-                    </div>
-                    <h2>随机10条回帖记录</h2>
-                    <div class="row" style="width: 80%; margin: 0px auto;">
-                        {{RANDOM|safe}}
+                            <br/>
+                        </div>
+                        <h2>随机10条回帖记录</h2>
+                        <div class="row" style="width: 80%; margin: 0px auto;">
+                            {{RANDOM|safe}}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row" style="text-align:center" id="footer">
-        </div>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="/static/jquery-3.1.1.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="/static/dist/js/bootstrap.min.js"></script>
-        <!-- Material Design for Bootstrap -->
-        <script src="/static/bmaterial/dist/js/material.js"></script>
-        <script src="/static/bmaterial/dist/js/ripples.min.js"></script>
-        <!-- SnackbarJS, find it in /dist -->
-        <script src="/static/snackbar/dist/snackbar.min.js"></script>
-        <!-- Kanch's JS Common libary' -->
-        <script src="/static/kjslib.js"></script>
-        <!-- 引入 ECharts 文件 -->
-        <script src="/static/echarts/echarts.min.js"></script>
-        <script src="/static/json.js"></script>
-        <script>
-            $.material.init();
-            var myChart = echarts.init(document.getElementById('echarts'));
-            var xid = "{{xid}}";
-            var URLSUFFIX = "http://ec2-54-238-225-195.ap-northeast-1.compute.amazonaws.com:5555";
-        </script>
-        <!-- 显示关于 -->
-        <script type="text/javascript">
-            function toggleDiv(divId) {
-                $("#" + divId).toggle();
-            }
+            <div class="row" style="text-align:center" id="footer">
+            </div>
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="/static/jquery-3.1.1.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="/static/dist/js/bootstrap.min.js"></script>
+            <!-- Material Design for Bootstrap -->
+            <script src="/static/bmaterial/dist/js/material.js"></script>
+            <script src="/static/bmaterial/dist/js/ripples.min.js"></script>
+            <!-- SnackbarJS, find it in /dist -->
+            <script src="/static/snackbar/dist/snackbar.min.js"></script>
+            <!-- Kanch's JS Common libary' -->
+            <script src="/static/kjslib.js"></script>
+            <!-- 引入 ECharts 文件 -->
+            <script src="/static/echarts/echarts.min.js"></script>
+            <script src="/static/json.js"></script>
+            <script>
+                $.material.init();
+                var myChart = echarts.init(document.getElementById('echarts'));
+                var xid = "{{xid}}";
+                var URLSUFFIX = "http://ec2-54-238-225-195.ap-northeast-1.compute.amazonaws.com:5555";
+            </script>
+            <!-- 显示关于 -->
+            <script type="text/javascript">
+                function toggleDiv(divId) {
+                    $("#" + divId).toggle();
+                }
 
-            function fillinfo() {
-                $.snackbar({
-                    content: "该功能暂时不可用！"
-                });
-            }
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $.snackbar({
-                    content: "获取数据中..."
-                });
-                document.getElementById("infodiv").innerHTML = getabout();
-                document.getElementById("footer").innerHTML = getfooter();
-                $.get(URLSUFFIX + "/api/tiebabigdata/postsum/{{xid}}", function(data) {
+                function fillinfo() {
                     $.snackbar({
-                        content: "用户发帖量和近30天发帖情况加载完成！"
+                        content: "该功能暂时不可用！"
                     });
-                    ld = data.split(",");
-                    document.getElementById("data_totalpost_text").innerText = ld[0];
-                    document.getElementById("data_monthlypost_text").innerText = ld[1];
-                });
-                loadActivityTimeLine();
-                console.log("1");
-            });
-        </script>
-        <script type="text/javascript">
-            // 指定图表的配置项和数据
-            var option = {
-                title: {
-                    text: ''
-                },
-                tooltip: {},
-                legend: {
-                    data: ['by kanch']
-                },
-                xAxis: {
-                    data: ["by ", "Kanch"]
-                },
-                yAxis: {},
-                series: [{
-                    name: 'by kanch',
-                    type: 'bar',
-                    data: [5, 20]
-                }]
-            };
-
-            // 使用刚指定的配置项和数据显示图表。
-            myChart.setOption(option);
-        </script>
-        <!--下面的代码用于加载图像-->
-        <script type="text/javascript">
-            //加载活跃度图
-            function loadActivityTimeLine() {
-                var myChart = echarts.init(document.getElementById('echarts'));
-                myChart.showLoading();
-                document.getElementById("graph_title").innerText = "用户活跃度图";
-                document.getElementById("graph_note").innerText = "该图展示了该用户在最近90天的活跃度（发帖量）";
-                $.get(URLSUFFIX + "/api/tiebabigdata/activitytimeline/{{xid}}/90", function(data) {
-
-                    myChart.hideLoading();
-                    if (data != "NULL" && data != "ERROR") {
+                }
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $.snackbar({
+                        content: "获取数据中..."
+                    });
+                    document.getElementById("infodiv").innerHTML = getabout();
+                    document.getElementById("footer").innerHTML = getfooter();
+                    $.get(URLSUFFIX + "/api/tiebabigdata/postsum/{{xid}}", function(data) {
                         $.snackbar({
-                            content: "用户活跃度图加载完成！"
+                            content: "用户发帖量和近30天发帖情况加载完成！"
                         });
-                        //解析数据
-                        data.replace("'", "");
-                        rawl = data.split("], [");
-                        rawl[0].replace("[[", "");
-                        rawl[1].replace("]]", "");
-                        //转换为整形数组
-                        var xstr = rawl[0].split(",");
-                        var dataStrArr = rawl[1].split(",");
-                        var dataIntArr = [];
-                        dataStrArr.forEach(function(data, index, arr) {
-                            dataIntArr.push(+data);
-                        });
-                        //设置图表数据
-                        myChart.setOption(option = {
-                            title: {
-                                text: '近90天活跃数据'
-                            },
-                            tooltip: {
-                                trigger: 'axis'
-                            },
-                            xAxis: {
-                                data: xstr
-                            },
-                            yAxis: {
-                                splitLine: {
-                                    show: false
-                                }
-                            },
-                            toolbox: {
-                                left: 'center',
-                                feature: {
-                                    dataZoom: {
-                                        yAxisIndex: 'none'
-                                    },
-                                    restore: {},
-                                    saveAsImage: {}
-                                }
-                            },
-                            dataZoom: [{
-                                startValue: '2014-06-01'
-                            }, {
-                                type: 'inside'
-                            }],
-                            series: {
-                                name: '当日发帖量',
-                                type: 'line',
-                                data: dataIntArr
-                            }
-                        });
-                    }
+                        ld = data.split(",");
+                        document.getElementById("data_totalpost_text").innerText = ld[0];
+                        document.getElementById("data_monthlypost_text").innerText = ld[1];
+                    });
+                    loadActivityTimeLine();
+                    console.log("1");
                 });
-            }
-            //加载活跃时间段图
-            function loadActivityTimeZone() {
-                var myChart = echarts.init(document.getElementById('echarts'));
-                myChart.showLoading();
-                document.getElementById("graph_title").innerText = "用户活跃时间段图";
-                document.getElementById("graph_note").innerText = "该图展示了该用户每日的活跃时间段（基于所有发帖）";
-                $.get(URLSUFFIX + "/api/tiebabigdata/activitytimezon/{{xid}}", function(data) {
+            </script>
+            <script type="text/javascript">
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: ['by kanch']
+                    },
+                    xAxis: {
+                        data: ["by ", "Kanch"]
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: 'by kanch',
+                        type: 'bar',
+                        data: [5, 20]
+                    }]
+                };
 
-                    myChart.hideLoading();
-                    if (data != "NULL" && data != "ERROR") {
-                        $.snackbar({
-                            content: "用户活跃度时间段图加载完成！"
-                        });
-                        data = data.replace("[", "");
-                        data = data.replace("]", "");
-                        //转换为整形数组
-                        var dataStrArr = data.split(",");
-                        var dataIntArr = [];
-                        dataStrArr.forEach(function(data, index, arr) {
-                            dataIntArr.push(+data);
-                        });
-                        //设置图表数据
-                        myChart.setOption({
-                            title: {
-                                text: '活跃时间段'
-                            },
-                            tooltip: {
-                                trigger: 'axis'
-                            },
-                            toolbox: {
-                                feature: {
-                                    saveAsImage: {}
-                                }
-                            },
-                            grid: {
-                                left: '3%',
-                                right: '4%',
-                                bottom: '3%',
-                                containLabel: true
-                            },
-                            xAxis: [{
-                                type: 'category',
-                                boundaryGap: false,
-                                data: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-                            }],
-                            yAxis: [{
-                                type: 'value'
-                            }],
-                            series: [{
-                                name: '发帖量',
-                                type: 'line',
-                                stack: '总量',
-                                label: {
-                                    normal: {
-                                        show: true,
-                                        position: 'top'
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            </script>
+            <!--下面的代码用于加载图像-->
+            <script type="text/javascript">
+                //加载活跃度图
+                function loadActivityTimeLine() {
+                    var myChart = echarts.init(document.getElementById('echarts'));
+                    myChart.showLoading();
+                    document.getElementById("graph_title").innerText = "用户活跃度图";
+                    document.getElementById("graph_note").innerText = "该图展示了该用户在最近90天的活跃度（发帖量）";
+                    $.get(URLSUFFIX + "/api/tiebabigdata/activitytimeline/{{xid}}/90", function(data) {
+
+                        myChart.hideLoading();
+                        if (data != "NULL" && data != "ERROR") {
+                            $.snackbar({
+                                content: "用户活跃度图加载完成！"
+                            });
+                            //解析数据
+                            data.replace("'", "");
+                            rawl = data.split("], [");
+                            rawl[0].replace("[[", "");
+                            rawl[1].replace("]]", "");
+                            //转换为整形数组
+                            var xstr = rawl[0].split(",");
+                            var dataStrArr = rawl[1].split(",");
+                            var dataIntArr = [];
+                            dataStrArr.forEach(function(data, index, arr) {
+                                dataIntArr.push(+data);
+                            });
+                            //设置图表数据
+                            myChart.setOption(option = {
+                                title: {
+                                    text: '近90天活跃数据'
+                                },
+                                tooltip: {
+                                    trigger: 'axis'
+                                },
+                                xAxis: {
+                                    data: xstr
+                                },
+                                yAxis: {
+                                    splitLine: {
+                                        show: false
                                     }
                                 },
-                                areaStyle: {
-                                    normal: {}
+                                toolbox: {
+                                    left: 'center',
+                                    feature: {
+                                        dataZoom: {
+                                            yAxisIndex: 'none'
+                                        },
+                                        restore: {},
+                                        saveAsImage: {}
+                                    }
                                 },
-                                data: dataIntArr
-                            }]
-                        });
-                    }
-                });
-            }
-            //加载用户互动图
-            function loadUserRelation() {
-                var myChart = echarts.init(document.getElementById('echarts'));
-                myChart.showLoading();
-                document.getElementById("graph_title").innerText = "用户互动关系图";
-                document.getElementById("graph_note").innerText = "该图展示了与该用户互动频率最高的前10位用户";
-                $.get(URLSUFFIX + "/api/tiebabigdata/relationcircle/{{xid}}", function(data) {
-
-                    myChart.hideLoading();
-                    if (data != "NULL" && data != "ERROR") {
-                        $.snackbar({
-                            content: "用户活互动图加载完成！"
-                        });
-                        var obj = new Array();
-                        //构建字典
-                        var arr = new Array();
-                        var i = 0;
-                        var pd = eval(data['value']);
-                        console.log(data['value']);
-                        for (; i < pd.length; i++) {
-                            var p = eval(pd[i]);
-                            var dt = {
-                                value: p[0]['values'],
-                                name: p[0]['name']
-                            };
-                            obj.push(p[0]['name']);
-                            arr.push(dt);
-                            console.log("p[0]['name']=" + p[0]['name'] + "\tdt=" + dt.toString());
+                                dataZoom: [{
+                                    startValue: '2014-06-01'
+                                }, {
+                                    type: 'inside'
+                                }],
+                                series: {
+                                    name: '当日发帖量',
+                                    type: 'line',
+                                    data: dataIntArr
+                                }
+                            });
                         }
-                        //设置图表数据
-                        myChart.setOption({
-                            title: {
-                                text: '',
-                                subtext: '',
-                                x: 'center'
-                            },
-                            tooltip: {
-                                trigger: 'item',
-                                formatter: "{a} <br/>{b} : {c} ({d}%)"
-                            },
-                            legend: {
-                                orient: 'vertical',
-                                left: 'left',
-                                data: obj
-                            },
-                            series: [{
-                                name: '交互次数',
-                                type: 'pie',
-                                radius: '55%',
-                                center: ['50%', '60%'],
-                                data: arr,
-                                itemStyle: {
-                                    emphasis: {
-                                        shadowBlur: 10,
-                                        shadowOffsetX: 0,
-                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    });
+                }
+                //加载活跃时间段图
+                function loadActivityTimeZone() {
+                    var myChart = echarts.init(document.getElementById('echarts'));
+                    myChart.showLoading();
+                    document.getElementById("graph_title").innerText = "用户活跃时间段图";
+                    document.getElementById("graph_note").innerText = "该图展示了该用户每日的活跃时间段（基于所有发帖）";
+                    $.get(URLSUFFIX + "/api/tiebabigdata/activitytimezon/{{xid}}", function(data) {
+
+                        myChart.hideLoading();
+                        if (data != "NULL" && data != "ERROR") {
+                            $.snackbar({
+                                content: "用户活跃度时间段图加载完成！"
+                            });
+                            data = data.replace("[", "");
+                            data = data.replace("]", "");
+                            //转换为整形数组
+                            var dataStrArr = data.split(",");
+                            var dataIntArr = [];
+                            dataStrArr.forEach(function(data, index, arr) {
+                                dataIntArr.push(+data);
+                            });
+                            //设置图表数据
+                            myChart.setOption({
+                                title: {
+                                    text: '活跃时间段'
+                                },
+                                tooltip: {
+                                    trigger: 'axis'
+                                },
+                                toolbox: {
+                                    feature: {
+                                        saveAsImage: {}
                                     }
-                                }
-                            }]
-                        });
-                    }
-                });
-            }
-            //加载回帖关键字
-            function loadKeyword() {
-                var myChart = echarts.init(document.getElementById('echarts'));
-                myChart.showLoading();
-                document.getElementById("graph_title").innerText = "用户回帖关键字";
-                document.getElementById("graph_note").innerText = "该图展示了该用户在回帖时使用频率最高的关键字";
-                $.get(URLSUFFIX + "/api/tiebabigdata/keymap/{{xid}}", function(data) {
+                                },
+                                grid: {
+                                    left: '3%',
+                                    right: '4%',
+                                    bottom: '3%',
+                                    containLabel: true
+                                },
+                                xAxis: [{
+                                    type: 'category',
+                                    boundaryGap: false,
+                                    data: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+                                }],
+                                yAxis: [{
+                                    type: 'value'
+                                }],
+                                series: [{
+                                    name: '发帖量',
+                                    type: 'line',
+                                    stack: '总量',
+                                    label: {
+                                        normal: {
+                                            show: true,
+                                            position: 'top'
+                                        }
+                                    },
+                                    areaStyle: {
+                                        normal: {}
+                                    },
+                                    data: dataIntArr
+                                }]
+                            });
+                        }
+                    });
+                }
+                //加载用户互动图
+                function loadUserRelation() {
+                    var myChart = echarts.init(document.getElementById('echarts'));
+                    myChart.showLoading();
+                    document.getElementById("graph_title").innerText = "用户互动关系图";
+                    document.getElementById("graph_note").innerText = "该图展示了与该用户互动频率最高的前10位用户";
+                    $.get(URLSUFFIX + "/api/tiebabigdata/relationcircle/{{xid}}", function(data) {
 
-                    myChart.hideLoading();
-                    if (data != "NULL" && data != "ERROR") {
-                        $.snackbar({
-                            content: "用户回帖关键字图加载完成！"
-                        });
-                        //解析数据
-                        data.replace("'", "");
-                        rawl = data.split("], [");
-                        rawl[0].replace("[[", "");
-                        rawl[1].replace("]]", "");
-                        //转换为整形数组
-                        var xstr = rawl[0].split(",");
-                        var dataStrArr = rawl[1].split(",");
-                        var dataIntArr = [];
-                        dataStrArr.forEach(function(data, index, arr) {
-                            dataIntArr.push(+data);
-                        });
-                        //设置图表数据
-                        myChart.setOption({
-                            color: ['#3398DB'],
-                            tooltip: {
-                                trigger: 'axis',
-                                axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                                }
-                            },
-                            grid: {
-                                left: '3%',
-                                right: '4%',
-                                bottom: '3%',
-                                containLabel: true
-                            },
-                            xAxis: [{
-                                type: 'category',
-                                data: xstr,
-                                axisTick: {
-                                    alignWithLabel: true
-                                }
-                            }],
-                            yAxis: [{
-                                type: 'value'
-                            }],
-                            series: [{
-                                name: '频次',
-                                type: 'bar',
-                                barWidth: '60%',
-                                data: dataIntArr
-                            }]
-                        });
-                    }
-                });
-            }
-        </script>
-        <script>
-            (function(i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function() {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+                        myChart.hideLoading();
+                        if (data != "NULL" && data != "ERROR") {
+                            $.snackbar({
+                                content: "用户活互动图加载完成！"
+                            });
+                            var obj = new Array();
+                            //构建字典
+                            var arr = new Array();
+                            var i = 0;
+                            var pd = eval(data['value']);
+                            console.log(data['value']);
+                            for (; i < pd.length; i++) {
+                                var p = eval(pd[i]);
+                                var dt = {
+                                    value: p[0]['values'],
+                                    name: p[0]['name']
+                                };
+                                obj.push(p[0]['name']);
+                                arr.push(dt);
+                                console.log("p[0]['name']=" + p[0]['name'] + "\tdt=" + dt.toString());
+                            }
+                            //设置图表数据
+                            myChart.setOption({
+                                title: {
+                                    text: '',
+                                    subtext: '',
+                                    x: 'center'
+                                },
+                                tooltip: {
+                                    trigger: 'item',
+                                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                },
+                                legend: {
+                                    orient: 'vertical',
+                                    left: 'left',
+                                    data: obj
+                                },
+                                series: [{
+                                    name: '交互次数',
+                                    type: 'pie',
+                                    radius: '55%',
+                                    center: ['50%', '60%'],
+                                    data: arr,
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }]
+                            });
+                        }
+                    });
+                }
+                //加载回帖关键字
+                function loadKeyword() {
+                    var myChart = echarts.init(document.getElementById('echarts'));
+                    myChart.showLoading();
+                    document.getElementById("graph_title").innerText = "用户回帖关键字";
+                    document.getElementById("graph_note").innerText = "该图展示了该用户在回帖时使用频率最高的关键字";
+                    $.get(URLSUFFIX + "/api/tiebabigdata/keymap/{{xid}}", function(data) {
 
-            ga('create', 'UA-53245384-4', 'auto');
-            ga('send', 'pageview');
-        </script>
+                        myChart.hideLoading();
+                        if (data != "NULL" && data != "ERROR") {
+                            $.snackbar({
+                                content: "用户回帖关键字图加载完成！"
+                            });
+                            //解析数据
+                            data.replace("'", "");
+                            rawl = data.split("], [");
+                            rawl[0].replace("[[", "");
+                            rawl[1].replace("]]", "");
+                            //转换为整形数组
+                            var xstr = rawl[0].split(",");
+                            var dataStrArr = rawl[1].split(",");
+                            var dataIntArr = [];
+                            dataStrArr.forEach(function(data, index, arr) {
+                                dataIntArr.push(+data);
+                            });
+                            //设置图表数据
+                            myChart.setOption({
+                                color: ['#3398DB'],
+                                tooltip: {
+                                    trigger: 'axis',
+                                    axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                                    }
+                                },
+                                grid: {
+                                    left: '3%',
+                                    right: '4%',
+                                    bottom: '3%',
+                                    containLabel: true
+                                },
+                                xAxis: [{
+                                    type: 'category',
+                                    data: xstr,
+                                    axisTick: {
+                                        alignWithLabel: true
+                                    }
+                                }],
+                                yAxis: [{
+                                    type: 'value'
+                                }],
+                                series: [{
+                                    name: '频次',
+                                    type: 'bar',
+                                    barWidth: '60%',
+                                    data: dataIntArr
+                                }]
+                            });
+                        }
+                    });
+                }
+            </script>
+            <script>
+                (function(i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function() {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-</body>
+                ga('create', 'UA-53245384-4', 'auto');
+                ga('send', 'pageview');
+            </script>
+
+    </body>
 
 </html>
