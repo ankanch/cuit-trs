@@ -39,15 +39,29 @@ def bigdata():
 def badborad():
     return render_template("badborad.html")
 
+#成信曝光台-时间线
+@app.route('/badborad/load/<fromd>/<sum>')
+def loadbp(fromd,sum):
+    return render_template("badborad.html")
+
+#成信曝光台-具体页面
+@app.route('/badborad/<int:xid>')
+def showbadborad(xid):
+    rl = BP.getBadposts(xid)
+    return render_template("badpostsdetails.html",ID=rl[0],TITLE=rl[1],CONTENT=rl[2],DATE=rl[3],UP=rl[4])
+
 #成信曝光台-发布新曝光
 @app.route('/badborad/newbad')
 def postbadposts():
     return render_template("postNewBadposts.html")
 
 #成信曝光台-发布新曝光（POST）
-@app.route('/badborad/123')
+@app.route('/badborad/submit', methods=['POST'])
 def getbadborad():
-    return render_template("badborad.html")
+    title = request.form['title']
+    content = request.form['content']
+    xid = BP.insertBadposts(title,content)
+    return redirect("/badborad/" + str(xid))
 
 #搜索指定词语的数据
 @app.route('/tiebabigdata/term/<term>/<int:scale>')
@@ -308,5 +322,5 @@ if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
     #app.run(host='216.45.55.153')
-    app.run(host='127.0.0.1')
-    #app.run(host='127.0.0.1',debug=True)
+    #app.run(host='127.0.0.1')
+    app.run(host='127.0.0.1',debug=True)

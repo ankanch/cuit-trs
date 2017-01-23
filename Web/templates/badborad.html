@@ -381,6 +381,18 @@
             function toggleDiv(divId) {
                 $("#" + divId).toggle();
             }
+            function loadbadposts(){
+                $.snackbar({content: "加载中...."});   
+                $.get("/badborad/load/<fromd>/<sum>", function(data) {
+                            if (data != "NULL") {
+                                document.getElementById("commentslist").innerHTML = document.getElementById("commentslist").innerHTML + data;
+                            } else {
+                                $.snackbar({
+                                    content: "已经全部加载完毕。"
+                                });
+                            }
+                        });
+            }
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
