@@ -51,8 +51,8 @@ def badborad():
 #成信曝光台-时间线-获取
 @app.route('/badborad/load/<curid>/<qsum>')
 def loadbp(qsum,curid):
-    result = BP.queryBadposts(qsum,curid)
-    return BP.makeUpTable(result)
+    result,minid = BP.queryBadposts(qsum,curid)
+    return minid + "<@BYKANCHOFCUITCSY@>" + BP.makeUpTable(result)
 
 #成信曝光台-具体页面
 @app.route('/badborad/<int:xid>')
@@ -72,6 +72,7 @@ def getbadborad():
     content = request.form['content']
     xid = BP.insertBadposts(title,content)
     return  str(xid)
+    #return "22"
 
 #成信曝光台-支持曝光
 @app.route('/badborad/up', methods=['POST'])
@@ -344,5 +345,5 @@ if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
     #app.run(host='216.45.55.153')
-    #app.run(host='127.0.0.1')
-    app.run(host='127.0.0.1',debug=True)
+    app.run(host='127.0.0.1')
+    #app.run(host='127.0.0.1',debug=True)

@@ -358,13 +358,13 @@
                         "title": tl,
                         "content": ct,
                         async: false,
-                        dataType: "text",
-                        function(data) {
+                        dataType: "text/html",
+                        success: function(data) {
                             $.snackbar({
                                 content: "您已成功支持该曝光！把它分享给您的朋友获取更大影响力吧。"
                             });
                             console.log(data);
-                            window.location.href = "/badborad";
+                            //window.location.href = "/badborad";
                         }
                     });
                 }

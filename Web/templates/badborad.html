@@ -358,10 +358,11 @@
             function loadbadposts(curid){
                 $.snackbar({content: "加载中...."});   
                 $.get("/badborad/load/ " + curid + "/5", function(data) {
-                            if (data != "NULL") {
-                                document.getElementById("badposts").innerHTML = document.getElementById("badposts").innerHTML + data;
-                                curxid =  Number(curxid) + 5;
-                                console.log(curxid);
+                            if (data != "999999999999<@BYKANCHOFCUITCSY@>NULL") {
+                                pd = data.split("<@BYKANCHOFCUITCSY@>")
+                                document.getElementById("badposts").innerHTML = document.getElementById("badposts").innerHTML + pd[1];
+                                curxid = pd[0];
+                                console.log( "curid=",pd[0]);
                             } else {
                                 $.snackbar({
                                     content: "已经全部加载完毕。"

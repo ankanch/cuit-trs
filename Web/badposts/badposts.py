@@ -34,9 +34,9 @@ def makeUpTable(tupdata):
 def queryBadposts(qsum,curid):
     SEL = ""
     if int(curid) == 0:
-        SEL = "SELECT * FROM `badposts` WHERE ID<=(SELECT MAX(ID) FROM `badposts`) LIMIT 5"
+        SEL = "SELECT * FROM `badposts` WHERE ID<=(SELECT MAX(ID) FROM `badposts`) ORDER BY ID DESC LIMIT 5"
     else:
-        SEL = "SELECT * FROM `badposts` WHERE (ID<" + curid + " AND ID>" + str(int(curid) + int(qsum)) + ")"
+        SEL = "SELECT * FROM `badposts` WHERE (ID<" + curid + " AND ID>=" + str(int(curid) - int(qsum)) + ")"
     DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
     DBCONN.set_charset('utf8mb4')
     DBCUR = DBCONN.cursor()
@@ -45,7 +45,17 @@ def queryBadposts(qsum,curid):
     result = DBCUR.fetchall()
     DBCUR.close()
     DBCONN.close()
-    return result
+    #找出最小ID值，方便继续加载
+    minid = 999999999999
+    for bp in result:
+        if bp[0] <= minid:
+            minid = bp[0]
+    #minid = min(result,lambda x : x[0])
+    #第一次加载需要反转
+    if int(curid) == 0:
+        pdata = tuple(reversed(result))
+        return pdata,str(minid)
+    return result,str(minid)
 
 
 #插入新的曝光数据到数据库
