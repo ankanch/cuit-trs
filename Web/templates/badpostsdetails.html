@@ -312,12 +312,18 @@
                                 </div>
                             </div>
                             <br/>
+
                             <div class="row" style="margin-left: 12px;margin-right: 12px;">
-                                {{CONTENT}}
+                                <br/> {{CONTENT}}
                             </div>
                             <div class="row" style="margin-left: 11px;margin-right: 11px;">
                                 <br/><br/>
-                                <p class="text-info">所有曝光在发布前已由曝光人确定真实可靠且无夸大成分。可是我们仍然无法避免夸大其词的情况出现。如果你认为该曝光违反了该准则，请点击这里举报</p>
+                                <div class="bs-component">
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                                <p class="text-muted">所有曝光在发布前已由曝光人确定真实可靠且无夸大成分。可是我们仍然无法避免夸大其词的情况出现。如果你认为该曝光违反了该准则，请点击这里<a href="#">举报</a></p>
                             </div>
                         </div>
                     </div>
@@ -354,21 +360,27 @@
                             content: "提交中..."
                         });
                         $.post('/badborad/up', {
-                            "q": qe,
-                            "a": document.getElementById("rv").value,
-                            "i": id,
+                                "q": qe,
+                                "a": document.getElementById("rv").value,
+                                "i": id
+                            },
                             function(data) {
-                                sup = Number(sup) + 1;
-                                document.getElementById("howmany").innerHTML = "当前有" + sup + "人支持";
-                                document.getElementById("submitb").disabled = true;
-                                toggleDiv("recap");
-                                document.getElementById("supportb").disabled = true;
-                                document.getElementById("supportb").innerText = "已支持";
-                                $.snackbar({
-                                    content: "您已成功支持该曝光！把它分享给您的朋友获取更大影响力吧。"
-                                });
-                            }
-                        });
+                                if (data == "O") {
+                                    sup = Number(sup) + 1;
+                                    document.getElementById("howmany").innerHTML = "当前有" + sup + "人支持";
+                                    document.getElementById("submitb").disabled = true;
+                                    toggleDiv("recap");
+                                    document.getElementById("supportb").disabled = true;
+                                    document.getElementById("supportb").innerText = "已支持";
+                                    $.snackbar({
+                                        content: "您已成功支持该曝光！把它分享给您的朋友获取更大影响力吧。"
+                                    });
+                                } else {
+                                    $.snackbar({
+                                        content: "验证码输入错误！"
+                                    });
+                                }
+                            }, "text");
                     }
                 </script>
                 <script type="text/javascript">
