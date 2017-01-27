@@ -18,6 +18,8 @@
 
 如果你对该份代码有任何问题，请联系：[kanch@akakanch.com](kanch@akakanch.com)
 
+**【若要参与贡献，请访问issues页面】**
+
 理论上讲，[该站点（http://cuit.akakanch.com/）](http://cuit.akakanch.com/)会运行到我毕业（2019年）
 
 >######关于Android客户端

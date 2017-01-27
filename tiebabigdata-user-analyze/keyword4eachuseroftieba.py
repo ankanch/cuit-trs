@@ -4,11 +4,16 @@ import jieba
 import jieba.analyse
 import os
 import ast
+import database as DBS
 
-DB_NAME = "tieba_zhuaqu"
-DB_HOST = "120.77.37.235"
-DB_USER =
-DB_PASSWORD = 
+#
+#该脚本用于分析每一位用户的关键字
+#
+
+DB_NAME = DBS.NAME
+DB_HOST = DBS.HOST
+DB_USER = DBS.USER
+DB_PASSWORD = DBS.PASSWORD
 
 
 def printb(raw):
@@ -61,7 +66,7 @@ def keywordcount(rawd):
 
 #application start
 os.system("cls")
-print("cuit tieba user analyzier\napplication start.\nconnecting to the database...")
+print("cuit tieba user analyzier\nthis script is used to analyze keyword for every user.\napplication start.\nconnecting to the database...")
 #==
 conn = pymysql.connect(host=DB_HOST, port=3306,user=DB_USER,passwd=DB_PASSWORD,db=DB_NAME,charset='UTF8')
 conn.set_charset('utf8mb4')
