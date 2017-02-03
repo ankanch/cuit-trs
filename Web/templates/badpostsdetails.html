@@ -368,9 +368,9 @@
                                 if (data == "O") {
                                     sup = Number(sup) + 1;
                                     document.getElementById("howmany").innerHTML = "当前有" + sup + "人支持";
-                                    document.getElementById("submitb").disabled = true;
+                                    document.getElementById("submitb").className += " disabled";
                                     toggleDiv("recap");
-                                    document.getElementById("supportb").disabled = true;
+                                    document.getElementById("supportb").className += " disabled";
                                     document.getElementById("supportb").innerText = "已支持";
                                     $.snackbar({
                                         content: "您已成功支持该曝光！把它分享给您的朋友获取更大影响力吧。"
