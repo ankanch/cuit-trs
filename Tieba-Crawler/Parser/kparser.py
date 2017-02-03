@@ -56,3 +56,10 @@ def getPostsList(html):
         #print(postd)
         result.append(postd)
     return result
+
+
+#@该函数用来获取所有的楼中楼回复，传入 bs4.element.tag对象
+#@返回值（list）:[  [发帖用户,回帖信息,发帖时间,REPLY_TO], [发帖用户,回帖信息,发帖时间,REPLY_TO],... ]
+#此处的reply为楼主
+def getInterReply(replyblock,clearhtml=True):
+    interreplylist = replyblock.find("div",class_="j_lzl_c_b_a core_reply_content")
