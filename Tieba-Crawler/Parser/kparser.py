@@ -11,6 +11,7 @@ def clearHTML(raw):
     cleantext = re.sub(htmlcleanr, '', raw)
     return cleantext
 
+
 #@该函数用来获取当前页面的所有回帖数据(未格式化，还存在html标签)
 #@返回值（list）,str：[  [发帖用户,回帖信息,发帖时间,REPLY_TO], [发帖用户,回帖信息,发帖时间,REPLY_TO],... ]和楼主
 def getReplyList(html,firstfloor="NULL",clearhtml=True):
@@ -23,7 +24,10 @@ def getReplyList(html,firstfloor="NULL",clearhtml=True):
             #跳过空数据
             continue
         #匹配发帖人
-        postauthor = author.contents[0]
+        try:#.contents[0] 可能不存在
+            postauthor = author.contents[0]
+        except Exception as e:
+            continue
         #匹配内容（未格式化）
         postcontent = replyblock.find("div",class_="j_d_post_content")
         if clearhtml == True:

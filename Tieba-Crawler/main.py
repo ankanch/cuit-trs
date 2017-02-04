@@ -24,7 +24,7 @@ os.system(CFG.CLEAR_SCREEN)
 print("CUIT Tieba Crawler\nv1.1 20170205\nkanchisme@gmail.com\n\n")
 print("--This crawler will start working now.\n--It will scraping the whole tieba.\n>>>initializing...")
 #首先抓取第一页，用来获取贴吧总页数
-url = Crawler.urlEncode(BEGIN_PAGE,{'kw':"成都信息工程大学"}) + URL.POST_LIST_PARAMS 
+url = Crawler.urlEncode(BEGIN_PAGE,{'kw':CFG.TIEBA_NAME}) + URL.POST_LIST_PARAMS 
 pdata = Crawler.getHtml(url+ "0")
 #获取贴吧总页数
 postsum = Crawler.getTiebaPageSum(pdata)
@@ -67,18 +67,30 @@ print("\r>>>threads started")
 #接下来开始循环下载帖子列表
 print(">>>downloading...\n\n")
 curpn = 0
+submitcount = 1
 while len(CFG.DATA_POSTLIST) > 0 or Cache.cacheCompleted() == False:
     curpn+=50   #百度贴吧URL每一页是按照50递增换页
     #将新数据添加到当前的帖子列表尾部
     status = "kanch's high-tech crawler for Tieba is running\nkanchisme@gmail.com\n\n\n"
     status += "\tPostSum:"+str(curpn)+ "\n\tPagesDownload:"+ str(CFG.STATUS_PAGES_DOWNLOAD)+ "/" + str(pagesum)  \
                 + "\n\tPagesProcessed:"+str(CFG.STATUS_PAGES_PROCESS) + "\n\tDataRetrived:"+str(CFG.STATUS_DATA_RETRIVED)
-    print(status,end="\n-----\n")
+    print(status + "\n\tDatabaseSubmitted:"+ str((submitcount-1)*CFG.UPDATE_THROUSHOLD),end="\n-----\n")
     #这里的结束条件是当pn参数满了的时候就不执行下载了，只更新状态数据
     if curpn < postsum:
         CFG.DATA_POSTLIST.extend(Parser.getPostsList(Crawler.getHtml(url+ str(curpn))))
-    os.system(CFG.CLEAR_SCREEN)
+    #这里是判断是否应该更新数据库
+    if CFG.STATUS_DATA_RETRIVED/CFG.UPDATE_THROUSHOLD >= submitcount:
+        #只提交前 CFG.UPDATE_THROUSHOLD条
+        print("\n\tinserting into database...")
+        DBWorker.databaseWorker(CFG.DATA_RESULT[:CFG.UPDATE_THROUSHOLD])
+        print("\n\tdone.")
+        submitcount+=1
+        del CFG.DATA_RESULT[:CFG.UPDATE_THROUSHOLD]
+    #os.system(CFG.CLEAR_SCREEN)
 CFG.STATUS_POSTLIST_DOWNLOAD_COMPLETED = True
+#进行最后一次提交，将剩余的全部提交
+print("\n\tprocess last inserting...")
+DBWorker.databaseWorker(CFG.DATA_RESULT)
 print(">>>application finished.")
 
 

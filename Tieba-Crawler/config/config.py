@@ -5,6 +5,12 @@
 THREAD_PROCESS_POST_COUNT = 1
 #下载帖子列表的线程数量
 THREAD_DOWNLOAD_POST_LIST_COUNT = 4
+#要抓取的贴吧
+TIEBA_NAME = "成都信息工程大学"
+#每当结果集合有指定条数据的时候进行一次数据库提交事务
+UPDATE_THROUSHOLD = 200        
+#下面这个用来标识当处理速度快于下载速度的时候等待缓存文件的秒数
+PROCESS_WAIT_FOR_CACHE = 5
 
 CLEAR_SCREEN = "cls"
 CLEAR_SCREEN_LINUX = "clear"
@@ -13,6 +19,10 @@ CLEAR_SCREEN_LINUX = "clear"
 
 #★★★★★储存帖子列表★★★★★
 DATA_POSTLIST = []
+#★★★★★储存匹配结果（数据库提交事务完成后会删除已经提交的）★★★★★
+#结构： [ [帖子ID,当前页码,[replydata]],[帖子ID,当前页码,[replydata]],..... ]
+# replydata = [发帖用户,回帖信息,发帖时间,REPLY_TO]
+DATA_RESULT = []
 #标记帖子列表是否下载完毕
 STATUS_POSTLIST_DOWNLOAD_COMPLETED = False
 #标记当前下载页面数量
