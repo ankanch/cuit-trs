@@ -61,4 +61,6 @@ def getTiebaPageSum(html):
     ppp = html.find(">下一页&gt;</a>")
     pages = html[html.find("&pn",ppp):panchor]
     pages = pages[pages.find("=")+1:pages.find("\"")]
+    if pages == "":
+        return 50
     return int(pages)

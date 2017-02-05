@@ -1,6 +1,8 @@
 import pymysql as SQL
 import Config.config as CFG 
 import Config.database as DB
+import Crawler.cachedata as Cache
+import time
 
 #
 #该模块是用来将数据提交到数据库
@@ -19,9 +21,11 @@ print("\r>>>database connected.")
 
 #提交worker，给出指定需要提交的列表，worker会进行提交事物
 #下面这个函数提交事务均通过DBCUR来实现
-def databaseWorker(datalist,type_="INSERT"):
+def databaseWorkerS(datalist,type_="INSERT"):
     INSSUFFIX = "INSERT INTO `postdata2`(`POSTID`, `TIEBANAME`, `AUTHOR`, `CONTENT`, `DATE`, `REPLYTO`, `LINK`) VALUES ("
+    i=0
     for item in datalist:
+        i+=1
         #结构： [ [帖子ID,当前页码,[replydata]],[帖子ID,当前页码,[replydata]],..... ]
         # replydata = [发帖用户,回帖信息,发帖时间,REPLY_TO]
         #提交的时候需要去除一些非法字符比如双引号无效字符比如逗号
@@ -35,9 +39,24 @@ def databaseWorker(datalist,type_="INSERT"):
         try:
             DBCUR.execute(INS)
         except Exception as e:
-            ff = open("aaa.txt","wb")
+            ff = open("dbconflicts.txt","wb")
             ff.write(INS.encode("utf-8","ignore"))
             ff.close()
             exit()
     DBCONN.commit()
+    return True,i
+
+
+#该worker应该单独在一个线程中运行
+#当每隔指定时间进行一次数据库提交事务
+def databaseWorker():
+    while CFG.STATUS_POSTLIST_DOWNLOAD_COMPLETED == False or Cache.cacheCompleted() == False or len(CFG.DATA_RESULT) > 0:
+        time.sleep(CFG.UPDATE_TIMEHOLD)
+        print("\n\tinserting into database...")
+        rlen = len(CFG.DATA_RESULT)
+        status,count = databaseWorkerS(CFG.DATA_RESULT[:rlen])
+        print("\tdone.")
+        CFG.STATUS_DATA_SUBMITED += count
+        del CFG.DATA_RESULT[:rlen]
+    CFG.STATUS_DATABASE_FINISHED_SUBMIT = True
     return True

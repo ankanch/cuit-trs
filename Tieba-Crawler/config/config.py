@@ -6,9 +6,11 @@ THREAD_PROCESS_POST_COUNT = 1
 #下载帖子列表的线程数量
 THREAD_DOWNLOAD_POST_LIST_COUNT = 4
 #要抓取的贴吧
-TIEBA_NAME = "成都信息工程大学"
-#每当结果集合有指定条数据的时候进行一次数据库提交事务
-UPDATE_THROUSHOLD = 200        
+TIEBA_NAME = "成都信息工程大学" #长风送远
+#每当结果集合有指定条数据的时候进行一次数据库提交事务(未使用)
+UPDATE_THROUSHOLD = 200     
+#每当多少秒进行一次数据库提交
+UPDATE_TIMEHOLD = 8   
 #下面这个用来标识当处理速度快于下载速度的时候等待缓存文件的秒数
 PROCESS_WAIT_FOR_CACHE = 5
 
@@ -25,6 +27,8 @@ DATA_POSTLIST = []
 DATA_RESULT = []
 #标记帖子列表是否下载完毕
 STATUS_POSTLIST_DOWNLOAD_COMPLETED = False
+#标记数据库是否提交完毕
+STATUS_DATABASE_FINISHED_SUBMIT = False
 #标记当前下载页面数量
 STATUS_PAGES_DOWNLOAD = 0
 #标记当前处理页面数量
@@ -33,6 +37,8 @@ STATUS_PAGES_PROCESS = 0
 STATUS_DATA_RETRIVED = 0
 #标记当前获得的帖子数量（一页有50篇帖子）(未使用)
 STATUS_POSTLIST_SUM = 0
+#标记提交了多少条数据到数据库
+STATUS_DATA_SUBMITED = 0
 
 
 ###################################################################################
