@@ -1,3 +1,4 @@
+# coding=utf-8
 import Parser.kparser as Parser
 import Crawler.cachedata as Cache
 import Crawler.kcrawler as Crawler
@@ -9,6 +10,7 @@ import threading as Thread
 import Config.config as CFG
 import time
 import os
+#from pympler import tracker
 
 #贴吧第一页
 BEGIN_PAGE =  URL.POST_LIST_SUFFIX
@@ -17,10 +19,11 @@ POST_SUFFIX = URL.POST_SUFFIX
 #并行处理帖子数量
 PROCESS_POST_COUNT = CFG.THREAD_PROCESS_POST_COUNT
 
+#tr = tracker.SummaryTracker()
 #
 #下载模型：一个线程下载帖子列表，另外4个线程分别用来处理每一个帖子
 #
-os.system(CFG.CLEAR_SCREEN)
+os.system(CFG.CMD_CLEAR_SCREEN)
 print("CUIT Tieba Crawler\nv1.1 20170205\nkanchisme@gmail.com\n\n")
 print("--This crawler will start working now.\n--It will scraping the whole tieba.\n>>>initializing...")
 #首先抓取第一页，用来获取贴吧总页数
@@ -73,21 +76,40 @@ print("\r>>>threads started")
 print(">>>downloading...\n\n")
 curpn = 0
 while len(CFG.DATA_POSTLIST) > 0 or Cache.cacheCompleted() == False:
-    curpn+=50   #百度贴吧URL每一页是按照50递增换页
     #将新数据添加到当前的帖子列表尾部
     status = "kanch's high-tech crawler for Tieba is running\nkanchisme@gmail.com\n\n\n"
-    status += "\tPostSum:"+str(curpn)+ "\n\tPagesDownload:"+ str(CFG.STATUS_PAGES_DOWNLOAD)+ "/" + str(pagesum)  \
-                + "\n\tPagesProcessed:"+str(CFG.STATUS_PAGES_PROCESS) + "\n\tDataRetrived:"+str(CFG.STATUS_DATA_RETRIVED)
+    status += "\tPostSum:"+str(curpn)+ "/" + str(postsum) + "\n\tPagesDownload:"+ str(CFG.STATUS_PAGES_DOWNLOAD)  \
+                + "\n\tPagesProcessed:"+str(CFG.STATUS_PAGES_PROCESS) + "\n\tDataRetrived:"+str(CFG.STATUS_DATA_RETRIVED) +\
+                "\n\tDataCached:" + str(CFG.STATUS_DATA_CACHED)
+    os.system(CFG.CMD_CLEAR_SCREEN)
     print(status + "\n\tDatabaseSubmitted:"+ str(CFG.STATUS_DATA_SUBMITED),end="\n-----\n")
     #这里的结束条件是当pn参数满了的时候就不执行下载了，只更新状态数据
-    if curpn < postsum:
+    if curpn <= postsum:
         CFG.DATA_POSTLIST.extend(Parser.getPostsList(Crawler.getHtml(url+ str(curpn))))
+        curpn+=50   #百度贴吧URL每一页是按照50递增换页
+    else:
+        #下载完毕后就2秒刷新一次状态
+        time.sleep(2)
     #os.system(CFG.CLEAR_SCREEN)
 CFG.STATUS_POSTLIST_DOWNLOAD_COMPLETED = True
+#进行最后一次数据更新
+while CFG.STATUS_POSTWORKER_FINISHED == False:
+    status = "kanch's high-tech crawler for Tieba is running\nkanchisme@gmail.com\n\n\n"
+    status += "\tPostSum:"+str(curpn)+ "/" + str(postsum) + "\n\tPagesDownload:"+ str(CFG.STATUS_PAGES_DOWNLOAD)  \
+                + "\n\tPagesProcessed:"+str(CFG.STATUS_PAGES_PROCESS) + "\n\tDataRetrived:"+str(CFG.STATUS_DATA_RETRIVED) +\
+                "\n\tDataCached:" + str(CFG.STATUS_DATA_CACHED)
+    print(status + "\n\tDatabaseSubmitted:"+ str(CFG.STATUS_DATA_SUBMITED),end="\n-----\n")
+
 #进行最后一次提交，将剩余的全部提交
+Cache.cacheResultForOnce()
 print("\n\twating for database job finished...")
 while CFG.STATUS_DATABASE_FINISHED_SUBMIT == False:
     pass
+#显示统计信息
+status += "\n============\n\n\tPostSum:"+str(curpn)+ "/" + str(postsum) + "\n\tPagesDownload:"+ str(CFG.STATUS_PAGES_DOWNLOAD)  \
+         + "\n\tPagesProcessed:"+str(CFG.STATUS_PAGES_PROCESS) + "\n\tDataRetrived:"+str(CFG.STATUS_DATA_RETRIVED)
+print(status + "\n\tDatabaseSubmitted:"+ str(CFG.STATUS_DATA_SUBMITED),end="\n-----\n")
 print(">>>application finished.")
+#tr.print_diff()
 
 

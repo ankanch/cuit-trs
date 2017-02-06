@@ -7,7 +7,7 @@ import time
 #
 #该模块是用来将数据提交到数据库
 #由于pymysql的问题，只能单线程。
-#提交逻辑：每2500条数据进行一次提交
+#提交逻辑：每THROUSDHOLD条数据进行一次提交
 #
 #
 
@@ -30,19 +30,18 @@ def databaseWorkerS(datalist,type_="INSERT"):
         # replydata = [发帖用户,回帖信息,发帖时间,REPLY_TO]
         #提交的时候需要去除一些非法字符比如双引号无效字符比如逗号
         replycontent = item[2][1].replace("\"","'")
-        replycontent = replycontent.replace(" ","")
         replycontent = replycontent.replace("_","-")
         replycontent = replycontent.replace("%","/")
         replycontent = replycontent.replace("\\","")
         INS = INSSUFFIX + "\"" + item[0] + "\",\"" + CFG.TIEBA_NAME + "\",\"" + item[2][0] \
                 + "\",\"" + replycontent.replace("[","【") + "\",\"" + item[2][2] + "\",\"" + item[2][3] + "\",\"" + item[1] + "\")"
         try:
-            DBCUR.execute(INS)
+            DBCUR.execute(INS.encode("utf-8","ignore").decode("utf-8","ignore"))
         except Exception as e:
+            print("Database conflicts:",e)
             ff = open("dbconflicts.txt","wb")
             ff.write(INS.encode("utf-8","ignore"))
             ff.close()
-            exit()
     DBCONN.commit()
     return True,i
 
@@ -50,13 +49,13 @@ def databaseWorkerS(datalist,type_="INSERT"):
 #该worker应该单独在一个线程中运行
 #当每隔指定时间进行一次数据库提交事务
 def databaseWorker():
-    while CFG.STATUS_POSTLIST_DOWNLOAD_COMPLETED == False or Cache.cacheCompleted() == False or len(CFG.DATA_RESULT) > 0:
+    while CFG.STATUS_POSTLIST_DOWNLOAD_COMPLETED == False or Cache.cacheCompleted() == False or Cache.cacheCompleted_Resutl() == False:
         time.sleep(CFG.UPDATE_TIMEHOLD)
-        print("\n\tinserting into database...")
-        rlen = len(CFG.DATA_RESULT)
-        status,count = databaseWorkerS(CFG.DATA_RESULT[:rlen])
-        print("\tdone.")
-        CFG.STATUS_DATA_SUBMITED += count
-        del CFG.DATA_RESULT[:rlen]
+        rlist,status = Cache.readResultFromCache()
+        if status == True:
+            print("\n\tinserting into database...")
+            status,count = databaseWorkerS(rlist)
+            print("\tdone.")
+            CFG.STATUS_DATA_SUBMITED += count
     CFG.STATUS_DATABASE_FINISHED_SUBMIT = True
     return True

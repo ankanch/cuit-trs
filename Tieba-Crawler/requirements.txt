@@ -1,1 +1,2 @@
 beautifulsoup4==4.5.3
+pympler==0.4.3

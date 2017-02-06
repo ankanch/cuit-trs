@@ -39,13 +39,17 @@ def getReplyList(html,firstfloor="NULL",clearhtml=True):
         #匹配时间
         data_field = replyblock["data-field"]
         postdate = data_field[data_field.find("2",data_field.find("date")):data_field.find("vote_crypt")-3]
+        if postdate == "":
+            #日期匹配方法2，如果方法一未匹配到，则使用方法2,贴吧代码太老
+            rbs = str(replyblock)
+            postdate = rbs[rbs.find("2",rbs.find("tail-info\">20")):rbs.find("</span>",rbs.find("tail-info\">20"))]
         #匹配楼层
         post_no = data_field[data_field.find(":",data_field.find("post_no"))+1:data_field.find(",",data_field.find("post_no"))]
         #设置楼主，方便设置replyto数据域
         if int(post_no) == 1:
             firstfloor = postauthor
         #print(post_no,postdate,postauthor)
-        result.append([postauthor,postcontent,postdate,firstfloor])
+        result.append([postauthor,postcontent.replace(" ",""),postdate,firstfloor])
     return result,firstfloor
 
 
