@@ -5,6 +5,8 @@ import ast
 import random
 import math
 import graphics as GRAPH
+from matplotlib import pyplot as plt
+import numpy as np
 
 DB_NAME = DBS.NAME
 DB_HOST = DBS.HOST
@@ -17,9 +19,30 @@ INGORE_POST_UNDER = 10   #要忽略发帖量小于指定值的用户
 
 #计算两点间距离
 def calDistance(p1,p2):
-    #[用户名,[peak,peak-index]]
-     dist = math.sqrt((p1[1][1] - p2[1][1])**2 + (p1[1][0] - p2[1][0])**2)
-     return dist
+    #[用户名,[24维度]]
+    total_asum = 0.0
+    for d1,d2 in zip(p1[1],p2[1]):
+        total_asum += (d1 - d2)**2
+    dist = math.sqrt(total_asum)
+    return dist
+
+#计算两点间距离-余弦相似性
+#返回cosx的倒数
+def calDistanceCosSim(p1,p2):
+    #[用户名,[24维度]]
+    total_asum = 0.0
+    neo = 0.0
+    deo_1 = 0.0
+    deo_2 = 0.0
+    for d1,d2 in zip(p1[1],p2[1]):
+        neo += d1*d2
+        deo_1 += d1*d1
+        deo_2 += d2*d2
+    cosx = neo/(math.sqrt(deo_1)*math.sqrt(deo_2))
+    #为了不改变下面的主算法，我们这里返回cosx的倒数
+    if cosx != 0:
+        cosx = 1/cosx
+    return cosx
 
 #检查是否收敛,参数分别为上一次的质心列表和当前质心列表
 def checkConvergence(lcl,ccl):
@@ -31,14 +54,20 @@ def checkConvergence(lcl,ccl):
 
 #根据一个点集求出平均点(求出新质心)
 def calNewCenter(pl):
-    sumy=0
-    sumx=0
+    sumv = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     lenl = len(pl)
-    #[用户名,[peak,peak-index]]
+    #相加
+    #[用户名,[24维]]
     for user in pl:
-        sumy += user[1][0]
-        sumx += user[1][1]
-    return ["X@X",[sumy/lenl,sumx/lenl]]
+        i=0
+        for v in user[1]:
+            sumv[i]+=v
+            i+=1
+    #平均
+    avgv = []
+    for v in sumv:
+        avgv.append(v/lenl)
+    return ["X@X",avgv]
 
 
 #该脚本用于根据用户活跃时间段对用户进行分类
@@ -79,20 +108,19 @@ for user in result:
     if user[1] != "NULL":
         uat = ast.literal_eval(user[1])
         if sum(uat) > INGORE_POST_UNDER:  #在这里控制忽略用户条件<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            #下面为结果集结构， [ [用户名,[peak,peak-index]],[一条数据],... ]
-            presult.append([user[0],[max(uat),[x for x in range(len(uat)) if uat[x] == max(uat)][0]]])
+            #下面为结果集结构， [ [用户名,[ActiveTimeZone-Martix（24维）]],[一条数据],... ]
+            presult.append([user[0],uat])
         else:
             skipped_invaild+=1
     else:
         skipped_null+=1
     print("",end="\r")
-print("-----UAT to UAP done.")
-print("---UAT to UAP finished with",skipped_invaild,"invaild users skipped,",skipped_null,"NULL data skipped.")
+print("---UAT literal_eval finished with",skipped_invaild,"invaild users skipped,",skipped_null,"NULL data skipped.")
 #print(str(presult))
 print("---Compute Tieba ActiveTimeZone...")
 tiebaActiveTimeZone = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 for item in  presult:
-    tiebaActiveTimeZone[item[1][1]] += item[1][0]
+    tiebaActiveTimeZone = [x+y for x,y in zip(tiebaActiveTimeZone, item[1])]
 #print(str(tiebaActiveTimeZone))  # show result martix
 kp = input("---Show Tieba Active TimeZone Graph?(Y/N)")
 if kp == "Y" or kp == "y": 
@@ -100,21 +128,21 @@ if kp == "Y" or kp == "y":
     xValueList = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
     GRAPH.linePlotGraphics("时间","发帖量",xValueList,tiebaActiveTimeZone,graphicTitle='成都信息工程大学贴吧活跃时间段分析（基于'+str(len(result))+"名用户)")
 #接下来是根据用户最多发帖时间来进行分类
-#将 presult 映射到 peak-peak_index 坐标系上，然后进行聚类
+#将 presult 映射到 ActiveTimeZone-Martix 坐标系上，然后进行聚类
 #根据上面的图像来聚类（目前数据主要分成3类）
 # x轴：24小时时间值，y轴：发帖量  每个点隐含：用户名
 # 这里采用 K-Means算法 这里k=3
-# 处理元数据： [ [用户名,[peak,peak-index]],[一条数据],... ]
+# 处理元数据： [ [用户名,[ActiveTimeZone-Martix（24维）]],[一条数据],... ]
 #是否显示聚类前的样本空间
-kp = input('---would you like to see the initial peak-peak_index graph?(Y/N)')
-if kp == "Y" or kp == "y":
-    print("-----loading graph...")
-    xval = []
-    yval = []
-    for user in presult:
-        xval.append(user[1][1])
-        yval.append(user[1][0])
-    GRAPH.Scatterplot("发帖量","时间段",xval,yval,"成都信息工程大学贴吧用户最活跃时间点")
+#kp = ""#input('---would you like to see the initial peak-peak_index graph?(Y/N)')
+#if kp == "Y" or kp == "y":
+#    print("-----loading graph...")
+#    xval = []
+#    yval = []
+#    for user in presult:
+#        xval.append(user[1][1])
+#        yval.append(user[1][0])
+#    GRAPH.Scatterplot("发帖量","时间段",xval,yval,"成都信息工程大学贴吧用户最活跃时间点")
 #开始聚类
 print("---Start clustering...")
 print('-----initial k-means,chooseing 3 random center.')
@@ -137,9 +165,14 @@ while True:
     del lcl[:]
     #聚类
     for user in presult:
-        da = calDistance(user,cca)
-        db = calDistance(user,ccb)
-        dc = calDistance(user,ccc)
+        #欧几里德距离
+        #da = calDistance(user,cca)
+        #db = calDistance(user,ccb)
+        #dc = calDistance(user,ccc)
+        #余弦相似性
+        da = calDistanceCosSim(user,cca)
+        db = calDistanceCosSim(user,ccb)
+        dc = calDistanceCosSim(user,ccc)
         #print(str([da,db,dc]))
         if da <= db:
             if dc <= da:
@@ -178,6 +211,34 @@ fc.close()
 #"""
 #绘制聚类后的图像
 print("center:",str([cca[1],ccb[1],ccc[1]]))
-GRAPH.ScatterplotS("时间","发帖量",[lal,lbl,lcl],[cca[1],ccb[1],ccc[1]],"聚类结果 k=3(收敛："+ str(CONVERGENCE) + "忽略发帖量小于"+str(INGORE_POST_UNDER)+"的用户)")
-#GRAPH.Scatterplot("时间","发帖量",[cca[1][1],ccb[1][1],ccc[1][1]],[cca[1][0],ccb[1][0],ccc[1][0]],"聚类结果 k=3")
+print("calculate average active timezone of those three clusters.")
+c1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+c2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+c3 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+x = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+for v in lal:
+    c1 = [x+y for x,y in zip(c1, v[1])]
+    with plt.style.context('fivethirtyeight'):
+        plt.plot(x, v[1])
+print(c1)
+plt.show()
+for v in lbl:
+    c2 = [x+y for x,y in zip(c2, v[1])]
+    with plt.style.context('fivethirtyeight'):
+        plt.plot(x, v[1])
+print(c2)
+plt.show()
+for v in lcl:
+    c3 = [x+y for x,y in zip(c3, v[1])]
+    with plt.style.context('fivethirtyeight'):
+        plt.plot(x, v[1])
+print(c3)
+plt.show()
+print("loading graph.")
+colors = ['g','r','y','k']
+with plt.style.context('fivethirtyeight'):
+    plt.plot(x, c1)
+    plt.plot(x, c2)
+    plt.plot(x, c3)
+plt.show()
 print("+Application finised.")
