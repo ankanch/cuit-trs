@@ -14,7 +14,9 @@ DB_USER = DBS.USER
 DB_PASSWORD = DBS.PASSWORD
 PATH_SUFFIX = "Cache/ATZresult/"
 PATH_DATA = "Data/"
+EXTREME = 400
 CONVERGENCE = 0.001  # 当前质心与上一质心的收敛范围
+CONVERGENCE_CosSim = 1.00000000000001  # 当前质心与上一质心的收敛范围(余弦相似性版本)(需要越来越接近1)
 INGORE_POST_UNDER = 10   #要忽略发帖量小于指定值的用户
 
 #计算两点间距离
@@ -42,6 +44,8 @@ def calDistanceCosSim(p1,p2):
     #为了不改变下面的主算法，我们这里返回cosx的倒数
     if cosx != 0:
         cosx = 1/cosx
+    else:
+        return 1
     return cosx
 
 #检查是否收敛,参数分别为上一次的质心列表和当前质心列表
@@ -49,6 +53,18 @@ def checkConvergence(lcl,ccl):
     for c in zip(lcl,ccl):
         #[用户名,[peak,peak-index]]
         if calDistance(c[0],c[1]) > CONVERGENCE:
+            return False
+    return True
+
+#检查是否收敛,参数分别为上一次的质心列表和当前质心列表(余弦相似性版本)
+#(需要越来越接近1)，因为calDistanceCosSim返回的倒数
+def checkConvergenceCosSim(lcl,ccl):
+    for c in zip(lcl,ccl):
+        #[用户名,[24维度时间数据]]
+        dsv = calDistanceCosSim(c[0],c[1])
+        #print("dsv=",dsv,"CONVERGENCE_CosSim",CONVERGENCE_CosSim)
+        if dsv > CONVERGENCE_CosSim:
+            #未收敛
             return False
     return True
 
@@ -94,7 +110,7 @@ print(len(result)," pieces of data retrived.\n+Start classify.")
 #首先要排除无效数据，即发帖量小于 10 的 
 #然后，将 User-ActiveTimeZone-Martix 转化为 User-ActivePeak-Martix
 #=============================
-print("---Start convert User-ActiveTimeZone Martix (UAT) to User-ActivePeak Martix (UAP).")
+print("---Start convert User-ActiveTimeZone Martix (UAT) ")
 i=0
 skipped_null = 0
 skipped_invaild = 0
@@ -133,16 +149,26 @@ if kp == "Y" or kp == "y":
 # x轴：24小时时间值，y轴：发帖量  每个点隐含：用户名
 # 这里采用 K-Means算法 这里k=3
 # 处理元数据： [ [用户名,[ActiveTimeZone-Martix（24维）]],[一条数据],... ]
+#首先去除异常值
+print("---delete extreme value.")
+i=0
+for user in presult:
+    for v in user[1]:
+        if int(v) > EXTREME:
+            print("del ",str(presult[i]))
+            del presult[i]
+            break
+    i+=1 
 #是否显示聚类前的样本空间
-#kp = ""#input('---would you like to see the initial peak-peak_index graph?(Y/N)')
-#if kp == "Y" or kp == "y":
-#    print("-----loading graph...")
-#    xval = []
-#    yval = []
-#    for user in presult:
-#        xval.append(user[1][1])
-#        yval.append(user[1][0])
-#    GRAPH.Scatterplot("发帖量","时间段",xval,yval,"成都信息工程大学贴吧用户最活跃时间点")
+kp = input('---would you like to see the sample space graph?(Y/N)')
+if kp == "Y" or kp == "y":
+    print("-----loading graph...")
+    x = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    for user in presult:
+        with plt.style.context('fivethirtyeight'):
+            plt.plot(x, user[1])
+    plt.title(str(len(presult)))
+    plt.show()
 #开始聚类
 print("---Start clustering...")
 print('-----initial k-means,chooseing 3 random center.')
@@ -186,7 +212,8 @@ while True:
                 lbl.append(user)
     #判断是否收敛
     if FIRST == False:
-        if checkConvergence([cca,ccb,ccc],[lca,lcb,lcc]) == True:
+        if checkConvergenceCosSim([cca,ccb,ccc],[lca,lcb,lcc]) == True:
+        #if checkConvergence([cca,ccb,ccc],[lca,lcb,lcc]) == True:
             break
     #储存上次的质心
     lca = cca
@@ -220,19 +247,25 @@ for v in lal:
     c1 = [x+y for x,y in zip(c1, v[1])]
     with plt.style.context('fivethirtyeight'):
         plt.plot(x, v[1])
-print(c1)
+print("total=",c1)
+c1 = [int(x/len(c1)) for x in c1]
+print("avg=",c1)
 plt.show()
 for v in lbl:
     c2 = [x+y for x,y in zip(c2, v[1])]
     with plt.style.context('fivethirtyeight'):
         plt.plot(x, v[1])
-print(c2)
+print("total=",c2)
+c2 = [int(x/len(c2)) for x in c2]
+print("avg=",c2)
 plt.show()
 for v in lcl:
     c3 = [x+y for x,y in zip(c3, v[1])]
     with plt.style.context('fivethirtyeight'):
         plt.plot(x, v[1])
-print(c3)
+print("total=",c3)
+c3 = [int(x/len(c3)) for x in c3]
+print("avg=",c3)
 plt.show()
 print("loading graph.")
 colors = ['g','r','y','k']
