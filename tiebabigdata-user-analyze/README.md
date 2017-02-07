@@ -42,25 +42,25 @@ __该文件更新缓慢__
 
 #####聚类前的全体数据
 
-![聚类前的全体数据](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Result/all.png)
+![聚类前的全体数据](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Data/result/all.png)
 
 #####去除极端值（>400）
 
-![去除极端值（>400）](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Result/less400-9.png)
+![去除极端值（>400）](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Data/result/less400-9.png)
 
 #####3个簇的平均活跃时间段
 
-![3个簇的平均活跃时间段](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Result/2cr1.png)
+![3个簇的平均活跃时间段](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Data/result/2cr1.png)
 
 #####簇1
 
-![簇1](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Result/2c1.png)
+![簇1](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Data/result/2c1.png)
 
 #####簇2
 
-![簇2](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Result/2c2.png)
+![簇2](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Data/result/2c2.png)
 
 
 #####簇3
 
-![簇3](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Result/2c3.png)
+![簇3](https://github.com/ankanch/cuit-trs/blob/master/tiebabigdata-user-analyze/Data/result/2c3.png)
