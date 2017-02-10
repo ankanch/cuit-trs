@@ -75,14 +75,13 @@ function getabout() {
         "            <div class=\"modal-content\">" +
         "                <div class=\"modal-header\">" +
         "                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\" onclick=\"javascript:toggleDiv(\'infodiv\');\">×</button>" +
-        "                    <h4 class=\"modal-title\">关于成信助手-CUIT Helper- LUV201701271902</h4>" +
+        "                    <h4 class=\"modal-title\">关于成信助手-CUIT Helper- LUV201702101930</h4>" +
         "                </div>" +
         "                <div class=\"modal-body\">" +
         "                    <p>该站点的目的呢，就是没事做着玩。目前拥有以下功能：</p>" +
         "                    <p>成信好老师：从老师的教学风格，严格程度等方面评价老师。你的任何评价都有可能成为日后其它学生选课的依据。</p>" +
-        "                    <p>成信新闻列表：查看我们学校的最新动态，可以订阅新闻更新，这样当有新消息的时候将会通过邮件提醒您。</p>" +
         "                    <p>成信贴吧大数据：可以对我们学校的贴吧进行一些简单的分析，包括用户维度和贴吧维度的分析。</p>" +
-        "                    <p>成信曝光台：匿名说出你对学校(或老师或同学或学校周边黑心商家)的不满。赢取更大关注，争取公平公正。</p>" +
+        "                    <p>成信匿名墙：匿名说出你想说的任何东西，在保证真实的情况下，分享给更多人的获得大家的支持与讨论。</p>" +
         "                    <p>目前项目已经开源，欢迎参与贡献，issues页面：<a href=\"https://github.com/ankanch/cuit-trs/issues\" target=\"_blank\">https://github.com/ankanch/cuit-trs/issues</a></p>" +
         "                </div>" +
         "                <div class=\"modal-footer\">" +

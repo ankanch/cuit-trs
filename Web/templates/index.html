@@ -261,10 +261,7 @@
                             <li><a href="/trs">成信好老师</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
-                            <li><a href="/newslist" target="_blank">成信新闻列表</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li><a href="/badborad" target="_blank">成信曝光台</a></li>
+                            <li><a href="/badborad" target="_blank">成信匿名墙</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
                             <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
@@ -277,12 +274,12 @@
             </div>
             <div id="infodiv" style="display:none; alignment-baseline:central">
             </div>
+            <div>
 
+                <div class="row" style="width: 90%;margin: 0 auto;">
 
-            <div class="row">
-                <div class="col-md-6" style=" margin-right: 0px; ">
-                    <div class="col-md-6" style="margin-right: 0px; ">
-                        <div class="container" style="width: 95%; margin-right: 0px; ">
+                    <div class="col-md-4">
+                        <div class="container" style="width: 95%;">
                             <div class="jumbotron">
                                 <h2 class="text-warning">成信好老师</h2>
                                 <p>我们学校老师点赞，评分，评价的匿名平台。你可以在这里自由的写下你对该老师的看法，包括老师是否严格，他的课程是否水等。你的看法可作为其他同学选课的依据。</p>
@@ -290,7 +287,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6" style="margin-right: 0px; ">
+
+                    <div class="col-md-4">
                         <div class="container" style="width: 95%;">
                             <div class="jumbotron">
                                 <h2 class="text-warning">成信贴吧大数据</h2>
@@ -300,81 +298,69 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6" style="margin-right: 0px; ">
-                    <div class="col-md-6" style="margin-right: 0px; ">
-                        <div class="container" style="width: 95%;margin-left: 0px;">
-                            <div class="jumbotron">
-                                <h2 class="text-warning">成信新闻列表</h2>
-                                <p>集中展示我们学校各方面新闻的地方比如学术预告，国际交流处的访问机会，教务处的通知等。可以在这里订阅新闻更新，当有更新时，我们会发送邮件提醒。</p>
-                                <br/>
-                                <p><small><a href="/newslist">点我进入</a></small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6" style="margin-right: 0px; ">
+
+
+                    <div class="col-md-4">
                         <div class="container" style="width: 95%;">
                             <div class="jumbotron">
-                                <h2 class="text-warning">成信曝光台</h2>
-                                <p>匿名说出/评价你认为不公平的事件以及人品差的人。或者是学校相关不公平的事情。然后把他们分享给更多人的获得大家的支持。</p>
-                                <br/><br/><br/>
+                                <h2 class="text-warning">成信匿名墙</h2>
+                                <p>匿名说出你想说的任何东西，在保证真实的情况下，无论言辞激烈与否，内容正面或负面都不会被删掉。把它分享给更多人的获得大家的支持与讨论。</p>
                                 <p><small><a href="/badborad">点我进入</a></small></p>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
+                <!--在下面添加自定义代码-->
+                <div class="row" style="text-align:center;width: 90%;margin: 0 auto;" id="footer">
+                </div>
             </div>
 
-            <!--在下面添加自定义代码-->
-            <div class="row" style="text-align:center" id="footer">
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="../static/jquery-3.1.1.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="../static/dist/js/bootstrap.min.js"></script>
+        <!-- Material Design for Bootstrap -->
+        <script src="../static/bmaterial/dist/js/material.js"></script>
+        <script src="../static/bmaterial/dist/js/ripples.min.js"></script>
+        <!-- SnackbarJS, find it in /dist -->
+        <script src="../static/snackbar/dist/snackbar.min.js"></script>
+        <!-- Kanch's JS Common libary' -->
+        <script src="../static/kjslib.js"></script>
+        <script>
+            $.material.init();
+        </script>
+        <!-- 显示关于 -->
+        <script type="text/javascript">
+            function toggleDiv(divId) {
+                $("#" + divId).toggle();
+            }
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                document.getElementById("infodiv").innerHTML = getabout();
+                document.getElementById("footer").innerHTML = getfooter();
+                console.log("1");
+            });
+        </script>
+        <script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-            </div>
-
-
-            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="../static/jquery-3.1.1.min.js"></script>
-            <!-- Include all compiled plugins (below), or include individual files as needed -->
-            <script src="../static/dist/js/bootstrap.min.js"></script>
-            <!-- Material Design for Bootstrap -->
-            <script src="../static/bmaterial/dist/js/material.js"></script>
-            <script src="../static/bmaterial/dist/js/ripples.min.js"></script>
-            <!-- SnackbarJS, find it in /dist -->
-            <script src="../static/snackbar/dist/snackbar.min.js"></script>
-            <!-- Kanch's JS Common libary' -->
-            <script src="../static/kjslib.js"></script>
-            <script>
-                $.material.init();
-            </script>
-            <!-- 显示关于 -->
-            <script type="text/javascript">
-                function toggleDiv(divId) {
-                    $("#" + divId).toggle();
-                }
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    document.getElementById("infodiv").innerHTML = getabout();
-                    document.getElementById("footer").innerHTML = getfooter();
-                    console.log("1");
-                });
-            </script>
-            <script>
-                (function(i, s, o, g, r, a, m) {
-                    i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function() {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
-                    a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                    a.async = 1;
-                    a.src = g;
-                    m.parentNode.insertBefore(a, m)
-                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-                ga('create', 'UA-53245384-4', 'auto');
-                ga('send', 'pageview');
-            </script>
+            ga('create', 'UA-53245384-4', 'auto');
+            ga('send', 'pageview');
+        </script>
 
     </body>
 

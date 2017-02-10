@@ -1,18 +1,17 @@
 import time
-
 import flask
 from flask import Flask, jsonify, redirect, render_template, request
-
 import badposts.badposts as BP
 import badposts.vaildatecode as VC
 import bigdataQuery.checkmail as VerifyBigDataMail
 import bigdataQuery.termgather as TG
 import bigdataQuery.userFunctions as UserFunctions
-import worklib.getInfoWeb as IW
-import worklib.getnews as News
+import worklib.getInfoWeb as IW  
 import worklib.getTeacherInfo as TI
 import worklib.htmlstring as HS
-import worklib.subscrible as SUB
+#下面两个服务于之前的新闻，之后更新会被删掉
+#import worklib.getnews as News 
+#import worklib.subscrible as SUB
 
 app = Flask(__name__)
 
@@ -167,7 +166,8 @@ def bigdata_verifyMail():
 def bigdata_verify_open(searchtarget):
     return render_template('requestVerifyMail.html',SEG=searchtarget)
 
-#成信助手
+#成信助手新闻目前关闭“”
+"""
 @app.route('/newslist')
 def newslist():
     return render_template("cuitnews.html")
@@ -180,7 +180,8 @@ def getnews(ntype):
 @app.route('/subscrible/<email>/<stype>')
 def sbuscrible(email,stype):
     return SUB.addToSubscribleList(email,stype)
-    
+"""
+#上面是新闻源代码目前被注释掉，以后的版本会消失
 #老师评价系统
 #老师评价系统
 #老师评价系统
@@ -341,9 +342,17 @@ def addlike(id,UID):
 def adddislike(id,UID):
     return TI.addOneUp("DISLIKE",id,UID)
 
+#错误页面定义
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('500.html'), 500
+
 if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
-    #app.run(host='216.45.55.153')
     app.run(host='127.0.0.1')
     #app.run(host='127.0.0.1',debug=True)
