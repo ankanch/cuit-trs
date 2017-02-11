@@ -35,36 +35,36 @@ def hello():
 def bigdata():
     return render_template("bigdata.html")
 
-#成信曝光台-搜索
+#成信匿名墙-搜索
 @app.route('/badborad/search/<tags>')
 def searchbadposts(tags):
     result = BP.searchFor(tags)
     return BP.makeUpTable(result)
 
-#成信曝光台-时间线
+#成信匿名墙-时间线
 @app.route('/badborad/')
 @app.route('/badborad')
 def badborad():
     return render_template("badborad.html",CURID=0)
 
-#成信曝光台-时间线-获取
+#成信匿名墙-时间线-获取
 @app.route('/badborad/load/<curid>/<qsum>')
 def loadbp(qsum,curid):
     result,minid = BP.queryBadposts(qsum,curid)
     return minid + "<@BYKANCHOFCUITCSY@>" + BP.makeUpTable(result)
 
-#成信曝光台-具体页面
+#成信匿名墙-具体页面
 @app.route('/badborad/<int:xid>')
 def showbadborad(xid):
     rl = BP.getBadposts(xid)
     return render_template("badpostsdetails.html",ID=rl[0],TITLE=rl[1],CONTENT=rl[2],DATE=rl[3],UP=rl[4],QUESTION=VC.getVaildateCode()[0])
 
-#成信曝光台-发布新曝光
+#成信匿名墙-发布新曝光
 @app.route('/badborad/newbad')
 def postbadposts():
     return render_template("postNewBadposts.html")
 
-#成信曝光台-发布新曝光（POST）
+#成信匿名墙-发布新曝光（POST）
 @app.route('/badborad/submit', methods=['POST'])
 def getbadborad():
     title = request.form['title']
@@ -73,7 +73,7 @@ def getbadborad():
     return  str(xid)
     #return "22"
 
-#成信曝光台-支持曝光
+#成信匿名墙-支持曝光
 @app.route('/badborad/up', methods=['POST'])
 def supportbadborad():
     question = request.form['q']
@@ -84,6 +84,23 @@ def supportbadborad():
     if BP.support(xid) == False:
         return "ERROR:NB"
     return "O"
+
+#成信匿名墙，发表回复
+@app.route('/badborad/submitreply', methods=['POST'])
+def postreply():
+    rof = request.form['rof']
+    author = request.form['author']
+    content = request.form['content']
+    if  BP.insertReply(rof,author,content) == True:
+        return "O"
+    return  "F"
+
+#成信匿名墙，加载回复
+@app.route('/badborad/loadbrp/<rof>/<cursum>')
+def loadbrp(rof,cursum):
+    result,status = BP.queryReply(rof,cursum)
+    return status + "<@BYKANCHOFCUITCSY@>" + BP.makeupReplyHtmlcode(result)
+
 
 #搜索指定词语的数据
 @app.route('/tiebabigdata/term/<term>/<int:scale>')

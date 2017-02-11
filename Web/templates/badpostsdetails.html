@@ -19,7 +19,7 @@
         <link href="../static/snackbar/dist/snackbar.min.css" rel="stylesheet">
         <!-- the default theme of SnackbarJS, find it in /themes-css -->
         <link href="../static/snackbar/themes-css/material.css" rel="stylesheet">
-
+        <link href="../static/kcsslib.css" rel="stylesheet">
         <style>
             #banner {
                 border-bottom: none
@@ -255,14 +255,11 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                        <a class="navbar-brand" href="/">成信助手</a>
+                        <a class="navbar-brand" href="/badborad">成信匿名墙</a>
                     </div>
                     <div class="navbar-collapse collapse navbar-warning-collapse">
                         <ul class="nav navbar-nav">
                             <li><a href="/trs">成信好老师</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li><a href="/badborad" target="_blank">成信曝光台</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
                             <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
@@ -282,45 +279,74 @@
                 <div class="row" style="width: 75%;margin-left:auto;margin-right:auto;">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h2 class="panel-title">匿名信息</h2>
+                            <h2 class="panel-title">匿名帖</h2>
                         </div>
                         <div class="panel-body">
-                            <div class="row" style="text-align: center;margin-right: 12px;margin-left: 12px;">
-                                <h2>{{TITLE}}</h2>
-                            </div>
-                            <div class="row">
-                                <div class="row" style="text-align: right; margin-right: 12px;">
-                                    <div class="col-md-4">
-                                        <a id="howmany" class="btn btn-raised btn-warning disabled">当前有{{UP}}人支持</a>
+                            <div class="well">
+                                <div class="row" style="text-align: center;margin-right: 12px;margin-left: 12px;">
+                                    <h2>{{TITLE}}</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="row" style="text-align: right; margin-right: 12px;">
+                                        <div class="col-md-4">
+                                            <a id="howmany" class="btn btn-raised btn-warning disabled">当前有{{UP}}人支持</a>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: center;">
+                                            <br/>
+                                            <p class="text-info">{{DATE}}</p>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: right;">
+                                            <a href="javascript:toggleDiv('recap')" id="supportb" class="btn btn-raised btn-danger">支持</a>
+                                            <div class="alert alert-dismissible alert-success" id="recap" style="text-align: left;display: none;">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                <h5 id="questionx">{{QUESTION}}</h5>
+                                                <input class="form-control" id="rv" type="text" placeholder="输入答案以继续">
+                                                <a href="javascript:u()" id="submitb" class="btn btn-raised btn-xs" style="background: grey;">提交</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4" style="text-align: center;">
-                                        <br/>
-                                        <p class="text-info">{{DATE}}</p>
-                                    </div>
-                                    <div class="col-md-4" style="text-align: right;">
-                                        <a href="javascript:toggleDiv('recap')" id="supportb" class="btn btn-raised btn-danger">支持</a>
-                                        <div class="alert alert-dismissible alert-success" id="recap" style="text-align: left;display: none;">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            <h5 id="questionx">{{QUESTION}}</h5>
-                                            <input class="form-control" id="rv" type="text" placeholder="输入答案以继续">
-                                            <a href="javascript:u()" id="submitb" class="btn btn-raised btn-xs" style="background: grey;">提交</a>
+                                </div>
+                                <br/>
+
+                                <div class="row" style="margin-left: 12px;margin-right: 12px;">
+                                    ----------
+                                    <br/> {{CONTENT}}
+                                </div>
+                                <div class="row" style="margin-left: 11px;margin-right: 11px;">
+                                    <br/><br/> ----------
+                                    <p class="text-muted"><small>所有内容均由其原作者确认真实可靠无钓鱼。如果你认为内容违反了该准则，请点击这里<a href="#">举报</a></small></p>
+                                    <div class="bs-component" style="display: none;">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 0%;"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <br/>
-
-                            <div class="row" style="margin-left: 12px;margin-right: 12px;">
-                                <br/> {{CONTENT}}
-                            </div>
                             <div class="row" style="margin-left: 11px;margin-right: 11px;">
-                                <br/><br/>
-                                <div class="bs-component">
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 0%;"></div>
+                                <div class="row" style="margin-left: 5px;margin-right: 5px;">
+                                    <div class="panel panel-default panel-body">
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label" for="nicknamex">用户昵称</label>
+                                                    <input class="form-control" id="nicknamex" type="text" maxlength="15">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <label>请在下侧空白区域输入您的回复（您仅能使用这些HTML标签：h5,b,i,small,s,em)：</label>
+                                                <a href="javascript:rp()" class="btn btn-raised btn-success">发表回复</a>
+                                            </div>
+
+                                            <div class="row" style="width: 95%;margin-left: 5px;margin-right: 5px;">
+                                                <textarea class="form-control" rows="3" id="replydata" maxlength="666"></textarea>
+                                                <span class="help-block">尽情发挥你的想象来讨论吧。(最大长度666)</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="text-muted">所有内容均由其原作者确认真实可靠无钓鱼。如果你认为内容违反了该准则，请点击这里<a href="#">举报</a></p>
+                                <div class="row" id="replylist" style="margin-left: 5px;margin-right: 5px;">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -379,11 +405,103 @@
                                 }
                             }, "text");
                     }
+
+                    var cursum = 0;
+                    var replyto = "";
+
+                    function rp() {
+                        var wrotereply = document.getElementById("replydata").value;
+                        clen = wrotereply.length;
+                        console.log("reply length=", clen);
+                        if (clen < 9) {
+                            $.snackbar({
+                                content: "请勿发表垃圾信息，回帖长度需要大于9！"
+                            });
+                            return;
+                        }
+                        $.snackbar({
+                            content: "提交回复中..."
+                        });
+                        console.log("repltto:", replyto);
+                        if (wrotereply.substr(0, 2) != "->") {
+                            replyto = "";
+                            console.log("非嵌套评论");
+                        } else {
+                            replyto = "@#9#6@" + replyto + "@3#0#@";
+                        }
+                        nickname = document.getElementById("nicknamex").value;
+                        if (nickname == "") {
+                            nickname = "匿名用户"
+                        }
+                        $.post('/badborad/submitreply', {
+                                "rof": id,
+                                "author": nickname,
+                                "content": replyto + wrotereply
+                            },
+                            function(data) {
+                                if (data == "O") {
+                                    $.snackbar({
+                                        content: "回复成功！"
+                                    });
+                                    location.reload();
+                                } else {
+                                    $.snackbar({
+                                        content: "回复失败！可能是验证码输入错误或者服务器不可用。"
+                                    });
+                                }
+                            }, "text");
+                    }
+                    var alldonw = false;
+                    var loading = false;
+
+                    function lrp() {
+                        if (loading == true) {
+                            return;
+                        }
+                        loading = true;
+                        if (alldonw == true) {
+                            $.snackbar({
+                                content: "评论已经全部加载完毕。"
+                            });
+                            return;
+                        }
+                        $.snackbar({
+                            content: "加载评论...."
+                        });
+                        $.get("/badborad/loadbrp/" + id + "/" + cursum, function(data) {
+                            if (data != "0<@BYKANCHOFCUITCSY@>NULL") {
+                                pd = data.split("<@BYKANCHOFCUITCSY@>")
+                                document.getElementById("replylist").innerHTML = document.getElementById("replylist").innerHTML + pd[1];
+                                cursum += parseInt(pd[0]);
+                                console.log("curid=", pd[0], "cursum=", cursum);
+                            } else {
+                                $.snackbar({
+                                    content: "评论已经全部加载完毕。"
+                                });
+                                alldonw = true;
+                            }
+                            loading = false;
+                        });
+                    }
+
+                    function rpcontent(divid) {
+                        replyto = document.getElementById(divid).innerHTML;
+                        author = document.getElementById("nickname_" + divid).innerText;
+                        document.getElementById("replydata").innerHTML = "->回复 " + author + " ->:";
+                    }
                 </script>
                 <script type="text/javascript">
                     $(document).ready(function() {
+                        $(window).scroll(function() {
+                            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                                var div1tem = $('#container').height()
+
+                                lrp();
+                            }
+                        });
                         document.getElementById("infodiv").innerHTML = getabout();
                         document.getElementById("footer").innerHTML = getfooter();
+                        lrp();
                         console.log("1");
                     });
                 </script>

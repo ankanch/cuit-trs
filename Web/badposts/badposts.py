@@ -121,7 +121,71 @@ def support(xid):
     return True
 
 
-###########################3
-#数据库辅助函数
-###########################
+#提交了针对某一篇匿名帖的回复
+#传入参数：原帖ID，回复内容
+def insertReply(rof,author,content):
+    DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
+    DBCONN.set_charset('utf8mb4')
+    DBCUR = DBCONN.cursor()
+    #去除嵌套回复
+    content = content.replace(STR.IRP_HEAD,STR.IRP_SYM_HEAD)
+    content = content.replace(STR.IRP_TAIL,STR.IRP_SYM_TAIL)
+    #
+    INS = "INSERT INTO `badposts_reply`(`AUTHOR`, `CONTENT`, `DATE`, `ROF`) VALUES (\""
+    INS = INS + author +"\",\"" + content + "\",\"" + str(datetime.datetime.now()) + "\"," + str(rof) +")"
+    try:
+        DBCUR.execute(INS)
+        DBCONN.commit()
+    except Exception as e:
+        DBCUR.close()
+        DBCONN.close()
+        return False
+    DBCUR.close()
+    DBCONN.close()
+    return True
 
+
+#从数据库获取指定帖子的回复数据
+#传入参数：原帖ID，当前已经加载的条数（该函数返回8条每次）
+def queryReply(rof,cursum):
+    if int(cursum) == 999999999999:
+        return [],"0"
+    SEL = "SELECT * FROM `badposts_reply` WHERE ROF="+ str(rof)
+    DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
+    DBCONN.set_charset('utf8mb4')
+    DBCUR = DBCONN.cursor()
+    DBCUR.execute(SEL)
+    DBCONN.commit()
+    result = DBCUR.fetchall()
+    DBCUR.close()
+    DBCONN.close()
+    #从当前位置+1处向后加载8条，如果不足8条，返回999999999999
+    #首先判断是否是第一次加载
+    FINISHED = 999999999999
+    pr = []
+    if int(cursum) == 0:
+        pr = result
+    else:
+        pr = result[int(cursum):]
+    if len(pr) <= 8:
+        return pr,str(len(pr))
+    return result[:8],"8"
+
+
+
+#该函数的作用是根据queryReply返回的回帖数据构建回帖html代码
+#传入参数：回帖数据list
+def makeupReplyHtmlcode(replylist):
+    TABLEDATA = ""
+    for reply in replylist:
+        # [ID,AUTHOR,CONTENT,DATE,ROF]
+        reply = STR.RP_HEAD + str(reply[0]) + STR.RP_A_NICKNAME + reply[1] + STR.RP_B_DATE + str(reply[3]) + \
+                STR.RP_C_REPLY + str(reply[0]) + STR.RP_D_CONTENT_ID + str(reply[0]) + STR.RP_E_CONTENT + \
+                reply[2] + STR.RP_TAIL
+        #恢复帖子中的帖子回复
+        reply = reply.replace(STR.IRP_SYM_HEAD,STR.IRP_HEAD)
+        reply = reply.replace(STR.IRP_SYM_TAIL,STR.IRP_TAIL)
+        TABLEDATA += reply
+    if TABLEDATA == "":
+        TABLEDATA = "NULL"
+    return TABLEDATA

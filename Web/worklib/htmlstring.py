@@ -57,3 +57,33 @@ BP_TAIL  = """" class="btn btn-raised btn-primary" target="_blank">阅读更多<
     </div>
   </div>
 </div></div>"""
+
+#下面的代码用户曝光台的回复
+RP_HEAD = """<div class="alert alert-dismissible alert-info">
+                                        <div class="row">
+                                            <span class="label label-primary" id="nickname_"""
+RP_A_NICKNAME = """\">"""
+
+RP_B_DATE = """</span>
+                                            <span class="label label-default">"""
+
+RP_C_REPLY = """</span>
+                                            <span class="label label-success">
+                                                <a href="#replydata" onclick="rpcontent('"""
+
+RP_D_CONTENT_ID = """')">回复</a>
+                                            </span>
+                                        </div>
+                                        <div id=\""""
+
+RP_E_CONTENT = """\" class="row" style="margin-left: 5px;margin-right: 5px;margin-top: 2px;">"""
+
+RP_TAIL = """</div>
+                                    </div>"""
+
+
+#下面的代码用于处理嵌套回复
+IRP_SYM_HEAD = "@#9#6@"
+IRP_SYM_TAIL = "@3#0#@"
+IRP_HEAD = """<div class=\"panel-body innerreply\">"""
+IRP_TAIL = """</div>"""

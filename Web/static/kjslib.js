@@ -75,7 +75,7 @@ function getabout() {
         "            <div class=\"modal-content\">" +
         "                <div class=\"modal-header\">" +
         "                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\" onclick=\"javascript:toggleDiv(\'infodiv\');\">×</button>" +
-        "                    <h4 class=\"modal-title\">关于成信助手-CUIT Helper- LUV201702101930</h4>" +
+        "                    <h4 class=\"modal-title\">关于成信助手-CUIT Helper- LUV201702111301</h4>" +
         "                </div>" +
         "                <div class=\"modal-body\">" +
         "                    <p>该站点的目的呢，就是没事做着玩。目前拥有以下功能：</p>" +
