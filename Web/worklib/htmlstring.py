@@ -38,19 +38,20 @@ BP_A_CONTENT  = """</h3>
   <div class="panel-body">
       <div class="row" style="margin-left: 10px;margin-right: 10px;">"""
 
+
 BP_B_DATE = """</div>
     <div class="row" style="text-align: right; margin-right: 12px;">
-        <div class="col-md-4">
-        <a href="javascript:void(0)" class="btn btn-raised btn-default disabled">"""
+        <div class="col-md-8" style="text-align:left; margin-top: 15px;">
+        <span class="label label-default">"""
 
-BP_C_UPS = """</a>
-        </div>
-        <div class="col-md-4">
-        <a href="javascript:void(0)" class="btn btn-raised btn-default disabled">"""
 
-BP_D_LINK  = """ 人支持</a>
-        </div>
-        <div class="col-md-4">
+BP_C_UPS = """</span>
+        <span class="label label-default">"""
+
+BP_D_LINK  = """ 人支持</span>
+        <span class="label label-default">"""
+
+BP_E_REPLYSUM = """条回复</span></div><div class="col-md-4">
         <a href="/badborad/"""
 
 BP_TAIL  = """" class="btn btn-raised btn-primary" target="_blank">阅读更多</a>

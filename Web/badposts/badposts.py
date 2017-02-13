@@ -11,6 +11,11 @@ def makeUpTable(tupdata):
     #badpost = [ID,TITLE,CONTENT,DATE,UP]
     #内容最多6排（333字）
     pdata = reversed(tupdata)
+    xdata = reversed(tupdata)
+    #首先获取其所有回帖数据
+    idl = [ x[0] for x in xdata]
+    csum = getCommentsSum(idl)
+    i=0
     for badposts in pdata:
         pstr = ""
         if badposts[4] >=50:
@@ -24,8 +29,10 @@ def makeUpTable(tupdata):
         content = content.replace("\n","<br/>")
         pstr +=  badposts[1] + STR.BP_A_CONTENT + content + STR.BP_B_DATE \
                 + badposts[3].strftime('%Y-%m-%d %H:%M:%S') \
-                + STR.BP_C_UPS + str(badposts[4]) + STR.BP_D_LINK + str(badposts[0]) + STR.BP_TAIL
+                + STR.BP_C_UPS + str(badposts[4]) + STR.BP_D_LINK + str(csum[i]) + STR.BP_E_REPLYSUM +\
+                 str(badposts[0]) + STR.BP_TAIL
         TABLESTR += pstr
+        i+=1
     if TABLESTR == "":
         TABLESTR = "NULL"
     return TABLESTR
@@ -189,3 +196,27 @@ def makeupReplyHtmlcode(replylist):
     if TABLEDATA == "":
         TABLEDATA = "NULL"
     return TABLEDATA
+
+#该函数的作用是查询一个帖子有多少条回复
+#传入参数：匿名贴id
+def getCommentsSum(rid):
+    SEL = "SELECT COUNT(*) FROM `badposts_reply` WHERE ROF=" + str(rid)
+    DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
+    DBCONN.set_charset('utf8mb4')
+    DBCUR = DBCONN.cursor()
+    if type(rid) == list:
+        result = []
+        for xid in rid:
+            SEL = "SELECT COUNT(*) FROM `badposts_reply` WHERE ROF=" + str(xid)
+            DBCUR.execute(SEL)
+            DBCONN.commit()
+            result.append(DBCUR.fetchall()[0][0])
+        DBCUR.close()
+        DBCONN.close()
+        return result
+    DBCUR.execute(SEL)
+    DBCONN.commit()
+    result = DBCUR.fetchall()
+    DBCUR.close()
+    DBCONN.close()
+    return result[0][0]

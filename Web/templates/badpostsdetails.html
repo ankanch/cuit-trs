@@ -276,52 +276,68 @@
             </div>
             <!--在下面添加自定义代码-->
             <div class="container">
-                <div class="row" style="width: 75%;margin-left:auto;margin-right:auto;">
+
+                <div class="row minscale" style="width: 75%;margin-left:auto;margin-right:auto;">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h2 class="panel-title">匿名帖</h2>
                         </div>
                         <div class="panel-body">
-                            <div class="well">
-                                <div class="row" style="text-align: center;margin-right: 12px;margin-left: 12px;">
-                                    <h2>{{TITLE}}</h2>
+
+                            <div class="row" style="text-align: center;margin-right: 12px;margin-left: 12px;">
+                                <h2>{{TITLE}}</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10" style="text-align: center;">
+                                    <br/>
+                                    <span id="howmany" class="label label-warning disabled">{{UP}}人支持</span>
+                                    <span class="label label-info" id="comment_sum">{{COMMENTSUM}}条回复</span>
+                                    <span class="label label-default">{{DATE}}</span>
                                 </div>
-                                <div class="row">
-                                    <div class="row" style="text-align: right; margin-right: 12px;">
-                                        <div class="col-md-4">
-                                            <a id="howmany" class="btn btn-raised btn-warning disabled">当前有{{UP}}人支持</a>
-                                        </div>
-                                        <div class="col-md-4" style="text-align: center;">
-                                            <br/>
-                                            <p class="text-info">{{DATE}}</p>
-                                        </div>
-                                        <div class="col-md-4" style="text-align: right;">
-                                            <a href="javascript:toggleDiv('recap')" id="supportb" class="btn btn-raised btn-danger">支持</a>
-                                            <div class="alert alert-dismissible alert-success" id="recap" style="text-align: left;display: none;">
-                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <div class="col-md-2" style="text-align: center;">
+                                    <a id="supportb" class="btn btn-raised btn-danger" onclick="showSupport()">支持</a>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="modal fade minscale" id="supportdlg" style="width: 50%;margin: 0 auto;" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title">反垃圾验证 - 支持该匿名帖</h4>
+                                            </div>
+                                            <div class="modal-body">
+
                                                 <h5 id="questionx">{{QUESTION}}</h5>
                                                 <input class="form-control" id="rv" type="text" placeholder="输入答案以继续">
                                                 <a href="javascript:u()" id="submitb" class="btn btn-raised btn-xs" style="background: grey;">提交</a>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <p>kanch's antispam recaptcha</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <br/>
-
-                                <div class="row" style="margin-left: 12px;margin-right: 12px;">
-                                    ----------
-                                    <br/> {{CONTENT}}
-                                </div>
-                                <div class="row" style="margin-left: 11px;margin-right: 11px;">
-                                    <br/><br/> ----------
-                                    <p class="text-muted"><small>所有内容均由其原作者确认真实可靠无钓鱼。如果你认为内容违反了该准则，请点击这里<a href="#">举报</a></small></p>
-                                    <div class="bs-component" style="display: none;">
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: 0%;"></div>
-                                        </div>
+                            </div>
+                            <div class="row" style="margin-left: 12px;margin-right: 12px;">
+                                <br/> {{CONTENT}}
+                            </div>
+                            <div class="row" style="margin-left: 11px;margin-right: 11px;">
+                                <br/><br/> ----------
+                                <p class="text-muted"><small>所有内容均由其原作者确认真实可靠无钓鱼。如果你认为内容违反了该准则，请点击这里<a href="#">举报</a></small></p>
+                                <div class="bs-component" style="display: none;">
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 0%;"></div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="progress progress-striped">
+                                <div class="progress-bar progress-bar-info" style="width: 0%"></div>
+                            </div>
+
                             <div class="row" style="margin-left: 11px;margin-right: 11px;">
                                 <div class="row" style="margin-left: 5px;margin-right: 5px;">
                                     <div class="panel panel-default panel-body">
@@ -353,6 +369,7 @@
                 </div>
                 <div class="row" style="text-align:center;width: 90%;margin: 0 auto;" id="footer">
                 </div>
+
 
                 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
                 <script src="../static/jquery-3.1.1.min.js"></script>
@@ -395,6 +412,7 @@
                                     toggleDiv("recap");
                                     document.getElementById("supportb").className += " disabled";
                                     document.getElementById("supportb").innerText = "已支持";
+                                    $('#supportdlg').modal('hide');
                                     $.snackbar({
                                         content: "您已成功支持该曝光！把它分享给您的朋友获取更大影响力吧。"
                                     });
@@ -489,13 +507,19 @@
                         author = document.getElementById("nickname_" + divid).innerText;
                         document.getElementById("replydata").innerHTML = "->回复 " + author + " ->:";
                     }
+
+                    function showSupport() {
+                        document.getElementById('supportdlg').scrollIntoView();
+                        $('#supportdlg').modal();
+                    }
                 </script>
                 <script type="text/javascript">
                     $(document).ready(function() {
+                        $('#supportdlg').modal();
+                        $('#supportdlg').modal('hide');
                         $(window).scroll(function() {
                             if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
                                 var div1tem = $('#container').height()
-
                                 lrp();
                             }
                         });

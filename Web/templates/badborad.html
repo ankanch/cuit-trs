@@ -18,6 +18,7 @@
         <link href="../static/snackbar/themes-css/material.css" rel="stylesheet">
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="../static/jquery-3.1.1.min.js"></script>
+        <link href="../static/kcsslib.css" rel="stylesheet">
 
         <style>
             #banner {
@@ -274,11 +275,11 @@
             <div id="infodiv" style="display:none; alignment-baseline:central">
             </div>
             <!--在下面添加自定义代码-->
-            <div class="container">
+            <div class="container ">
 
-                <div id="searchdiv" style="width:50%; margin-left:auto;margin-right:auto;margin-top:3%;">
-                    <div class="form-group label-floating">
-                        <div class="input-group">
+                <div id="searchdiv minscale" style="width:50%; margin: 0 auto;margin-top:3%;">
+                    <div class="form-group label-floating ">
+                        <div class="input-group ">
                             <label class="control-label" for="focusedInput2">请输入要搜索的匿名讨论关键字</label>
                             <input class="form-control" id="tagss" type="text" list="word">
                             <datalist id="word">
@@ -295,7 +296,7 @@
                     </div> 
                 </div>
         </div>
-        <div class="row" style="width: 60%;margin-left:auto;margin-right:auto;">
+        <div class="row minscale" style="width: 60%;margin-left:auto;margin-right:auto;">
             <div class="bs-component">
           <div class="progress">
             <div class="progress-bar" style="width: 50%;"></div>
@@ -311,7 +312,7 @@
     <a href="/badborad/newbad" class="alert-link">点我开始发布新的匿名讨论内容！</a></p>
 </div>
         </div>
-        <div class="row" id="badposts" style="width: 60%;margin-left:auto;margin-right:auto;">
+        <div class="row minscale" id="badposts" style="width: 60%;margin-left:auto;margin-right:auto;">
             
 <div class="panel panel-info">
   <div class="panel-heading">
@@ -347,21 +348,34 @@
         <!-- 显示关于 -->
         <script type="text/javascript">
         var curxid = "{{CURID}}";
+        var loading = false;
+        var loadall = false;
             function toggleDiv(divId) {
                 $("#" + divId).toggle();
             }
             function loadbadposts(curid){
+                if(loading == true){
+                    return;
+                }
+                if(loadall == true){
+                    $.snackbar({content: "已经全部加载完毕"});
+                    return;   
+                }
+                loading = true;
                 $.snackbar({content: "加载中...."});   
                 $.get("/badborad/load/ " + curid + "/5", function(data) {
                             if (data != "999999999999<@BYKANCHOFCUITCSY@>NULL") {
                                 pd = data.split("<@BYKANCHOFCUITCSY@>")
                                 document.getElementById("badposts").innerHTML = document.getElementById("badposts").innerHTML + pd[1];
                                 curxid = pd[0];
+                                loading = false;
                                 console.log( "curid=",pd[0]);
                             } else {
                                 $.snackbar({
                                     content: "已经全部加载完毕。"
                                 });
+                                loadall = true;
+                                loading = false;
                             }
                         });
             }

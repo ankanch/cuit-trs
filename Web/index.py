@@ -57,7 +57,8 @@ def loadbp(qsum,curid):
 @app.route('/badborad/<int:xid>')
 def showbadborad(xid):
     rl = BP.getBadposts(xid)
-    return render_template("badpostsdetails.html",ID=rl[0],TITLE=rl[1],CONTENT=rl[2],DATE=rl[3],UP=rl[4],QUESTION=VC.getVaildateCode()[0])
+    return render_template("badpostsdetails.html",ID=rl[0],TITLE=rl[1],CONTENT=rl[2],DATE=rl[3],UP=rl[4], \
+                            QUESTION=VC.getVaildateCode()[0],COMMENTSUM=BP.getCommentsSum(rl[0]))
 
 #成信匿名墙-发布新曝光
 @app.route('/badborad/newbad')
