@@ -13,7 +13,7 @@
 ###**【badposts】**
 >trs/Web/badposts/
 
-这里是成信曝光台的后端实现代码。
+这里是成信匿名墙的后端实现代码。
 
 ###**【bigdataQuery】**
  >trs/Web/bigdataQuery/
@@ -36,7 +36,11 @@
 
 这里是成信好老师的后端代码。
 
----
+以及一个 用于 HTML 字符串拼接的字符串集。
 
+---
+站点设计采用了Bootstrap Material Design 与 Material Design Spinner  和 SnackbarJS .
+
+---
 __该文件更新缓慢__
 

@@ -281,3 +281,7 @@ database.pyc
 datasource.py
 datasource.pyc
 verifyMail.py
+
+# non-essential files
+env/Lib/site-packages/
+site-packages/

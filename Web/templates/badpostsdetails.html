@@ -363,6 +363,13 @@
                                 <div class="row" id="replylist" style="margin-left: 5px;margin-right: 5px;">
 
                                 </div>
+                                <div class="row minscale spinnerdiv" id="loading_svg" style="width: 60%; margin: 0 auto; display: none;">
+                                    <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30">
+                                            
+                                        </circle>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -483,6 +490,7 @@
                             });
                             return;
                         }
+                        document.getElementById("loading_svg").style.display = "";
                         $.snackbar({
                             content: "加载评论...."
                         });
@@ -499,6 +507,7 @@
                                 alldonw = true;
                             }
                             loading = false;
+                            document.getElementById("loading_svg").style.display = "none";
                         });
                     }
 

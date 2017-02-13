@@ -329,7 +329,11 @@
 </div>
            
         </div>
-        
+          <div class="row minscale spinnerdiv" id="loading_svg" style="width: 60%; margin: 0 auto;">
+            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+   <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+</svg>  
+        </div>
         <div class="row" style="text-align:center;width: 90%;margin: 0 auto;" id="footer">
         </div>
 
@@ -362,6 +366,7 @@
                     return;   
                 }
                 loading = true;
+                document.getElementById("loading_svg").style.display="";
                 $.snackbar({content: "加载中...."});   
                 $.get("/badborad/load/ " + curid + "/5", function(data) {
                             if (data != "999999999999<@BYKANCHOFCUITCSY@>NULL") {
@@ -370,12 +375,14 @@
                                 curxid = pd[0];
                                 loading = false;
                                 console.log( "curid=",pd[0]);
+                                document.getElementById("loading_svg").style.display="none";
                             } else {
                                 $.snackbar({
                                     content: "已经全部加载完毕。"
                                 });
                                 loadall = true;
                                 loading = false;
+                                document.getElementById("loading_svg").style.display="none";
                             }
                         });
             }
