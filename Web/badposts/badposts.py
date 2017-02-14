@@ -2,6 +2,7 @@ import datasourceconfig.database_settings as DBS
 import pymysql as SQL
 import datetime
 import worklib.htmlstring as STR
+import badposts.contentparser as CP
 
 
 #将从数据库加载的曝光数据根据支持人数组合成表格
@@ -23,8 +24,7 @@ def makeUpTable(tupdata):
         else:
             pstr = STR.BP_HEAD_NORMAL
         content = badposts[2]
-        if len(content) > 333:
-            content = badposts[2][0:333]+"......"
+        content = CP.getAbstruct(content)
         #content = content.replace("<","--")
         content = content.replace("\n","<br/>")
         pstr +=  badposts[1] + STR.BP_A_CONTENT + content + STR.BP_B_DATE \

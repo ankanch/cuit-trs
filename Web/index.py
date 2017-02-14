@@ -54,19 +54,23 @@ def loadbp(qsum,curid):
 @app.route('/badborad/<int:xid>')
 def showbadborad(xid):
     rl = BP.getBadposts(xid)
-    return render_template("badpostsdetails.html",ID=rl[0],TITLE=rl[1],CONTENT=rl[2],DATE=rl[3],UP=rl[4], \
+    return render_template("badpostsdetails.html",ID=rl[0],TITLE=rl[1],CONTENT=rl[2].replace("\n","<br/>"),DATE=rl[3],UP=rl[4], \
                             QUESTION=VC.getVaildateCode()[0],COMMENTSUM=BP.getCommentsSum(rl[0]))
 
 #成信匿名墙-发布新曝光
 @app.route('/badborad/newbad')
 def postbadposts():
-    return render_template("postNewBadposts.html")
+    return render_template("postNewBadposts.html",QUESTION=VC.getVaildateCode()[0])
 
 #成信匿名墙-发布新曝光（POST）
 @app.route('/badborad/submit', methods=['POST'])
 def getbadborad():
     title = request.form['title']
     content = request.form['content']
+    answer = request.form['a']
+    question = request.form['q']
+    if VC.check(question,str(answer)) == False:
+        return "ERROR:v"
     xid = BP.insertBadposts(title,content)
     return  str(xid)
     #return "22"
@@ -309,5 +313,5 @@ def page_not_found(e):
 if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
-    #app.run(host='127.0.0.1')
-    app.run(host='127.0.0.1',debug=True)
+    app.run(host='127.0.0.1')
+    #app.run(host='127.0.0.1',debug=True)

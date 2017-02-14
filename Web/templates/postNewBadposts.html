@@ -295,7 +295,7 @@
 
                         <h4>在下面编辑您的讨论内容，完毕后点击发布即可发布到时间线。然后，将分享给你的朋友们，寻求广泛讨论。</h4>
                         <h5>如果您要贴上图片，请使用外链。例如：<a href="http://www.tietuku.com/" target="_blank">贴图网</a></h5>
-                        <h5>编辑过程中你可以使用html代码，仅限于 h3,h4,b,</h5>
+                        <h5>编辑过程中你可以使用html代码，仅限于 b(加粗),i(斜体),small(小号字体),s(删除线),em(斜体，强调)</h5>
                         <div class="panel panel-success">
                             <div class="panel-heading">
                                 <input class="form-control" id="title" type="text" placeholder="请在这里输入标题">
@@ -307,9 +307,21 @@
                                 </div>
                             </div>
                         </div>
-                        <p>
-                            点击发布即代表您确认内容【真实可靠无钓鱼】<br/>&lt;<br/>&lt;<br/> <a id="submita" class="btn btn-primary btn-lg" href="javascript:submit()">发布曝光</a>
-                        </p>
+                        <div class="row" style="margin-left: 12px;margin-right: 12px;">
+                            <br/>
+                            <div class="col-md-4">
+                                <h5 id="questionx">{{QUESTION}}</h5>
+                                <input class="form-control" id="rv" type="text" placeholder="输入答案以继续">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <h5>输入验证码后即可完成发帖。点击发布即代表您确认内容真实可靠无钓鱼</h5>
+                                </div>
+                                <div class="row">
+                                    <a id="submita" class="btn btn-primary btn-lg" href="javascript:submit()">发布匿名贴</a>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -336,6 +348,7 @@
                 function toggleDiv(divId) {
                     $("#" + divId).toggle();
                 }
+                var qe = "{{QUESTION}}";
 
                 function submit() {
                     document.getElementById("submita").disable = true;
@@ -354,12 +367,20 @@
                     document.getElementById("submita").disabled = true;
                     $.post('/badborad/submit', {
                             "title": tl,
+                            "q": qe,
+                            "a": document.getElementById("rv").value,
                             "content": ct
                         },
                         function(data) {
                             $.snackbar({
                                 content: "曝光成功发布！把它分享给您的朋友获取更大影响力吧。"
                             });
+                            if (data == "ERROR:v") {
+                                $.snackbar({
+                                    content: "验证码输入错误！"
+                                });
+                                return;
+                            }
                             console.log(data);
                             window.location.href = "/badborad/" + data;
                         }, "text");

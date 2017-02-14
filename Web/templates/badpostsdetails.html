@@ -272,12 +272,12 @@
             </div>
 
 
-            <div id="infodiv" style="display:none; alignment-baseline:central">
+            <div id="infodiv" style="display:none; alignment-baseline:central" class="minscale">
             </div>
             <!--在下面添加自定义代码-->
-            <div class="container">
+            <div class="container ">
 
-                <div class="row minscale" style="width: 75%;margin-left:auto;margin-right:auto;">
+                <div class="row minscale" style="width: 75%;margin: 0 auto;">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h2 class="panel-title">匿名帖</h2>
@@ -321,8 +321,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" style="margin-left: 12px;margin-right: 12px;">
-                                <br/> {{CONTENT}}
+                            <div class="row" style="margin-left: 12px;margin-right: 12px;font-size: 12pt;">
+                                ----------<br/><br/> {{CONTENT|safe}}
                             </div>
                             <div class="row" style="margin-left: 11px;margin-right: 11px;">
                                 <br/><br/> ----------
@@ -341,7 +341,7 @@
                             <div class="row" style="margin-left: 11px;margin-right: 11px;">
                                 <div class="row" style="margin-left: 5px;margin-right: 5px;">
                                     <div class="panel panel-default panel-body">
-                                        <div class="form-group">
+                                        <div class="form-group" style="margin-top: 2px;">
                                             <div class="col-md-2">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label" for="nicknamex">用户昵称</label>
@@ -349,13 +349,17 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-10">
-                                                <label>请在下侧空白区域输入您的回复（您仅能使用这些HTML标签：h5,b,i,small,s,em)：</label>
-                                                <a href="javascript:rp()" class="btn btn-raised btn-success">发表回复</a>
+                                                <label>请在下侧空白区域输入您的回（您仅能使用这些HTML标签： b(加粗),i(斜体),small(小号字体),s(删除线),em(斜体，强调))：</label>
                                             </div>
 
                                             <div class="row" style="width: 95%;margin-left: 5px;margin-right: 5px;">
-                                                <textarea class="form-control" rows="3" id="replydata" maxlength="666"></textarea>
-                                                <span class="help-block">尽情发挥你的想象来讨论吧。(最大长度666)</span>
+                                                <div class="col-md-10">
+                                                    <textarea class="form-control" rows="3" id="replydata" maxlength="666"></textarea>
+                                                    <span class="help-block">尽情发挥你的想象来讨论吧。(最大长度666)</span>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="javascript:rp()" class="btn btn-raised btn-success">发表回复</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

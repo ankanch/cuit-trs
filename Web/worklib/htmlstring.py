@@ -61,7 +61,7 @@ BP_TAIL  = """" class="btn btn-raised btn-primary" target="_blank">阅读更多<
 
 #下面的代码用户曝光台的回复
 RP_HEAD = """<div class="alert alert-dismissible alert-info">
-                                        <div class="row">
+                                        <div class="row" style="margin-top: 0px;">
                                             <span class="label label-primary" id="nickname_"""
 RP_A_NICKNAME = """\">"""
 
