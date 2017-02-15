@@ -10,7 +10,9 @@ import threading as Thread
 import Config.config as CFG
 import time
 import os
+#调试模块
 #from pympler import tracker
+import pdb
 
 #贴吧第一页
 BEGIN_PAGE =  URL.POST_LIST_SUFFIX
@@ -81,6 +83,7 @@ while len(CFG.DATA_POSTLIST) > 0 or Cache.cacheCompleted() == False:
     status += "\tPostSum:"+str(curpn)+ "/" + str(postsum) + "\n\tPagesDownload:"+ str(CFG.STATUS_PAGES_DOWNLOAD)  \
                 + "\n\tPagesProcessed:"+str(CFG.STATUS_PAGES_PROCESS) + "\n\tDataRetrived:"+str(CFG.STATUS_DATA_RETRIVED) +\
                 "\n\tDataCached:" + str(CFG.STATUS_DATA_CACHED)
+    
     os.system(CFG.CMD_CLEAR_SCREEN)
     print(status + "\n\tDatabaseSubmitted:"+ str(CFG.STATUS_DATA_SUBMITED),end="\n-----\n")
     #这里的结束条件是当pn参数满了的时候就不执行下载了，只更新状态数据

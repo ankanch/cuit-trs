@@ -1,5 +1,9 @@
 from bs4 import BeautifulSoup
 import re
+#调试模块
+#import objgraph
+#import os
+
 
 #应该分为两部分：爬取帖子列表的，和爬取帖子内容的
 
@@ -15,24 +19,30 @@ def clearHTML(raw):
 #@该函数用来获取当前页面的所有回帖数据(未格式化，还存在html标签)
 #@返回值（list）,str：[  [发帖用户,回帖信息,发帖时间,REPLY_TO], [发帖用户,回帖信息,发帖时间,REPLY_TO],... ]和楼主
 def getReplyList(html,firstfloor="NULL",clearhtml=True):
+    #os.system("cls")
+    #objgraph.show_growth()
     soup = BeautifulSoup(html,"html.parser")
     replylist_html = soup.select("#j_p_postlist div[data-field]")
     result = []
-    for replyblock in replylist_html:
+    while len(replylist_html) > 0:
+    #for replyblock in replylist_html:
+        #print( len(replylist_html),type(replylist_html))
+        replyblock = replylist_html[0]
+        replylist_html.pop(0)
         author = replyblock.find("a",class_="j_user_card")
         if author == None:
             #跳过空数据
             continue
         #匹配发帖人
         try:#.contents[0] 可能不存在
-            postauthor = author.contents[0]
+            postauthor = str(author.contents[0])
         except Exception as e:
             continue
         #匹配内容（未格式化）
         postcontent = replyblock.find("div",class_="j_d_post_content")
         if clearhtml == True:
             #是否格式化数据
-            postcontent = postcontent.text
+            postcontent = str(postcontent.text)
         else:
             postcontent = str(postcontent)
             print(postcontent)
@@ -50,6 +60,8 @@ def getReplyList(html,firstfloor="NULL",clearhtml=True):
             firstfloor = postauthor
         #print(post_no,postdate,postauthor)
         result.append([postauthor,postcontent.replace(" ",""),postdate,firstfloor])
+    soup.decompose()
+    #objgraph.show_growth()
     return result,firstfloor
 
 
@@ -59,7 +71,10 @@ def getPostsList(html):
     soup = BeautifulSoup(html,"html.parser")
     postlist_html = soup.select("#thread_list li[data-field] div.threadlist_title a[href]")
     result = []
-    for posttitle in postlist_html:
+    while len(postlist_html) > 0:
+    #for posttitle in postlist_html:
+        posttitle = postlist_html[0]
+        postlist_html.pop(0)
         postd = [posttitle['title'],posttitle['href']]
         #print(postd)
         result.append(postd)

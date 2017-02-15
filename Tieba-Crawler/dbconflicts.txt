@@ -1,1 +1,1 @@
-INSERT INTO `postdata2`(`POSTID`, `TIEBANAME`, `AUTHOR`, `CONTENT`, `DATE`, `REPLYTO`, `LINK`) VALUES ("p681514785","冰茧的春天","1949冉","回复：4楼王某文","2010-01-24 12:02","漫游的心情","1")
+﻿

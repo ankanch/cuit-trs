@@ -1,5 +1,6 @@
 # coding=utf-8
 import Config.systemrelatedenv as STE
+import targetTieba 
 #该模块定义了在各个模块之间共享的变量
 ####################################【不可更改变量】################################
 #这里的变量为配置项，程序运行时，不应该被更改
@@ -8,7 +9,8 @@ THREAD_PROCESS_POST_COUNT = 1
 #下载帖子列表的线程数量
 THREAD_DOWNLOAD_POST_LIST_COUNT = 4
 #要抓取的贴吧
-TIEBA_NAME = "冰茧的春天" #长风送远
+TIEBA_NAME = targetTieba.TIEBA_NAME
+#TIEBA_NAME = "成都信息工程大学" #长风送远#冰茧的春天#成都信息工程大学
 #每当结果集合有指定条数据的时候进行一次数据数据缓存，减少内存占用缓存到文件。
 UPDATE_CACHE_THROUSHOLD = 500     
 #每当多少秒进行一次数据库提交
