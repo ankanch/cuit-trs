@@ -9,7 +9,7 @@
 #
 #
 #
-AGV_EXE_ENV_LINUX = False
+AGV_EXE_ENV_LINUX = True
 #
 #
 #
