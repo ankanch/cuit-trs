@@ -3,12 +3,14 @@ import flask
 from flask import Flask, jsonify, redirect, render_template, request
 import badposts.badposts as BP
 import badposts.vaildatecode as VC
+import badposts.bpuser as BPUser
 import bigdataQuery.checkmail as VerifyBigDataMail
 import bigdataQuery.termgather as TG
 import bigdataQuery.userFunctions as UserFunctions
 import worklib.getInfoWeb as IW  
 import worklib.getTeacherInfo as TI
 import worklib.htmlstring as HS
+
 
 app = Flask(__name__)
 
@@ -66,12 +68,13 @@ def postbadposts():
 @app.route('/badborad/submit', methods=['POST'])
 def getbadborad():
     title = request.form['title']
+    uid = request.form['uid']
     content = request.form['content']
     answer = request.form['a']
     question = request.form['q']
     if VC.check(question,str(answer)) == False:
         return "ERROR:v"
-    xid = BP.insertBadposts(title,content)
+    xid = BP.insertBadposts(title,content,uid)
     return  str(xid)
     #return "22"
 
@@ -91,9 +94,11 @@ def supportbadborad():
 @app.route('/badborad/submitreply', methods=['POST'])
 def postreply():
     rof = request.form['rof']
+    uid = request.form['uid']
+    rid = request.form["rid"]
     author = request.form['author']
     content = request.form['content']
-    if  BP.insertReply(rof,author,content) == True:
+    if  BP.insertReply(rof,uid,rid,author,content) == True:
         return "O"
     return  "F"
 
@@ -103,6 +108,52 @@ def loadbrp(rof,cursum):
     result,status = BP.queryReply(rof,cursum)
     return status + "<@BYKANCHOFCUITCSY@>" + BP.makeupReplyHtmlcode(result)
 
+#成信匿名墙，自动注册新用户
+@app.route('/badborad/user/newuser')
+def autonewuser():
+    return BPUser.generateUID()
+
+#成信匿名墙，拉取指定用户的新消息数量
+@app.route('/badborad/user/getmsg/<uid>')
+def getusermsg(uid):
+    return str(BPUser.getUnreadMsg(uid))
+
+#成信匿名墙，拉取指定用户的昵称
+@app.route('/badborad/user/getnickname/<uid>')
+def getusernickname(uid):
+    return str(BPUser.getUserNickname(uid))
+
+#成信匿名墙，给定回复ID获取所在帖子
+@app.route('/badborad/getrofbyrid/<rid>')
+def getrofbyrid(rid):
+    return str(BPUser.getrofbyrid(rid))
+
+#成信匿名墙，更改指定用户的昵称
+@app.route('/badborad/user/changenickname', methods=['POST'])
+def changeusernickname():
+    uid = request.form['u']
+    nickname = request.form['n']
+    BPUser.changeUserNickname(uid,nickname)
+    return "O"
+
+#成信匿名墙，用户消息中心
+@app.route('/badborad/user/notifications/<uid>')
+def notifications(uid):
+    nickname = BPUser.getUserNickname(uid)
+    return render_template("bpUserNitification.html",NICKNAME=nickname,UID=uid)
+
+#成信匿名墙，拉取指定用户的消息内容列表
+@app.route('/badborad/user/getmsgdetails/<uid>')
+def getusermsgdetails(uid):
+    unreadlist = BPUser.getUnreadMsgDetails(uid)
+    return unreadlist
+
+#成信匿名墙，清空未读消息列表
+@app.route('/badborad/user/clearunread/<uid>')
+def clearunreadmsg(uid):
+    if BPUser.clearmsgbox(uid) == True:
+        return "O"
+    return "F"
 
 #搜索指定词语的数据
 @app.route('/tiebabigdata/term/<term>/<int:scale>')
@@ -313,5 +364,5 @@ def page_not_found(e):
 if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
-    app.run(host='127.0.0.1')
-    #app.run(host='127.0.0.1',debug=True)
+    #app.run(host='127.0.0.1')
+    app.run(host='127.0.0.1',debug=True)

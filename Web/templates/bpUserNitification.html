@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{NICKNAME}} - 消息中心 - 成信匿名墙 </title>
+
+        <link href="../../../static/images/favicon.ico" rel="icon" type="image/x-icon" />
+        <!-- Material Design fonts
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+        <!-- Bootstrap  -->
+        <link href="../../../static/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap Material Design -->
+        <link href="../../../static/bmaterial/dist/css/bootstrap-material-design.css" rel="stylesheet">
+        <link href="../../../static/bmaterial/dist/css/ripples.min.css" rel="stylesheet">
+        <!-- core CSS of SnackbarJS, find it in /dist -->
+        <link href="../../../static/snackbar/dist/snackbar.min.css" rel="stylesheet">
+        <!-- the default theme of SnackbarJS, find it in /themes-css -->
+        <link href="../../../static/snackbar/themes-css/material.css" rel="stylesheet">
+        <link href="../../../static/kcsslib.css" rel="stylesheet">
+        <style>
+            #banner {
+                border-bottom: none
+            }
+            
+            .page-header h1 {
+                font-size: 4em
+            }
+            
+            .bs-docs-section {
+                margin-top: 8em
+            }
+            
+            .bs-component {
+                position: relative
+            }
+            
+            .bs-component .modal {
+                position: relative;
+                top: auto;
+                right: auto;
+                left: auto;
+                bottom: auto;
+                z-index: 1;
+                display: block
+            }
+            
+            .bs-component .modal-dialog {
+                width: 90%
+            }
+            
+            .bs-component .popover {
+                position: relative;
+                display: inline-block;
+                width: 220px;
+                margin: 20px
+            }
+            
+            #source-button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 100;
+                font-weight: bold;
+                padding: 5px 10px;
+            }
+            
+            .progress {
+                margin-bottom: 10px
+            }
+            
+            footer {
+                margin: 5em 0
+            }
+            
+            footer li {
+                float: left;
+                margin-right: 1.5em;
+                margin-bottom: 1.5em
+            }
+            
+            footer p {
+                clear: left;
+                margin-bottom: 0
+            }
+            
+            .splash {
+                padding: 4em 0 0;
+                background-color: #141d27;
+                color: #fff;
+                text-align: center
+            }
+            
+            .splash h1 {
+                font-size: 4em
+            }
+            
+            .splash #social {
+                margin: 2em 0
+            }
+            
+            .splash .alert {
+                margin: 2em 0
+            }
+            
+            .section-tout {
+                padding: 4em 0 3em;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                background-color: #eaf1f1
+            }
+            
+            .section-tout .fa {
+                margin-right: .5em
+            }
+            
+            .section-tout p {
+                margin-bottom: 3em
+            }
+            
+            .section-preview {
+                padding: 4em 0 4em
+            }
+            
+            .section-preview .preview {
+                margin-bottom: 4em;
+                background-color: #eaf1f1
+            }
+            
+            .section-preview .preview .image {
+                position: relative
+            }
+            
+            .section-preview .preview .image:before {
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                content: "";
+                pointer-events: none
+            }
+            
+            .section-preview .preview .options {
+                padding: 1em 2em 2em;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                border-top: none;
+                text-align: center
+            }
+            
+            .section-preview .preview .options p {
+                margin-bottom: 2em
+            }
+            
+            .section-preview .dropdown-menu {
+                text-align: left
+            }
+            
+            .section-preview .lead {
+                margin-bottom: 2em
+            }
+            
+            @media (max-width: 767px) {
+                .section-preview .image img {
+                    width: 100%
+                }
+            }
+            
+            .sponsor {
+                text-align: center
+            }
+            
+            .sponsor a:hover {
+                text-decoration: none
+            }
+            
+            @media (max-width: 767px) {
+                #banner {
+                    margin-bottom: 2em;
+                    text-align: center
+                }
+            }
+            
+            .infobox .btn-sup {
+                color: rgba(0, 0, 0, 0.5);
+                font-weight: bold;
+                font-size: 15px;
+                line-height: 30px;
+            }
+            
+            .infobox .btn-sup img {
+                opacity: 0.5;
+                height: 30px;
+            }
+            
+            .infobox .btn-sup span {
+                padding-left: 10px;
+                position: relative;
+                top: 2px;
+            }
+            
+            .icons-material .row {
+                margin-bottom: 20px;
+            }
+            
+            .icons-material .col-xs-2 {
+                text-align: center;
+            }
+            
+            .icons-material i {
+                font-size: 34pt;
+            }
+            
+            .icon-preview {
+                display: inline-block;
+                padding: 10px;
+                margin: 10px;
+                background: #D5D5D5;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            
+            .icon-preview span {
+                display: none;
+                position: absolute;
+                background: black;
+                color: #EEE;
+                padding: 5px 8px;
+                font-size: 15px;
+                border-radius: 2px;
+                z-index: 10;
+            }
+            
+            .icon-preview:hover i {
+                color: #4285f4;
+            }
+            
+            .icon-preview:hover span {
+                display: block;
+                cursor: text;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="bs-component">
+            <div class="navbar navbar-warning">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                        <a class="navbar-brand" href="/badborad">成信匿名墙</a>
+                    </div>
+                    <div class="navbar-collapse collapse navbar-warning-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/trs">成信好老师</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/tiebabigdata">成信贴吧大数据</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="javascript:toggleDiv('infodiv');">关于该项目</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="infodiv" style="display:none; alignment-baseline:central" class="minscale">
+            </div>
+            <!--在下面添加自定义代码-->
+            <div class="container ">
+
+                <div class="row minscale" style="width: 75%;margin: 0 auto;">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">{{NICKNAME}}的消息中心</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8" style="margin-left: 12px;margin-top: 12px;margin-right: 12px;">
+                                为了保护隐私，在清空消息后，这些消息将不会出现在消息中心里。
+                            </div>
+                            <div class="col-md-2">
+                                <a href="javascript:clsmsg()" class="btn btn-raised btn-danger">清空消息</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row minscale" style="width: 75%;margin: 0 auto;">
+                    <div class="row" style="margin-left: 11px;margin-right: 11px;">
+
+                        <div class="row" style="margin-left: 5px;margin-right: 5px;display: none;" id="writereply">
+                            <div class="panel panel-default panel-body">
+                                <div class="form-group" style="margin-top: 2px;">
+                                    <div class="col-md-10">
+                                        <label>请在下侧空白区域输入您的回（您仅能使用这些HTML标签： b(加粗),i(斜体),small(小号字体),s(删除线),em(斜体，强调))：</label>
+                                    </div>
+
+                                    <div class="row" style="width: 95%;margin-left: 5px;margin-right: 5px;">
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" rows="3" id="replydata" maxlength="666"></textarea>
+                                            <span class="help-block">尽情发挥你的想象来讨论吧。(最大长度666)</span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="javascript:rp()" class="btn btn-raised btn-success">发表回复</a>
+                                            <a href="javascript:toggleDiv('writereply')" class="btn btn-raised btn-default">隐藏</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="nonotify" style="margin-left: 5px;margin-right: 5px;display: none;">
+                            <div class="alert alert-dismissible alert-warning">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <h4>Oops!</h4>
+
+                                <p>暂时还没有新回复哦。要不去浏览下其他人发的匿名贴吧。</p>
+                            </div>
+                        </div>
+                        <div class="row" id="replylist" style="margin-left: 5px;margin-right: 5px;">
+
+                        </div>
+                        <div class="row minscale spinnerdiv" id="loading_svg" style="width: 60%; margin: 0 auto; display: none;">
+                            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30">
+                                            
+                                        </circle>
+                                    </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="text-align:center;width: 90%;margin: 0 auto;" id="footer">
+                </div>
+
+
+                <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+                <script src="../../../static/jquery-3.1.1.min.js"></script>
+                <!-- Include all compiled plugins (below), or include individual files as needed -->
+                <script src="../../../static/dist/js/bootstrap.min.js"></script>
+                <!-- Material Design for Bootstrap -->
+                <script src="../../../static/bmaterial/dist/js/material.js"></script>
+                <script src="../../../static/bmaterial/dist/js/ripples.min.js"></script>
+                <!-- SnackbarJS, find it in /dist -->
+                <script src="../../../static/snackbar/dist/snackbar.min.js"></script>
+                <!-- Kanch's JS Common libary' -->
+                <script src="../../../static/kjslib.js"></script>
+                <script>
+                    $.material.init();
+                </script>
+                <!-- 显示关于 -->
+                <script type="text/javascript">
+                    var id = "{{ID}}";
+
+                    function toggleDiv(divId) {
+                        $("#" + divId).toggle();
+                    }
+
+                    var uid = "{{UID}}";
+                    var NICKNAME = "{{NICKNAME}}";
+                    var replyto = "";
+                    var rid = 0;
+
+                    function rp() {
+                        var wrotereply = document.getElementById("replydata").value;
+                        clen = wrotereply.length;
+                        console.log("reply length=", clen);
+                        if (clen < 9) {
+                            $.snackbar({
+                                content: "请勿发表垃圾信息，回帖长度需要大于9！"
+                            });
+                            return;
+                        }
+                        $.snackbar({
+                            content: "提交回复中..."
+                        });
+                        console.log("repltto:", replyto);
+                        if (wrotereply.substr(0, 2) != "->") {
+                            replyto = "";
+                            console.log("非嵌套评论");
+                        } else {
+                            replyto = "@#9#6@" + replyto + "@3#0#@";
+                        }
+                        nickname = NICKNAME;
+                        $.post('/badborad/submitreply', {
+                                "rof": id,
+                                "uid": uid,
+                                "rid": rid,
+                                "author": nickname,
+                                "content": replyto + wrotereply
+                            },
+                            function(data) {
+                                if (data == "O") {
+                                    $.snackbar({
+                                        content: "回复成功！"
+                                    });
+                                    document.getElementById("writereply").style.display = "none";
+                                } else {
+                                    $.snackbar({
+                                        content: "回复失败！服务器不可用。"
+                                    });
+                                }
+                            }, "text");
+                    }
+                    var alldonw = false;
+                    var loading = false;
+
+                    function lrp() {
+                        if (loading == true) {
+                            return;
+                        }
+                        loading = true;
+                        if (alldonw == true) {
+                            $.snackbar({
+                                content: "未读消息已经全部加载完毕。"
+                            });
+                            return;
+                        }
+                        document.getElementById("loading_svg").style.display = "";
+                        $.snackbar({
+                            content: "加载回复中...."
+                        });
+                        $.get("/badborad/user/getmsgdetails/" + uid, function(data) {
+                            if (data != "NULL") {
+                                document.getElementById("replylist").innerHTML = data;
+                            } else {
+                                $.snackbar({
+                                    content: "您没有新消息！"
+                                });
+                                alldonw = true;
+                                document.getElementById("nonotify").style.display = "";
+                            }
+                            loading = false;
+                            document.getElementById("loading_svg").style.display = "none";
+                        });
+                    }
+
+                    function rpcontent(divid) {
+                        replyto = document.getElementById(divid).innerHTML;
+                        author = document.getElementById("nickname_" + divid).innerText;
+                        document.getElementById("replydata").innerHTML = "->回复 " + author + " ->:";
+                        document.getElementById("writereply").style.display = "";
+                        $.get("/badborad/getrofbyrid/" + divid, function(data) {
+                            id = data;
+                        });
+                        rid = divid; //记录回复对象，用于消息提示
+                    }
+
+                    function clsmsg() {
+                        if (confirm("您确定要清空所有未读消息吗？")) {
+                            $.get("/badborad/user/clearunread/" + uid, function(data) {
+                                if (data == "O") {
+                                    $.snackbar({
+                                        content: "消息已清空！"
+                                    });
+                                    location.reload();
+                                } else {
+                                    $.snackbar({
+                                        content: "遇到错误，服务器不可用或网络连接出现问题。"
+                                    });
+                                }
+                            });
+                        }
+                    }
+                </script>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $('#supportdlg').modal();
+                        $('#supportdlg').modal('hide');
+                        $(window).scroll(function() {
+                            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                                var div1tem = $('#container').height()
+                                lrp();
+                            }
+                        });
+                        document.getElementById("infodiv").innerHTML = getabout();
+                        document.getElementById("footer").innerHTML = getfooter();
+                        lrp();
+                        console.log("1");
+                    });
+                </script>
+                <script>
+                    (function(i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r;
+                        i[r] = i[r] || function() {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                        a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                        a.async = 1;
+                        a.src = g;
+                        m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+                    ga('create', 'UA-53245384-4', 'auto');
+                    ga('send', 'pageview');
+                </script>
+
+    </body>
+
+</html>

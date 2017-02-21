@@ -276,8 +276,44 @@
             </div>
             <!--在下面添加自定义代码-->
             <div class="container ">
+                <div id="userdiv" style="width:50%; margin: 0 auto;" class="row minscale">
+                    <ul class="nav nav-pills">
+                        <li><a href="javascript:showuserinfo()" id="usernickname">用户昵称</a></li>
+                        <li><a href="javascript:toggleDiv('changenickname')">更改昵称 <span class="badge"></span></a></li>
+                        <li><a href="javascript:notify()">回复提醒 <span class="badge" id="msgcount">0</span></a></li>
+                    </ul>
+                    <div class="well well-sm minscale" style="display: none;margin: 0 auto;" id='userinfo'>
+                        <p class="text-danger">
+                            您需要牢记该ID，因为我们通过Cookies来标识唯一用户；其它用户对您的回复全靠该ID识别。为了防止您清空浏览器缓存导致用户信息丢失 我们建议您将该ID储存在记事本里，方便通过ID恢复账户。
+                        </p>
+                    </div>
+                    <div class="row minscale" style="display: none;margin: 0 auto;" id='changenickname'>
+                        <div class="well well-sm row">
+                            <div class="col-md-8">
+                                <div class="form-group label-floating">
+                                    <label class="control-label" for="nicknamex">新昵称(最长15个字)</label>
+                                    <input class="form-control" id="nicknamex" type="text" maxlength="15">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="javascript:changenn()" class="btn btn-raised btn-success">提交更新</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row minscale" style="display: none;margin: 0 auto;" id='firstvisit'>
+                        <div class="alert alert-dismissible alert-info">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>欢迎您，您是第一次访问本站。</strong> 第一次访问由于网站先前没有您的记录，故昵称没有显示，在下面的匿名贴加在完毕后，刷新2次该页面，昵称方可正常显示
+                            <br> 如果您需要修改昵称，可以通过上面的按钮实现，当您有新回复的时候，可以点击上面的回复提醒进行查看。
+                            <br> 我们通过Cookies来识别用户，我们建议您离线保存您的用户ID，这样在您清空浏览器缓存后，仍然可以通过用户ID恢复到之前的账户。
+                            <br>
+                            <a href="javascript:defirst()" class="alert-link">如果您不希望再见到该提示，点我可以屏蔽。</a>
 
-                <div id="searchdiv minscale" style="width:50%; margin: 0 auto;margin-top:3%;">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="searchdiv" style="width:50%; margin: 0 auto;margin-top:2%;" class="row minscale">
                     <div class="form-group label-floating ">
                         <div class="input-group ">
                             <label class="control-label" for="focusedInput2">请输入搜索关键字</label>
@@ -352,6 +388,9 @@
         <!-- 显示关于 -->
         <script type="text/javascript">
         var curxid = "{{CURID}}";
+        var uid = "";
+        var nickname = "";
+        var buinfo = true;
         var loading = false;
         var loadall = false;
             function toggleDiv(divId) {
@@ -401,12 +440,58 @@
                                 });
                         });
             }
-              function keydown(){ 
+            function keydown(){ 
                  if(event.keyCode == 13) 
                  { 
                         searchfor(); 
                 } 
-             } 
+            } 
+            function showuserinfo() {
+                    $("#userinfo").toggle();
+                    if(buinfo){
+                        document.getElementById("userinfo").innerHTML = "您的用户ID：" + uid  + document.getElementById("userinfo").innerHTML;
+                        buinfo = false;
+                    }
+            }
+            function changenn(){
+                    nn = document.getElementById("nicknamex").value;
+                    if(nn.length <2)
+                    {
+                         $.snackbar({
+                            content: "请输入有效昵称，长度2至15！"
+                        });
+                        return;
+                    }
+                    status = changeNickname(uid,nn);
+                    $.snackbar({
+                            content: "修改成功。"
+                    });
+                    //document.getElementById("usernickname").innerHTML = getCookie("_afn");
+                    location.reload();
+                    toggleDiv('changenickname');
+            }
+            function notify(){
+                window.open("/badborad/user/notifications/" + uid);  
+            }
+            function getmsgc(){
+                uid = getCookie("_af");
+                $.get("/badborad/user/getmsg/" + uid, function(data) {
+                    document.getElementById("msgcount").innerText = data;
+                    if(data != 0 || data!="0")
+                    {
+                        $.snackbar({
+                            content: "您有" + data + "条未读消息。"
+                    });
+                    }
+                });
+            }
+            function checkfirst(){
+                fvs = getCookie("fv");
+                if(fvs == ""){
+                    document.getElementById("firstvisit").style.display = "";
+                    setCookie("fv","1",999);
+                }
+            }
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -419,9 +504,15 @@
                         });
                 document.getElementById("infodiv").innerHTML = getabout();
                 document.getElementById("footer").innerHTML = getfooter();
-                console.log("1");
+                checkfirst();
+                uid = getafUID();
+                nickname = getafNickname(uid);
+                nickname = getCookie("_afn");
+                console.log("1",nickname);
                 loadbadposts(curxid);
                 console.log("2");
+                document.getElementById("usernickname").innerHTML = getCookie("_afn");
+                getmsgc();
             });
         </script>
         <script>

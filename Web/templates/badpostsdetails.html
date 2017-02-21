@@ -276,10 +276,46 @@
             </div>
             <!--在下面添加自定义代码-->
             <div class="container ">
+                <div id="userdiv" style="width:50%; margin: 0 auto;" class="row minscale">
+                    <ul class="nav nav-pills">
+                        <li><a href="javascript:showuserinfo()" id="usernickname">用户昵称</a></li>
+                        <li><a href="javascript:toggleDiv('changenickname')">更改昵称 <span class="badge"></span></a></li>
+                        <li><a href="javascript:notify()">回复提醒 <span class="badge" id="msgcount">0</span></a></li>
+                    </ul>
+                    <div class="well well-sm minscale" style="display: none;margin: 0 auto;" id='userinfo'>
+                        <p class="text-danger">
+                            您需要牢记该ID，因为我们通过Cookies来标识唯一用户；其它用户对您的回复全靠该ID识别。为了防止您清空浏览器缓存导致用户信息丢失 我们建议您将该ID储存在记事本里，方便通过ID恢复账户。
+                        </p>
+                    </div>
+                    <div class="row minscale" style="display: none;margin: 0 auto;" id='changenickname'>
+                        <div class="well well-sm row">
+                            <div class="col-md-8">
+                                <div class="form-group label-floating">
+                                    <label class="control-label" for="nicknamex">新昵称(最长15个字)</label>
+                                    <input class="form-control" id="nicknamex" type="text" maxlength="15">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="javascript:changenn()" class="btn btn-raised btn-success">提交更新</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row minscale" style="display: none;margin: 0 auto;" id='firstvisit'>
+                        <div class="alert alert-dismissible alert-info">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>欢迎您，您是第一次访问本站。</strong> 第一次访问由于网站先前没有您的记录，故昵称没有显示，在下面的匿名贴加在完毕后，刷新2次该页面，昵称方可正常显示
+                            <br> 如果您需要修改昵称，可以通过上面的按钮实现，当您有新回复的时候，可以点击上面的回复提醒进行查看。
+                            <br> 我们通过Cookies来识别用户，我们建议您离线保存您的用户ID，这样在您清空浏览器缓存后，仍然可以通过用户ID恢复到之前的账户。
+                            <br>
+                            <a href="javascript:defirst()" class="alert-link">如果您不希望再见到该提示，点我可以屏蔽。</a>
 
-                <div class="row minscale" style="width: 75%;margin: 0 auto;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row minscale" style="width: 75%;margin: 0 auto;margin-top: 1%;">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="display: none;">
                             <h2 class="panel-title">匿名帖</h2>
                         </div>
                         <div class="panel-body">
@@ -342,7 +378,7 @@
                                 <div class="row" style="margin-left: 5px;margin-right: 5px;">
                                     <div class="panel panel-default panel-body">
                                         <div class="form-group" style="margin-top: 2px;">
-                                            <div class="col-md-2">
+                                            <div class="col-md-2" style="display: none;">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label" for="nicknamex">用户昵称</label>
                                                     <input class="form-control" id="nicknamex" type="text" maxlength="15">
@@ -401,6 +437,10 @@
                     var id = "{{ID}}";
                     var qe = "{{QUESTION}}";
                     var sup = "{{UP}}";
+                    var uid = "";
+                    var nickname = "";
+                    var rid = 0;
+                    var buinfo = true;
 
                     function toggleDiv(divId) {
                         $("#" + divId).toggle();
@@ -454,16 +494,18 @@
                         console.log("repltto:", replyto);
                         if (wrotereply.substr(0, 2) != "->") {
                             replyto = "";
+                            rid = 0;
                             console.log("非嵌套评论");
                         } else {
                             replyto = "@#9#6@" + replyto + "@3#0#@";
                         }
-                        nickname = document.getElementById("nicknamex").value;
                         if (nickname == "") {
                             nickname = "匿名用户"
                         }
                         $.post('/badborad/submitreply', {
                                 "rof": id,
+                                "uid": uid,
+                                "rid": rid,
                                 "author": nickname,
                                 "content": replyto + wrotereply
                             },
@@ -519,11 +561,61 @@
                         replyto = document.getElementById(divid).innerHTML;
                         author = document.getElementById("nickname_" + divid).innerText;
                         document.getElementById("replydata").innerHTML = "->回复 " + author + " ->:";
+                        rid = divid; //记录回复对象，用于消息提示
                     }
 
                     function showSupport() {
                         document.getElementById('supportdlg').scrollIntoView();
                         $('#supportdlg').modal();
+                    }
+                    //user4
+                    function showuserinfo() {
+                        $("#userinfo").toggle();
+                        if (buinfo) {
+                            document.getElementById("userinfo").innerHTML = "您的用户ID：" + uid + document.getElementById("userinfo").innerHTML;
+                            buinfo = false;
+                        }
+                    }
+
+                    function changenn() {
+                        nn = document.getElementById("nicknamex").value;
+                        if (nn.length < 2) {
+                            $.snackbar({
+                                content: "请输入有效昵称，长度2至15！"
+                            });
+                            return;
+                        }
+                        status = changeNickname(uid, nn);
+                        $.snackbar({
+                            content: "修改成功。"
+                        });
+                        //document.getElementById("usernickname").innerHTML = getCookie("_afn");
+                        location.reload();
+                        toggleDiv('changenickname');
+                    }
+
+                    function notify() {
+                        window.open("/badborad/user/notifications/" + uid);
+                    }
+
+                    function getmsgc() {
+                        uid = getCookie("_af");
+                        $.get("/badborad/user/getmsg/" + uid, function(data) {
+                            document.getElementById("msgcount").innerText = data;
+                            if (data != 0 || data != "0") {
+                                $.snackbar({
+                                    content: "您有" + data + "条未读消息。"
+                                });
+                            }
+                        });
+                    }
+
+                    function checkfirst() {
+                        fvs = getCookie("fv");
+                        if (fvs == "") {
+                            document.getElementById("firstvisit").style.display = "";
+                            setCookie("fv", "1", 999);
+                        }
                     }
                 </script>
                 <script type="text/javascript">
@@ -538,8 +630,15 @@
                         });
                         document.getElementById("infodiv").innerHTML = getabout();
                         document.getElementById("footer").innerHTML = getfooter();
+                        checkfirst();
+                        uid = getafUID();
+                        nickname = getafNickname(uid);
                         lrp();
                         console.log("1");
+                        nickname = getCookie("_afn");
+                        document.getElementById("usernickname").innerHTML = getCookie("_afn");
+                        getmsgc();
+                        console.log("nickname:" + nickname);
                     });
                 </script>
                 <script>

@@ -280,6 +280,31 @@
             </div>
             <!--在下面添加自定义代码-->
             <div class="container">
+                <div id="userdiv" style="width:50%; margin: 0 auto;" class="row minscale">
+                    <ul class="nav nav-pills">
+                        <li><a href="javascript:showuserinfo()" id="usernickname">用户昵称</a></li>
+                        <li><a href="javascript:toggleDiv('changenickname')">更改昵称 <span class="badge"></span></a></li>
+                        <li><a href="javascript:notify()">回复提醒 <span class="badge" id="msgcount">0</span></a></li>
+                    </ul>
+                    <div class="well well-sm minscale" style="display: none;margin: 0 auto;" id='userinfo'>
+                        <p class="text-danger">
+                            您需要牢记该ID，因为我们通过Cookies来标识唯一用户；其它用户对您的回复全靠该ID识别。为了防止您清空浏览器缓存导致用户信息丢失 我们建议您将该ID储存在记事本里，方便通过ID恢复账户。
+                        </p>
+                    </div>
+                    <div class="row minscale" style="display: none;margin: 0 auto;" id='changenickname'>
+                        <div class="well well-sm row">
+                            <div class="col-md-8">
+                                <div class="form-group label-floating">
+                                    <label class="control-label" for="nicknamex">新昵称(最长15个字)</label>
+                                    <input class="form-control" id="nicknamex" type="text" maxlength="15">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="javascript:changenn()" class="btn btn-raised btn-success">提交更新</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row minscale" style="width: 70%;margin-left:auto;margin-right:auto;">
                     <div class="alert alert-dismissible alert-warning">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -345,6 +370,10 @@
             </script>
             <!-- 显示关于 -->
             <script type="text/javascript">
+                var uid = "";
+                var nickname = "";
+                var buinfo = true;
+
                 function toggleDiv(divId) {
                     $("#" + divId).toggle();
                 }
@@ -368,6 +397,7 @@
                     $.post('/badborad/submit', {
                             "title": tl,
                             "q": qe,
+                            "uid": uid,
                             "a": document.getElementById("rv").value,
                             "content": ct
                         },
@@ -385,12 +415,59 @@
                             window.location.href = "/badborad/" + data;
                         }, "text");
                 }
+                //user
+                function showuserinfo() {
+                    $("#userinfo").toggle();
+                    if (buinfo) {
+                        document.getElementById("userinfo").innerHTML = "您的用户ID：" + uid + document.getElementById("userinfo").innerHTML;
+                        buinfo = false;
+                    }
+                }
+
+                function changenn() {
+                    nn = document.getElementById("nicknamex").value;
+                    if (nn.length < 2) {
+                        $.snackbar({
+                            content: "请输入有效昵称，长度2至15！"
+                        });
+                        return;
+                    }
+                    status = changeNickname(uid, nn);
+                    $.snackbar({
+                        content: "修改成功。"
+                    });
+                    //document.getElementById("usernickname").innerHTML = getCookie("_afn");
+                    location.reload();
+                    toggleDiv('changenickname');
+                }
+
+                function notify() {
+                    window.open("/badborad/user/notifications/" + uid);
+                }
+
+                function getmsgc() {
+                    uid = getCookie("_af");
+                    $.get("/badborad/user/getmsg/" + uid, function(data) {
+                        document.getElementById("msgcount").innerText = data;
+                        if (data != 0 || data != "0") {
+                            $.snackbar({
+                                content: "您有" + data + "条未读消息。"
+                            });
+                        }
+                    });
+                }
             </script>
             <script type="text/javascript">
                 $(document).ready(function() {
                     document.getElementById("infodiv").innerHTML = getabout();
                     document.getElementById("footer").innerHTML = getfooter();
+                    uid = getafUID();
+                    nickname = getafNickname(uid);
+                    getmsgc();
                     console.log("1");
+                    nickname = getCookie("_afn");
+                    document.getElementById("usernickname").innerHTML = getCookie("_afn");
+                    console.log("nickname:" + nickname)
                 });
             </script>
             <script>

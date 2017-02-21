@@ -43,7 +43,48 @@ function getUID() {
 }
 
 //</script>
+//下面的代码用于匿名墙用户相关
+function getafUID() {
+    uid = getCookie("_af")
+    if (uid == "") {
+        $.get("/badborad/user/newuser", function(data) {
+            setCookie("_af", data, 365);
+            return data;
+        });
+    } else {
+        return uid;
+    }
+}
 
+function getafNickname(uid) {
+    nickname = getCookie("_afn")
+    if (nickname == "") {
+        $.get("/badborad/user/getnickname/" + uid, function(data) {
+            setCookie("_afn", data, 365);
+            return data;
+        });
+    } else {
+        return nickname;
+    }
+}
+
+function changeNickname(uid, newname) {
+    $.post('/badborad/user/changenickname', {
+            "u": uid,
+            "n": newname
+        },
+        function(data) {
+            if (data == "O") {
+                setCookie("_afn", newname, 365);
+                return true;
+            } else {
+                return false;
+            }
+        }, "text");
+    return true;
+}
+
+//完毕
 
 function copyToClipBoard(data) {
     var clipBoardContent = data;
@@ -75,7 +116,7 @@ function getabout() {
         "            <div class=\"modal-content\">" +
         "                <div class=\"modal-header\">" +
         "                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\" onclick=\"javascript:toggleDiv(\'infodiv\');\">×</button>" +
-        "                    <h4 class=\"modal-title\">关于成信助手-CUIT Helper- LUV201702132302</h4>" +
+        "                    <h4 class=\"modal-title\">关于成信助手-CUIT Helper- LUV201702212000</h4>" +
         "                </div>" +
         "                <div class=\"modal-body\">" +
         "                    <p>该站点的目的呢，就是没事做着玩。目前拥有以下功能：</p>" +

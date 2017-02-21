@@ -3,6 +3,7 @@ import pymysql as SQL
 import datetime
 import worklib.htmlstring as STR
 import badposts.contentparser as CP
+import badposts.addNotifications as Notify
 
 
 #将从数据库加载的曝光数据根据支持人数组合成表格
@@ -66,12 +67,12 @@ def queryBadposts(qsum,curid):
 
 
 #插入新的曝光数据到数据库
-def insertBadposts(title,content):
+def insertBadposts(title,content,uid):
     DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
     DBCONN.set_charset('utf8mb4')
     DBCUR = DBCONN.cursor()
-    INS = "INSERT INTO `badposts`(`TITLE`, `CONTENT`, `DATE`, `UP`) VALUES (\""
-    INS = INS + title +"\",\"" + content + "\",\"" + str(datetime.datetime.now()) + "\",1)"
+    INS = "INSERT INTO `badposts`(`TITLE`, `CONTENT`, `DATE`, `UP`,`UID`) VALUES (\""
+    INS = INS + title +"\",\"" + content + "\",\"" + str(datetime.datetime.now()) + "\",1,\"" + uid + "\")"
     DBCUR.execute(INS)
     DBCONN.commit()
     SEL = "SELECT `ID` FROM `badposts` WHERE TITLE=\"" + title +"\""
@@ -130,7 +131,7 @@ def support(xid):
 
 #提交了针对某一篇匿名帖的回复
 #传入参数：原帖ID，回复内容
-def insertReply(rof,author,content):
+def insertReply(rof,uid,rid,author,content):
     DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
     DBCONN.set_charset('utf8mb4')
     DBCUR = DBCONN.cursor()
@@ -138,8 +139,8 @@ def insertReply(rof,author,content):
     content = content.replace(STR.IRP_HEAD,STR.IRP_SYM_HEAD)
     content = content.replace(STR.IRP_TAIL,STR.IRP_SYM_TAIL)
     #
-    INS = "INSERT INTO `badposts_reply`(`AUTHOR`, `CONTENT`, `DATE`, `ROF`) VALUES (\""
-    INS = INS + author +"\",\"" + content + "\",\"" + str(datetime.datetime.now()) + "\"," + str(rof) +")"
+    INS = "INSERT INTO `badposts_reply`(`AUTHOR`, `CONTENT`, `DATE`, `ROF`,`UID`) VALUES (\""
+    INS = INS + author +"\",\"" + content + "\",\"" + str(datetime.datetime.now()) + "\"," + str(rof) + ",\"" + uid +"\")"
     try:
         DBCUR.execute(INS)
         DBCONN.commit()
@@ -147,6 +148,15 @@ def insertReply(rof,author,content):
         DBCUR.close()
         DBCONN.close()
         return False
+    #得到刚刚插入的回复的ID
+    INS = "SELECT last_insert_id()"
+    DBCUR.execute(INS)
+    DBCONN.commit()
+    result = DBCUR.fetchall()
+    msgid = result[0][0]
+    print(msgid)
+    #如果回复成功，判断是否需要插入指定用户的消息框
+    Notify.NotifyUser(rid,msgid,rof)
     DBCUR.close()
     DBCONN.close()
     return True
