@@ -113,6 +113,13 @@ def loadbrp(rof,cursum):
 def autonewuser():
     return BPUser.generateUID()
 
+#成信匿名墙，检测一个用户ID是否存在
+@app.route('/badborad/user/requestverify/<uid>')
+def checkuservaild(uid):
+    if BPUser.verifyUser(uid) == True:
+        return "O"
+    return "F"
+
 #成信匿名墙，拉取指定用户的新消息数量
 @app.route('/badborad/user/getmsg/<uid>')
 def getusermsg(uid):
@@ -364,5 +371,5 @@ def page_not_found(e):
 if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
-    #app.run(host='127.0.0.1')
-    app.run(host='127.0.0.1',debug=True)
+    app.run(host='127.0.0.1')
+    #app.run(host='127.0.0.1',debug=True)

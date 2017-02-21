@@ -280,6 +280,7 @@
                     <ul class="nav nav-pills">
                         <li><a href="javascript:showuserinfo()" id="usernickname">用户昵称</a></li>
                         <li><a href="javascript:toggleDiv('changenickname')">更改昵称 <span class="badge"></span></a></li>
+                        <li><a href="javascript:toggleDiv('recoveruser')">恢复账户 <span class="badge"></span></a></li>
                         <li><a href="javascript:notify()">回复提醒 <span class="badge" id="msgcount">0</span></a></li>
                     </ul>
                     <div class="well well-sm minscale" style="display: none;margin: 0 auto;" id='userinfo'>
@@ -297,6 +298,19 @@
                             </div>
                             <div class="col-md-4">
                                 <a href="javascript:changenn()" class="btn btn-raised btn-success">提交更新</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row minscale" style="display: none;margin: 0 auto;" id='recoveruser'>
+                        <div class="well well-sm row">
+                            <div class="col-md-8">
+                                <div class="form-group label-floating">
+                                    <label class="control-label" for="recoveruid64">请在这里输入您的64位ID</label>
+                                    <input class="form-control" id="recoveruid64" type="text" maxlength="66">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="javascript:recoveruser()" class="btn btn-raised btn-success">恢复用户</a>
                             </div>
                         </div>
                     </div>
@@ -386,6 +400,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <label>请在下侧空白区域输入您的回（您仅能使用这些HTML标签： b(加粗),i(斜体),small(小号字体),s(删除线),em(斜体，强调))：</label>
+                                                <p class="text-danger">回复前请确认顶部出现了您的昵称，点击昵称里面有用户ID，如果没有，请刷新页面。</p>
                                             </div>
 
                                             <div class="row" style="width: 95%;margin-left: 5px;margin-right: 5px;">
@@ -502,6 +517,12 @@
                         if (nickname == "") {
                             nickname = "匿名用户"
                         }
+                        if (uid.length < 48) {
+                            $.snackbar({
+                                content: "无法回复，未检测到用户ID，请保存编辑框内容，然后刷新页面。"
+                            });
+                            return;
+                        }
                         $.post('/badborad/submitreply', {
                                 "rof": id,
                                 "uid": uid,
@@ -616,6 +637,26 @@
                             document.getElementById("firstvisit").style.display = "";
                             setCookie("fv", "1", 999);
                         }
+                    }
+
+                    function recoveruser() {
+                        var reqid = document.getElementById("recoveruid64").value;
+                        $.get("/badborad/user/requestverify/" + reqid, function(data) {
+                            if (data == "O") {
+                                setCookie('_af', reqid, 365);
+                                $.get("/badborad/user/getnickname/" + reqid, function(data) {
+                                    setCookie("_afn", data, 365);
+                                    $.snackbar({
+                                        content: "恢复成功！"
+                                    });
+                                    location.reload();
+                                });
+                            } else {
+                                $.snackbar({
+                                    content: "恢复失败！没有该ID！"
+                                });
+                            }
+                        });
                     }
                 </script>
                 <script type="text/javascript">

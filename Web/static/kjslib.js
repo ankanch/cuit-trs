@@ -42,6 +42,8 @@ function getUID() {
     }
 }
 
+
+
 //</script>
 //下面的代码用于匿名墙用户相关
 function getafUID() {
@@ -67,6 +69,7 @@ function getafNickname(uid) {
         return nickname;
     }
 }
+
 
 function changeNickname(uid, newname) {
     $.post('/badborad/user/changenickname', {

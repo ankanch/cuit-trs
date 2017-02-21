@@ -160,5 +160,17 @@ def clearmsgbox(uid):
     DBCONN.close()
     return True
 
-
-
+#该函数用来检测指定用户ID是否存在
+def verifyUser(uid):
+    DBCONN = SQL.connect(host=DBS.HOST_CH, port=3306,user=DBS.USER_CH,passwd=DBS.PASSWORD_CH,db=DBS.NAME_CH,charset='UTF8')
+    DBCONN.set_charset('utf8mb4')
+    DBCUR = DBCONN.cursor()
+    SEL = "SELECT * FROM `badposts_user` WHERE UID=\"" + uid + "\""
+    DBCUR.execute(SEL)
+    DBCONN.commit()
+    result = DBCUR.fetchall()
+    DBCUR.close()
+    DBCONN.close()
+    if len(result) == 0:
+        return False
+    return True
