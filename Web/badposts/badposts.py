@@ -186,7 +186,7 @@ def queryReply(rof,cursum):
         pr = result[int(cursum):]
     if len(pr) <= 8:
         return pr,str(len(pr))
-    return result[:8],"8"
+    return pr[:8],"8"
 
 
 

@@ -566,7 +566,7 @@
                                 pd = data.split("<@BYKANCHOFCUITCSY@>")
                                 document.getElementById("replylist").innerHTML = document.getElementById("replylist").innerHTML + pd[1];
                                 cursum += parseInt(pd[0]);
-                                console.log("curid=", pd[0], "cursum=", cursum);
+                                console.log("load_sum=", pd[0], "cursum=", cursum);
                             } else {
                                 $.snackbar({
                                     content: "评论已经全部加载完毕。"
@@ -580,6 +580,12 @@
 
                     function rpcontent(divid) {
                         replyto = document.getElementById(divid).innerHTML;
+                        //为了避免消息太长，如果长度超过144，就截断，然后加上省略号
+                        /*/
+                        if (replyto.length > 144) {
+                            replyto = replyto.substring(0, 144);
+                            replyto += "......"
+                        }/*/
                         author = document.getElementById("nickname_" + divid).innerText;
                         document.getElementById("replydata").innerHTML = "->回复 " + author + " ->:";
                         rid = divid; //记录回复对象，用于消息提示
