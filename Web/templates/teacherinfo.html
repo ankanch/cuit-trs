@@ -19,7 +19,7 @@
         <link href="/static/snackbar/dist/snackbar.min.css" rel="stylesheet">
         <!-- the default theme of SnackbarJS, find it in /themes-css -->
         <link href="/static/snackbar/themes-css/material.css" rel="stylesheet">
-        <link href="../static/kcsslib.css" rel="stylesheet">
+        <link href="/static/kcsslib.css" rel="stylesheet">
 
         <style>
             #banner {
@@ -278,244 +278,260 @@
             <div id="infodiv" style="display:none; alignment-baseline:central">
             </div>
 
-            <div id="teacherinfo" style="width:80%; margin-left:auto;margin-right:auto;">
+            <div id="teacherinfo" class="minscale" style="width:70%; margin-left:auto;margin-right:auto;">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{NAME}}的基本信息</h3>
                     </div>
                     <div class="panel-body">
 
-                        <div class="list-group">
-                            <div class="list-group-item">
-                                <div class="row-picture">
-                                    <img class="circle" src="/static/images/teacheravtor.png" alt="icon">
-                                </div>
-                                <div class="row-content">
-                                    <div class="alert alert-dismissible alert-success">
-                                        <h4 class="list-group-item-heading">{{NAME}}</h4>
-                                        <strong>{{GENDER}} - {{SCHOOL}}</strong> <br/>教学科目：{{SUBJECTS}}<br/><br/>
-                                        <ul class="nav nav-pills">
-                                            <li class="active"><a href="javascript:void(0)">评分：<span class="badge">{{RATING}}</span></a></li>
-                                        </ul>
-
+                        <div class="row towmargin12">
+                            <div class="alert alert-dismissible alert-success">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img class="circle maximg" src="/static/images/teacheravtor.png" alt="icon">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="list-group-item">
-                                <div class="row-picture">
-                                    <img class="rect" src="/static/images/like.png" alt="好评率">
-                                </div>
-                                <div class="row-content" style="text-align:right">
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-warning" style="width: {{LIKERATE}}%"></div>
-                                    </div>
-                                    <p class="text-primary"><strong>好评度：{{LIKERATE}}%</strong></p>
-                                </div>
-                            </div>
-                            <div class="list-group-item">
-
-                                <div id="ldsq" style="text-align:right;">
-                                    <div class="alert alert-dismissible alert-info" style="text-align:right">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <strong>提醒：你最多可以给这位老师分别点10次赞/不赞</strong>
-                                    </div>
-                                    <a class="btn btn-raised btn-success" href="javascript:onLike();">赞{{LNUM}}<div class="ripple-container"></div></a>
-                                    <a class="btn btn-raised btn-danger" href="javascript:onDislike();">不赞{{DLNUM}}<div class="ripple-container"></div></a> &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <br/>
-                                    <br/>
-                                    <a href="javascript:onFillinfo();" class="btn btn-link">补全/修改缺失信息</a>
-                                    <div class="alert alert-dismissible alert-danger" style="text-align:left">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <strong>麻烦大家写下一点有用的评论啊。特别是选修课老师。</strong>
-                                        <p>你们的评论可是可以作为其它学生判断老师如何的信息啊。---->大家帮忙宣传下这个网站啊</p>
-
-                                    </div>
-                                    <div class="list-group-separator"></div>
-                                </div>
-                                <label id="tid" style="display:none;">{{TID}}</label>
-                            </div>
-
-                            <div class="list-group-item">
-                                <div class="form-group label-floating">
-                                    <label class="control-label" for="textAreacomments">写下你对该老师的评价</label>
-                                    <input class="form-control" rows="3" id="textAreacomments" type="text">
-                                    <p class="help-block">请公正客观的评价老师！严禁输入任何带有攻击性的词语！你的评价可能作为其它学生选课的依据！你的评论将会被即时发布（bug：存在延迟）。</p>
-                                    <br/><br/><a href="javascript:onSubmitComments()" class="btn btn-raised btn-sm">提交评论<div class="ripple-container"></div></a>
-                                </div>
-                            </div>
-                            <div class="list-group">
-                                <div class="list-group-item">
-                                    <br/>
-                                    <strong>累计评论：<label id="totalcomments">{{COMMENTSSUM}}</label></strong>
-                                    <span class="label label-primary">评论列表-下拉自动刷新(高分辨率屏幕刷新目前存在bug，请讲浏览器窗口缩小，出现滚动条后，下拉刷新,或者点击底部的加载评论)</span>
-                                    <br/>
-                                    <div class="row-content" style="text-align:central" id="commentslist">
-                                    </div>
-                                    <div style="text-align:central;margin-left:auto;margin-right:auto;">
-                                        <a href="javascript:loadComments()" class="btn btn-raised btn-primary">加载评论</a>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <strong><h4>{{NAME}}</h4></strong>
+                                                <strong>{{GENDER}} - {{SCHOOL}}</strong>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <ul class="nav nav-pills">
+                                                    <li class="active"><a href="javascript:void(0)">评分：<span class="badge">{{RATING}}</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-left: 2px;margin-right: 2px;">
+                                            <br/><strong>教学科目：</strong>{{SUBJECTS}}<br/><br/>
+                                        </div>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+                        <div class="row towmargin12">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <img class="rect" src="/static/images/like.png" alt="好评率" style="max-width: 50px;max-height: 50px;">
+                                </div>
+                                <div class="col-md-9" style="text-align:right">
+                                    <div class="progress" style="margin-top: 12px;">
+                                        <div class="progress-bar progress-bar-warning" style="width: {{LIKERATE}}%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <p class="text-primary"><strong>好评度：{{LIKERATE}}%</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row towmargin12">
+                            <div class="row textcenter">
+                                <div id="ldsq">
+                                    <a class="btn btn-raised btn-success" href="javascript:onLike();">赞{{LNUM}}<div class="ripple-container"></div></a>
+                                    <a class="btn btn-raised btn-danger" href="javascript:onDislike();">不赞{{DLNUM}}<div class="ripple-container"></div></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="javascript:onFillinfo();" class="btn btn-link">补全/修改缺失信息</a>
+                                </div>
+                            </div>
+                            <label id="tid" style="display:none;">{{TID}}</label>
+                        </div>
+                        <div class="row towmargin24 margincenter">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label" for="textAreacomments">写下你对该老师的评价</label>
+                                        <input class="form-control" rows="3" id="textAreacomments" type="text">
+                                        <p class="help-block">请公正客观的评价老师！严禁输入任何带有攻击性的词语！你的评价可能作为其它学生选课的依据！你的评论将会被即时发布（bug：存在延迟）。</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 textcenter">
+                                    <a href="javascript:onSubmitComments()" class="btn btn-raised btn-sm">提交评论<div class="ripple-container"></div></a>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 25px;">
+                                <div class="progress-bar progress-bar-warning progress" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="row towmargin12">
+                            <div class="row">
+                                <div class="row textcenter">
+                                    <div class="col-md-2" style="margin-top: 12px;">
+                                        <strong>累计评论：<label id="totalcomments">{{COMMENTSSUM}}</label></strong>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p class="abel-primary">下方为评论列表-下拉自动刷新(高分辨率屏幕下拉刷新目前存在bug，请将浏览器窗口缩小，出现滚动条后，下拉刷新,或者点击右侧的加载评论按钮)</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div style="text-align:central;margin-left:auto;margin-right:auto;">
+                                            <a href="javascript:loadComments()" class="btn btn-raised btn-primary">加载评论</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row-content" style="text-align:central" id="commentslist">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="row" style="text-align:center" id="footer">
+                </div>
+                <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+                <script src="/static/jquery-3.1.1.min.js"></script>
+                <!-- Include all compiled plugins (below), or include individual files as needed -->
+                <script src="/static/dist/js/bootstrap.min.js"></script>
+                <!-- Material Design for Bootstrap -->
+                <script src="/static/bmaterial/dist/js/material.js"></script>
+                <script src="/static/bmaterial/dist/js/ripples.min.js"></script>
+                <!-- SnackbarJS, find it in /dist -->
+                <script src="/static/snackbar/dist/snackbar.min.js"></script>
+                <!-- Kanch's JS Common libary' -->
+                <script src="/static/kjslib.js"></script>
+                <script>
+                    $.material.init();
+                </script>
+                <!-- 显示关于 -->
+                <script type="text/javascript">
+                    function toggleDiv(divId) {
+                        $("#" + divId).toggle();
+                    }
+                </script>
 
-                    <div class="row" style="text-align:center" id="footer">
-                    </div>
-                    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-                    <script src="/static/jquery-3.1.1.min.js"></script>
-                    <!-- Include all compiled plugins (below), or include individual files as needed -->
-                    <script src="/static/dist/js/bootstrap.min.js"></script>
-                    <!-- Material Design for Bootstrap -->
-                    <script src="/static/bmaterial/dist/js/material.js"></script>
-                    <script src="/static/bmaterial/dist/js/ripples.min.js"></script>
-                    <!-- SnackbarJS, find it in /dist -->
-                    <script src="/static/snackbar/dist/snackbar.min.js"></script>
-                    <!-- Kanch's JS Common libary' -->
-                    <script src="/static/kjslib.js"></script>
-                    <script>
-                        $.material.init();
-                    </script>
-                    <!-- 显示关于 -->
-                    <script type="text/javascript">
-                        function toggleDiv(divId) {
-                            $("#" + divId).toggle();
-                        }
-                    </script>
+                <script type="text/javascript">
+                    x = 0;
+                    y = 0;
 
-                    <script type="text/javascript">
-                        x = 0;
-                        y = 0;
-
-                        function onLike() {
-                            var tid = document.getElementById("tid").innerHTML;
-                            $.get("/trs/addlikeweb/" + getUID() + "/" + tid, function(info) {
-                                if (info == "OK") {
-                                    $.snackbar({
-                                        content: " 赞 +1 "
-                                    });
-                                } else {
-                                    $.snackbar({
-                                        content: info
-                                    });
-                                }
-                            });
-
-                            //刷新
-                            $.get("/trs/refreshld/" + tid, function(data) {
-                                if (data != "NULL") {
-                                    document.getElementById("ldsq").innerHTML = data;
-                                }
-                            });
-                            x += 1;
-                        }
-
-                        function onDislike() {
-                            var tid = document.getElementById("tid").innerHTML;
-                            $.get("/trs/adddislikeweb/" + getUID() + "/" + tid, function(info) {
-                                if (info == "OK") {
-                                    $.snackbar({
-                                        content: " 不赞 +1 "
-                                    });
-                                } else {
-                                    $.snackbar({
-                                        content: info
-                                    });
-                                }
-                            });
-                            //刷新
-                            $.get("/trs/refreshld/" + tid, function(data) {
-                                if (data != "NULL") {
-                                    document.getElementById("ldsq").innerHTML = data;
-                                }
-                            });
-                            y += 1;
-                        }
-
-                        function getCommentsSum() {
-                            var tid = document.getElementById("tid").innerHTML;
-                            $.get("/trs/getcommentssum/" + tid + "/", function(info) {
-                                document.getElementById("totalcomments").innerHTML = info;
-                            });
-                        }
-
-                        function onFillinfo() {
-
-                            var ipt = document.getElementById('tid').innerHTML;
-                            window.open("/trs/filllostinfo/" + ipt);
-                        }
-                        getCommentsSum()
-                    </script>
-
-                    <script type="text/javascript">
-                        function onSubmitComments() {
-                            var comments = document.getElementById('textAreacomments').value;
-                            var tid = document.getElementById("tid").innerHTML;
-                            if (comments.length < 5) {
+                    function onLike() {
+                        var tid = document.getElementById("tid").innerHTML;
+                        $.get("/trs/addlikeweb/" + getUID() + "/" + tid, function(info) {
+                            if (info == "OK") {
                                 $.snackbar({
-                                    content: "x_x~ 请勿输入垃圾信息！同时请保证评论长度大于5！"
+                                    content: " 赞 +1 "
                                 });
-                                return;
+                            } else {
+                                $.snackbar({
+                                    content: info
+                                });
                             }
-                            $.post('/trs/submitacomment', {
-                                "id": tid,
-                                "comment": comments
-                            });
+                        });
+
+                        //刷新
+                        $.get("/trs/refreshld/" + tid, function(data) {
+                            if (data != "NULL") {
+                                document.getElementById("ldsq").innerHTML = data;
+                            }
+                        });
+                        x += 1;
+                    }
+
+                    function onDislike() {
+                        var tid = document.getElementById("tid").innerHTML;
+                        $.get("/trs/adddislikeweb/" + getUID() + "/" + tid, function(info) {
+                            if (info == "OK") {
+                                $.snackbar({
+                                    content: " 不赞 +1 "
+                                });
+                            } else {
+                                $.snackbar({
+                                    content: info
+                                });
+                            }
+                        });
+                        //刷新
+                        $.get("/trs/refreshld/" + tid, function(data) {
+                            if (data != "NULL") {
+                                document.getElementById("ldsq").innerHTML = data;
+                            }
+                        });
+                        y += 1;
+                    }
+
+                    function getCommentsSum() {
+                        var tid = document.getElementById("tid").innerHTML;
+                        $.get("/trs/getcommentssum/" + tid + "/", function(info) {
+                            document.getElementById("totalcomments").innerHTML = info;
+                        });
+                    }
+
+                    function onFillinfo() {
+
+                        var ipt = document.getElementById('tid').innerHTML;
+                        window.open("/trs/filllostinfo/" + ipt);
+                    }
+                    getCommentsSum()
+                </script>
+
+                <script type="text/javascript">
+                    function onSubmitComments() {
+                        var comments = document.getElementById('textAreacomments').value;
+                        var tid = document.getElementById("tid").innerHTML;
+                        if (comments.length < 5) {
                             $.snackbar({
-                                content: "提交成功！评论刷新存在延迟！。"
+                                content: "x_x~ 请勿输入垃圾信息！同时请保证评论长度大于5！"
                             });
-                            document.getElementById('textAreacomments').value = "";
+                            return;
                         }
-                    </script>
+                        $.post('/trs/submitacomment', {
+                            "id": tid,
+                            "comment": comments
+                        });
+                        $.snackbar({
+                            content: "提交成功！评论刷新存在延迟！。"
+                        });
+                        document.getElementById('textAreacomments').value = "";
+                    }
+                </script>
 
-                    <!--加载评论-->
-                    <script type="text/javascript">
-                        var p = 1;
-                        var page_num = 2;
+                <!--加载评论-->
+                <script type="text/javascript">
+                    var p = 1;
+                    var page_num = 2;
 
-                        function loadComments() {
-                            var tid = document.getElementById("tid").innerHTML;
-                            var commentsbaseurl = "/trs/getcomments/"
-                            commentsbaseurl = commentsbaseurl + tid + "/" + p + "/";
-                            p += 5
-                            $.get(commentsbaseurl, function(data) {
-                                if (data != "NULL") {
-                                    document.getElementById("commentslist").innerHTML = document.getElementById("commentslist").innerHTML + data;
-                                } else {
-                                    $.snackbar({
-                                        content: "评论已经全部拉取完毕！如果你刚刚提交了评论，请不要着急，评论刷新存在延迟。"
-                                    });
-                                }
-                            });
-                        }
-                        $(document).ready(function() {
-                            $(window).scroll(function() {
-                                if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
-                                    var div1tem = $('#container').height()
+                    function loadComments() {
+                        var tid = document.getElementById("tid").innerHTML;
+                        var commentsbaseurl = "/trs/getcomments/"
+                        commentsbaseurl = commentsbaseurl + tid + "/" + p + "/";
+                        p += 5
+                        $.get(commentsbaseurl, function(data) {
+                            if (data != "NULL") {
+                                document.getElementById("commentslist").innerHTML = document.getElementById("commentslist").innerHTML + data;
+                            } else {
+                                $.snackbar({
+                                    content: "评论已经全部拉取完毕！如果你刚刚提交了评论，请不要着急，评论刷新存在延迟。"
+                                });
+                            }
+                        });
+                    }
+                    $(document).ready(function() {
+                        $(window).scroll(function() {
+                            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                                var div1tem = $('#container').height()
 
-                                    loadComments()
-                                }
-                            });
-                            document.getElementById("infodiv").innerHTML = getabout();
-                            document.getElementById("footer").innerHTML = getfooter();
-                        })
-                    </script>
-                    <script>
-                        (function(i, s, o, g, r, a, m) {
-                            i['GoogleAnalyticsObject'] = r;
-                            i[r] = i[r] || function() {
-                                (i[r].q = i[r].q || []).push(arguments)
-                            }, i[r].l = 1 * new Date();
-                            a = s.createElement(o),
-                                m = s.getElementsByTagName(o)[0];
-                            a.async = 1;
-                            a.src = g;
-                            m.parentNode.insertBefore(a, m)
-                        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+                                loadComments()
+                            }
+                        });
+                        document.getElementById("infodiv").innerHTML = getabout();
+                        document.getElementById("footer").innerHTML = getfooter();
+                    })
+                </script>
+                <script>
+                    (function(i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r;
+                        i[r] = i[r] || function() {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                        a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                        a.async = 1;
+                        a.src = g;
+                        m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-                        ga('create', 'UA-53245384-4', 'auto');
-                        ga('send', 'pageview');
-                    </script>
+                    ga('create', 'UA-53245384-4', 'auto');
+                    ga('send', 'pageview');
+                </script>
 
     </body>
 

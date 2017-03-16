@@ -14,7 +14,7 @@ DB_CONNECTION_DATABASE_NAME = DBL.DBL_CONNECTION_DATABASE_NAME
 
 PATH_SEARCHCACHE = "/pyprojects/teacherRating/"
 #HTML拼接相关
-COMMENTS_HEAD = """<div class="row-content" style="text-align:central" id="commentslist">
+COMMENTS_HEAD = """<div class="row towmargin24" style="text-align:central" id="commentslist">
       <div class="alert alert-dismissible alert-info">
           <p class="list-group-item-text">"""
 
@@ -66,7 +66,6 @@ def refreshLikes(id):
     LIKES_TAIL = """)<div class="ripple-container"></div></a>
                                 <a class="btn btn-raised btn-danger" href="javascript:onDislike();">不赞("""
     TAIL = """)<div class="ripple-container"></div></a> &nbsp;&nbsp;&nbsp;&nbsp;
-                                <br/>                               <br/>
                                 <a href="javascript:onFillinfo();" class="btn btn-link">补全/修改缺失信息</a>
                                 <div class="list-group-separator"></div>"""
     TEACHER = TI.getTeacherInfobyID(str(id))

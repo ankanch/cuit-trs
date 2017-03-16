@@ -250,7 +250,11 @@ def autoregiste():
     return IW.autoRegiste()  
 
 @app.route('/trs/teacher/<name>')
-def getTeacherInfoBynameWV(name):
+@app.route('/trs/teacher')
+def getTeacherInfoBynameWV(name=""):
+    if name == "":
+        return render_template("teacherinfo.html",NAME="测试",SUBJECTS="教学科目",SCHOOL="学院",GENDER="性别",LNUM="点赞数",\
+                DLNUM="不赞数",RATING="评分",LIKERATE=3)
     try:
         TIO = TI.getTeacherInfo(name)
         tid = str(TIO[0][0])
@@ -371,5 +375,5 @@ def page_not_found(e):
 if __name__ == '__main__':
     #app.run(debug=True)
     #app.run(host='10.105.91.217')
-    app.run(host='127.0.0.1')
-    #app.run(host='127.0.0.1',debug=True)
+    #app.run(host='127.0.0.1')
+    app.run(host='127.0.0.1',debug=True)

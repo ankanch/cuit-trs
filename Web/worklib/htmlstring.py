@@ -36,7 +36,7 @@ BP_HEAD_HOT  = """<div class="panel panel-danger">
 BP_A_CONTENT  = """</h3>
   </div>
   <div class="panel-body">
-      <div class="row" style="margin-left: 10px;margin-right: 10px;">"""
+      <div class="row" style="margin-left: 10px;margin-right: 10px;word-wrap:break-word; word-break:break-all; ">"""
 
 
 BP_B_DATE = """</div>
@@ -77,7 +77,7 @@ RP_D_CONTENT_ID = """')">回复</a>
                                         </div>
                                         <div id=\""""
 
-RP_E_CONTENT = """\" class="row" style="margin-left: 5px;margin-right: 5px;margin-top: 2px;">"""
+RP_E_CONTENT = """\" class="row" style="margin-left: 5px;margin-right: 5px;margin-top: 2px;word-wrap:break-word; word-break:break-all; ">"""
 
 RP_TAIL = """</div>
                                     </div>"""
