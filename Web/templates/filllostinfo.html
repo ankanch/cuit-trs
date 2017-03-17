@@ -276,64 +276,84 @@
             <div id="infodiv" style="display:none; alignment-baseline:central">
             </div>
 
-            <div class="panel panel-warning" style="width:80%;margin-left:auto;margin-right:auto;">
+            <div class="panel panel-warning minscale" style="width:70%;margin-left:auto;margin-right:auto;">
                 <div class="panel-heading">
                     <h3 class="panel-title">补全信息->{{NAME}}</h3>
                 </div>
 
-                <form class="form-group">
+                <form class="form-group" style="margin-left: 30px;margin-right: 30px;">
                     <fieldset>
                         <legend>请填写真实信息，您提交的更新将会被即时显示！</legend>
-                        <div class="form-group">
-                            <label for="inputEmail" class="col-md-2 control-label">老师姓名（忽略该项）：</label>
+                        <div class="row">
+                            <div class="form-group" style="display: none;">
+                                <label for="inputEmail" class="col-md-2 control-label">老师姓名（忽略该项）：</label>
 
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" id="inputNAME" placeholder="该项做出修改不会被更新！" value={{NAME}}>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail" class="col-md-2 control-label">教学科目：</label>
-
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" id="inputSubject" placeholder="请输入老师所教科目，多个请用逗号隔开" value={{SUBJECTS}}>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail" class="col-md-2 control-label">学院：</label>
-
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" id="inputSchool" placeholder="请输入老师所在学院" value={{SCHOOL}}>
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-top: 0;">
-                            <!-- inline style is just to demo custom css to put checkbox below input above -->
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">性别：</label>
-
-                            <div class="col-md-10">
-                                <div class="radio radio-primary">
-                                    <label>
-            <input type="radio" name="optionsRadios" id="optionMale" value={{GENDERVALUE}} checked="">
-            男
-          </label>
-                                </div>
-                                <div class="radio radio-primary">
-                                    <label>
-            <input type="radio" name="optionsRadios" id="optionFemale" value="0">
-            女
-          </label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="inputNAME" placeholder="该项做出修改不会被更新！" value={{NAME}}>
                                 </div>
                             </div>
                         </div>
-                        <label id="tid" style="display:none;">{{TID}}</label>
-                        <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-md-2 control-label">教学科目（多个请用逗号分割）：</label>
 
-                            <div class="col-md-10 col-md-offset-2">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="inputSubject" placeholder="请输入老师所教科目，多个请用逗号隔开" value={{SUBJECTS}}>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-md-2 control-label">学院：</label>
+
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="inputSchool" placeholder="请输入老师所在学院" value={{SCHOOL}}>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group" style="margin-top: 0;">
+                                    <!-- inline style is just to demo custom css to put checkbox below input above -->
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">性别：</label>
+
+                                    <div class="col-md-10">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionMale" value={{GENDERVALUE}} checked="">
+                                                男
+                                            </label>
+                                        </div>
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionFemale" value="0">
+                                                女
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="inputimgurl" class="col-md-3 control-label">老师照片外链地址（一个图片地址用于显示老师头像）：</label>
+
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="inputimgurl" placeholder="请输入有效的老师照片外链地址" value={{IMGURL}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row" style="margin-top: 5px;text-align: center;">
+                                <label id="tid" style="display:none;">{{TID}}</label>
                                 <a href="javascript:submitUpdate()" class="btn btn-raised btn-warning">提交更新<div class="ripple-container"></div></a>
                             </div>
                         </div>
