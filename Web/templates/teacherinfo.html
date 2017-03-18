@@ -289,18 +289,23 @@
                             <div class="alert alert-dismissible alert-success">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <img class="circle maximg" src="/static/images/teacheravtor.png" alt="icon">
+                                        <img class="circle maximg" src="{{IMGURL}}" alt="icon">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <strong><h4>{{NAME}}</h4></strong>
+                                                <strong><h3>{{NAME}}</h3></strong>
                                                 <strong>{{GENDER}} - {{SCHOOL}}</strong>
                                             </div>
-                                            <div class="col-md-6">
-                                                <ul class="nav nav-pills">
-                                                    <li class="active"><a href="javascript:void(0)">评分：<span class="badge">{{RATING}}</span></a></li>
-                                                </ul>
+                                            <div class="col-md-6" style="margin-top: 8px;">
+                                                <div class="row">
+                                                    <ul class="nav nav-pills" style="margin-left: 12px;">
+                                                        <li class="active"><a href="javascript:void(0)">评分：<span class="badge">{{RATING}}</span></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="row">
+                                                    <a href="{{IMGURL}}" target="_blank" style="margin-left: 12px;" class="btn btn-raised btn-info">查看大图</a>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row" style="margin-left: 2px;margin-right: 2px;">
@@ -316,12 +321,12 @@
                                 <div class="col-md-1">
                                     <img class="rect" src="/static/images/like.png" alt="好评率" style="max-width: 50px;max-height: 50px;">
                                 </div>
-                                <div class="col-md-9" style="text-align:right">
+                                <div class="col-md-9" style="text-align:right;margin-top: 10px;">
                                     <div class="progress" style="margin-top: 12px;">
                                         <div class="progress-bar progress-bar-warning" style="width: {{LIKERATE}}%"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="margin-top: 10px;">
                                     <p class="text-primary"><strong>好评度：{{LIKERATE}}%</strong></p>
                                 </div>
                             </div>
@@ -340,12 +345,10 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <div class="form-group label-floating">
-                                        <label class="control-label" for="textAreacomments">写下你对该老师的评价</label>
-                                        <input class="form-control" rows="3" id="textAreacomments" type="text">
-                                        <p class="help-block">请公正客观的评价老师！严禁输入任何带有攻击性的词语！你的评价可能作为其它学生选课的依据！你的评论将会被即时发布（bug：存在延迟）。</p>
+                                        <textarea class="form-control" rows="3" id="textAreacomments" type="text" placeholder="在这里输入您对该老师的评价。请公正客观的评价老师！严禁输入任何带有攻击性的词语！你的评价可能作为其它学生选课的依据！你的评论将会被即时发布（存在延迟）"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-2 textcenter">
+                                <div class="col-md-2 textcenter" style="margin-top: 15px;">
                                     <a href="javascript:onSubmitComments()" class="btn btn-raised btn-sm">提交评论<div class="ripple-container"></div></a>
                                 </div>
                             </div>
@@ -360,7 +363,7 @@
                                         <strong>累计评论：<label id="totalcomments">{{COMMENTSSUM}}</label></strong>
                                     </div>
                                     <div class="col-md-8">
-                                        <p class="abel-primary">下方为评论列表-下拉自动刷新(高分辨率屏幕下拉刷新目前存在bug，请将浏览器窗口缩小，出现滚动条后，下拉刷新,或者点击右侧的加载评论按钮)</p>
+                                        <p class="abel-primary">下方为评论列表-下拉自动刷新或者点击加载评论按钮</p>
                                     </div>
                                     <div class="col-md-2">
                                         <div style="text-align:central;margin-left:auto;margin-right:auto;">

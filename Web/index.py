@@ -254,7 +254,7 @@ def autoregiste():
 def getTeacherInfoBynameWV(name=""):
     if name == "":
         return render_template("teacherinfo.html",NAME="测试",SUBJECTS="教学科目",SCHOOL="学院",GENDER="性别",LNUM="点赞数",\
-                DLNUM="不赞数",RATING="评分",LIKERATE=3)
+                DLNUM="不赞数",RATING="评分",LIKERATE=3,IMGURL='/static/images/teacheravtor.png')
     try:
         TIO = TI.getTeacherInfo(name)
         tid = str(TIO[0][0])
@@ -269,6 +269,10 @@ def getTeacherInfoBynameWV(name=""):
             gender = "男"
         else:
             gender = "女"
+        imgurl = TIO[0][8]
+        if imgurl == None:
+            imgurl = '/static/images/teacheravtor.png'
+        print(imgurl)
     except Exception:
          return render_template("error.html")
     sum = TIO[0][3] + TIO[0][4]
@@ -277,11 +281,15 @@ def getTeacherInfoBynameWV(name=""):
         pxx = TIO[0][3] / sum
         pxx *= 100
         round(pxx,2)
-    f = open(PATH_SEARCHCACHE+"searchcache",'a')
-    f.write(name+"\r\n")
-    f.flush()
-    f.close()
-    return render_template("teacherinfo.html",NAME=name,SUBJECTS=subject,SCHOOL=school,GENDER=gender,LNUM=like,DLNUM=dislike,RATING=rating,TID=tid,LIKERATE=pxx)
+    try:
+        f = open(PATH_SEARCHCACHE+"searchcache",'a')
+        f.write(name+"\r\n")
+        f.flush()
+        f.close()
+    except Exception as e:
+        print(e)
+    return render_template("teacherinfo.html",NAME=name,SUBJECTS=subject,SCHOOL=school,GENDER=gender,\
+            LNUM=like,DLNUM=dislike,RATING=rating,TID=tid,LIKERATE=round(pxx,2),IMGURL=imgurl)
 
 
 @app.route('/trs/getcomments/<int:id>/<int:linestart>/')
@@ -317,8 +325,9 @@ def fillLostInfo():
     subject = request.form['subject']
     school = request.form['school']
     gender = request.form['gender']
-    print("Fill Info Recived:",id,subject,school,gender)
-    return TI.fillLostInfo(id,subject,school,gender)
+    imgurl = request.form['imgurl']
+    print("Fill Info Recived:",id,subject,school,gender,imgurl)
+    return TI.fillLostInfo(id,subject,school,gender,imgurl)
 #FOR ANDROID APPLICATIONS
 #FOR ANDROID APPLICATIONS
 #FOR ANDROID APPLICATIONS

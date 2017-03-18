@@ -162,7 +162,7 @@ def getComment(id,linestart,lineend):
     comments = str(comments)
     return comments
 
-def fillLostInfo(id,subject="",school="",gender=""):
+def fillLostInfo(id,subject="",school="",gender="",imgurl=""):
     print("Recived Teracher Lost Info:",subject,school,gender,id)
     if( subject=="" or school=="" or gender=="" ):
         print(subject,school,gender,id)
@@ -172,7 +172,8 @@ def fillLostInfo(id,subject="",school="",gender=""):
     SUBJECT_SUB = "\"" + subject + "\""
     SCHOOL_SUB = "\"" + school + "\""
     GENDER_SUB = gender
-    INS = "UPDATE `tr_teacherlist` SET SUBJECT="+ SUBJECT_SUB +",SCHOOL="+ SCHOOL_SUB +",GENDER="+ GENDER_SUB +" WHERE ID=" + id
+    IMGURL = "\"" + imgurl + "\""
+    INS = "UPDATE `tr_teacherlist` SET SUBJECT="+ SUBJECT_SUB +",SCHOOL="+ SCHOOL_SUB +",GENDER="+ GENDER_SUB + ",IMGURL=" + IMGURL +" WHERE ID=" + id
     print("Excute:",INS)
     cur.execute(INS)
     conn.commit()
